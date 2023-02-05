@@ -5,13 +5,13 @@ export interface User {
   rols:Rol[],
   events:Event[],
   turns:Turn[],
-  codigo:String,
-  apellido1:String,
-  apellido2:String,
+  codigo:string,
+  apellido1:string,
+  apellido2:string,
   create_date:Date,
-  email:String,
+  email:string,
   login:string,
-  name:String,
-  password:String,
-  profile_picture:String
+  name:string,
+  password:string,
+  profile_picture:string
 }

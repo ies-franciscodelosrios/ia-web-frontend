@@ -11,6 +11,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.errorMessage {
+	color: red;
+	text-align: center;
+	width: 100%;
+}
+
 .box {
 	position: absolute;
 	top: 50%;

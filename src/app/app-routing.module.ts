@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './calendar/calendar.component';
-import { HomeAdminComponent } from './home-admin/home-admin.component';
-import { HomeComponent } from './home/home.component';
-import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginAdminComponent } from './components/login-admin/login-admin.component';
+import { LoginComponent } from './components/login/login.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'calendar', component: CalendarComponent },
+  { path: '', redirectTo:'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'admin/home', component: HomeAdminComponent },
   { path: 'login/admin', component: LoginAdminComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin/home', component: HomeAdminComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] } ,
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] } ,
+  { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: '**',  redirectTo: '/page-not-found', pathMatch: 'full'}
+ 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
 
 
 export class AppRoutingModule {}
