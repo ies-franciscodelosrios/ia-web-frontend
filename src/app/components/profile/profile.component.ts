@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
-import { UserService } from '../services/user-service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   public async getUserByDNI(){
     try{
-      this.user=await this.apiUser.getUserByDNI('49832345M');
+      this.user=await this.apiUser.getUserByDNI('753485H');
       console.log(this.user);
 
     }catch(err){

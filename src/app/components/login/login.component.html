@@ -8,16 +8,19 @@
   <i class="fas fa-key"></i>
 	<div class="box">
 		<img src="/assets/img/logo-atmira.png" alt="">
-		<form action="">
+		<form #form="ngForm" (ngSubmit)="login(form)">
 			<div class="inputBox">
-				<input type="text" name="" required="">
+				<input type="text" name="login" required [(ngModel)]="creds.login">
 				<label for="">Idnavision</label>
 			</div>
 			<div class="inputBox">
-				<input type="password" name="" required="">
+				<input type="password" name="password" required [(ngModel)]="creds.password">
 				<label for="">Contraseña</label>
 			</div>
-			<input type="submit" name="" routerLink="/home" value="Iniciar Sesion">
+			<div>
+				<p class="errorMessage">{{errorMessage}}</p>
+			</div>
+			<input type="submit" name="" value="Iniciar Sesion">
 		</form>
 	</div>
 </body>

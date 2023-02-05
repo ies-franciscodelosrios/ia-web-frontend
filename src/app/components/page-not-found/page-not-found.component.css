@@ -1,0 +1,16 @@
+.page-not-found {
+    height: 100vh;
+    font-family: 'Lato', sans-serif;
+    color: #f833a6;
+    background-color: #1f1e1e;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-not-found h1 {
+    font-weight: bold;
+    font-size: 5em;
+}
+
