@@ -14,9 +14,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HomeAdminComponent,
     ProfileComponent,
     PageNotFoundComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [

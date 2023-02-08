@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] } ,
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: '**',  redirectTo: '/page-not-found', pathMatch: 'full'}
- 
+
 ];
 
 @NgModule({

@@ -10,18 +10,20 @@ import { map } from 'rxjs/operators'
 export class LoginService {
 
     constructor(private http: HttpClient, private router: Router) {}
-       
+
     login(creds: Credentials) {
         return this.http.post("http://localhost:8080/login", creds, {
             observe: "response"
         }).pipe(map((response: HttpResponse<any>) => {
             const body = response.body;
+
             const headers = response.headers;
 
             const bearerToken = headers.get("Authorization")!;
             const token = bearerToken.replace("Bearer ", "");
 
             localStorage.setItem("token", token);
+            localStorage.setItem("user_current",creds.login);
 
             return body;
         }))
@@ -32,6 +34,7 @@ export class LoginService {
     }
 
     deleteToken() {
-        localStorage.removeItem("token");              
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_current")
     }
 }
