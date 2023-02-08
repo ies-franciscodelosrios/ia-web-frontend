@@ -6,6 +6,9 @@ export interface User {
   events:Event[],
   turns:Turn[],
   codigo:string,
+  puesto:string,
+  oficina:string,
+  pais:string,
   apellido1:string,
   apellido2:string,
   create_date:Date,
@@ -13,5 +16,5 @@ export interface User {
   login:string,
   name:string,
   password:string,
-  profile_picture:string
+  profile_Picture:string
 }

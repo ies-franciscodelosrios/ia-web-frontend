@@ -12,31 +12,7 @@
 
 <body>
   <div class='dashboard'>
-    <div class="dashboard-nav">
-      <header> <img src="/assets/img/logo-atmira.png" alt="" class="logo_img"></header>
-      <nav class="dashboard-nav-list">
-        <a routerLink="/home" routerLinkActive="active" class="dashboard-nav-item active">
-          <i class="far fa-clock"></i>
-          Entrada/Salida</a>
-
-          <a routerLink="/profile" class="dashboard-nav-item">
-            <i class="fas fa-address-card"></i>
-          Tu perfil </a>
-
-          <a routerLink="/calendar" routerLinkActive="active"  class="dashboard-nav-item ">
-            <i class="fas fa-calendar-alt"></i>
-            Eventos
-        </a>
-
-        <a href="#" class="dashboard-nav-item">
-          <i class="fas fa-comment-dots"></i>
-        Encuestas </a>
-
-
-        <div class="nav-item-divider"></div>
-        <a (click)="logout()" routerLink="/login" routerLinkActive="active" class="dashboard-nav-item" ><i class="fas fa-sign-out-alt"></i> Logout </a>
-      </nav>
-    </div>
+    <app-sidebar></app-sidebar>
     <div class='dashboard-app'>
       <header class='dashboard-toolbar'></header>
       <div class='dashboard-content'>
@@ -54,6 +30,11 @@
           </div>
         </div>
       </div>
+      <footer class="footer">
+        <div class="container">
+          <h2 class="brand_text">Atmira © </h2>
+        </div>
+      </footer>
     </div>
   </div>
 </body>
