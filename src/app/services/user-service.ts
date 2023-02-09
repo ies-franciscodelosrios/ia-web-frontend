@@ -24,8 +24,8 @@ export class UserService {
     return user;
   }
 
-  public getUserByIdNavision(idNavision:string) {
-    return this.http.get(`http://localhost:8080/api/user/search/id/${idNavision}`);
+  public getUserByIdNavision(idNavision:string): Observable<User> {
+    return this.http.get<User>(`http://localhost:8080/api/user/search/id/${idNavision}`);
   }
 
 
