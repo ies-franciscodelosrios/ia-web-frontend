@@ -17,6 +17,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HomeAdminComponent,
     ProfileComponent,
     PageNotFoundComponent,
-    SidebarComponent
+    SidebarComponent,
+    NgbdTablePagination
   ],
   imports: [
     BrowserModule,

@@ -1,42 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+      integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
-    integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
-
-<body>
-  <div class='dashboard'>
-    <app-sidebar></app-sidebar>
-    <div class='dashboard-app'>
-      <header class='dashboard-toolbar'></header>
-      <div class='dashboard-content'>
-        <div class='container'>
-
-          <img src="https://d500.epimg.net/cincodias/imagenes/2020/01/20/legal/1579525092_396387_1579537455_noticia_normal.jpg" alt="">
-
-          <div class='card'>
-            <div class='card-header'>
-              <h1>Welcome back Jim</h1>
+  <body>
+    <div class="dashboard">
+      <app-sidebar></app-sidebar>
+      <div class="dashboard-app">
+        <header class="dashboard-toolbar"></header>
+        <div class="dashboard-content">
+          <div class="container">
+            <div class="container-user-info">
+              <h1>Información acerca del Usuario</h1>
+              <p><span>Nombre:</span> {{ username }}</p>
+              <p><span>Oficina:</span> {{ office }}</p>
             </div>
-            <div class='card-body'>
-              <p>Your account type is: Administrator</p>
+
+            <div class="container-add-turn">
+              <h1>Añadir registro del Turno</h1>
+              <form class="flex-container" #form="ngForm" (ngSubmit)="registerTurn(form)">
+                <div>
+                  <ngb-timepicker
+                    name="time"
+                    [(ngModel)]="time"
+                    [hourStep]="hourStep"
+                    [minuteStep]="minuteStep"
+                  ></ngb-timepicker>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label for="changeHourStep">Hour Step</label>
+                      <input
+                        id="changeHourStep"
+                        type="number"
+                        class="form-control form-control-sm"
+                        name="hourStep"
+                        [(ngModel)]="hourStep"
+                      />
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="changeMinuteStep">Minute Step</label>
+                      <input
+                        id="changeMinuteStep"
+                        type="number"
+                        class="form-control form-control-sm"
+                        name="minuteStep"
+                        [(ngModel)]="minuteStep"
+                      />
+                    </div>
+                  </div>      
+                </div>
+                <div>
+                  <textarea
+                    class="textarea-description"
+                    name="taskDescription"
+                    [(ngModel)]="taskDescription"
+                    name="textarea"
+                    rows="5"
+                    cols="50"
+                    placeholder="Describe las tareas realizadas durante este turno..."
+                  ></textarea>
+                  <input class="btn-register" type="submit" name="" value="Registrar Turno">
+                </div>              
+              </form> 
             </div>
+            <ngbd-table-pagination></ngbd-table-pagination>
           </div>
         </div>
+        <footer class="footer">
+          <div class="container">
+            <h2 class="brand_text">Atmira ©</h2>
+          </div>
+        </footer>
       </div>
-      <footer class="footer">
-        <div class="container">
-          <h2 class="brand_text">Atmira © </h2>
-        </div>
-      </footer>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
