@@ -24,16 +24,19 @@ export class UserService {
     return user;
   }
 
-  public getUserByIdNavision(idNavision:string) {
-    return this.http.get(`http://localhost:8080/api/user/search/id/${idNavision}`);
+  public getUserByIdNavision(idNavision:string): Observable<User> {
+    return this.http.get<User>(`http://localhost:8080/api/user/search/id/${idNavision}`);
   }
 
 
-  public async getUserProfileByIdNavision(idNavision:string) {
+  public async getUserProfileByIdNavision(idNavision:string):Promise<User>{
     let endpoint=environment.endpoint+environment.getUserByIDNAVISION+idNavision;
-    let user:any=await this.http.get(endpoint,this.header).toPromise();
-    return user;
+    let user2:any=await this.http.get(endpoint,this.header).toPromise();
+    return user2;
   }
+
+
+
 
 
   public async getUserEvents(dni:string):Promise<Event[]> {
@@ -49,7 +52,7 @@ export class UserService {
     return user;
   }
 
-  public async getNameTeamManagerByUser(idNavision:string):Promise<String[]> {
+  public async getNameTeamManagerByUser(idNavision:string):Promise<string[]> {
     let endpoint=environment.endpoint+environment.getNameTeamManagerByUser+idNavision;
     let users:any=await this.http.get(endpoint,this.header).toPromise();
     return users;
@@ -70,16 +73,16 @@ export class UserService {
     });
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+
+  upload(file: File,dni:string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('PUT', `${environment.endpoint+environment.updatePhotoProfile+'49832345M'}`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
+    const req = new HttpRequest('PUT', `${environment.endpoint+environment.updatePhotoProfile+dni}`, formData, {
+      reportProgress: true
 
+    });
     return this.http.request(req);
   }
 
