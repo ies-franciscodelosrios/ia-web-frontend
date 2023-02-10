@@ -5,7 +5,6 @@ import { UserService } from '../../services/user-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,18 +20,17 @@ export class ProfileComponent implements OnInit {
   oficinaUser:string;
   paisUser:string;
   urlImage:string;
-  events: number
-  teamManagerNumber:number
-  teamManagerNames:String[]=[]
+  events: number;
+  teamManagerNumber:number;
+  teamManagerNames:string[]=[]
+  teamManagers:User[]=[]
   closeResult: string;
-  public formUser:FormGroup; //Formulario
-
-
-
+  public formUser:FormGroup;
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
   message = '';
+  activo:boolean=true
 
 
 
@@ -67,7 +65,9 @@ export class ProfileComponent implements OnInit {
 
     });
 
+
   }
+
 
 
 
@@ -78,6 +78,7 @@ export class ProfileComponent implements OnInit {
       await this.getEvents();
       await this.getTeamManager();
       await this.getNameTeamManager();
+      await this.getPhotoTeamsManager();
     }catch(err){
       console.error(err);
     }
@@ -123,9 +124,8 @@ export class ProfileComponent implements OnInit {
   public async getNameTeamManager(){
     try {
 
-      let nameTM:String[]=await this.apiUser.getNameTeamManagerByUser(this.user.login);
+      let nameTM:string[]=await this.apiUser.getNameTeamManagerByUser(this.user.login);
       this.teamManagerNames=nameTM;
-      console.log(this.teamManagerNames);
       return this.teamManagerNumber;
     } catch (err) {
       console.log(err);
@@ -134,7 +134,11 @@ export class ProfileComponent implements OnInit {
   }
 
 
+
+
   public async updateUser(){
+
+   let userPhoto=this.apiUser.getUserByDNI(this.user.codigo)
     let newUser:User = {
       name: this.formUser.get("name").value,
       apellido1: this.formUser.get("apellido1").value,
@@ -150,12 +154,14 @@ export class ProfileComponent implements OnInit {
       email: this.user.email,
       login: this.user.login,
       password: this.user.password,
-      profile_Picture:this.urlImage
+      profile_Picture: (await userPhoto).profile_Picture
     }
 
     try {
       this.apiUser.updateUser(newUser);
       console.log('USER ACTUALIZADO');
+
+
 
     } catch (err) {
       console.log(err);
@@ -180,16 +186,18 @@ export class ProfileComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.apiUser.upload(this.currentFile).subscribe(
+        this.apiUser.upload(this.currentFile,this.user.codigo).subscribe(
           (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
+              console.log(event.statusText);
+
+
             }
           },
           (err: any) => {
-            console.log(err);
             this.progress = 0;
 
             if (err.error && err.error.message) {
@@ -206,6 +214,16 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  public async getPhotoTeamsManager(){
+
+    let user:User
+    for (let index = 0; index < this.teamManagerNames.length; index++) {
+      let idNavision= this.teamManagerNames[index]
+      user = await this.apiUser.getUserProfileByIdNavision(idNavision);
+      this.teamManagers.push(user);
+    }
+  }
+
 
 
 
@@ -218,6 +236,7 @@ export class ProfileComponent implements OnInit {
     this.modalService.open(content,  { windowClass : "./profile.component.css"}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       this.updateUser();
+      window.location.reload();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

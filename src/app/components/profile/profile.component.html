@@ -17,7 +17,6 @@
       <header class='dashboard-toolbar'></header>
       <div class='dashboard-content'>
         <div class='container'>
-
           <div class="profile-card js-profile-card">
             <div class="profile-card__img">
               <img src="{{urlImage}}" alt="Problema al cargar">
@@ -57,11 +56,37 @@
               <hr>
 
               <div class="text-content font-weight-bold">Evaluadores Asociados <i class="fas fa-users"></i></div>
-              <div class="profile-card-inf">
-                <div class="profile-card-inf__item">
-                  <div class="profile-card-inf__txt" *ngFor="let names of teamManagerNames">{{names}} </div>
-                </div>
-              </div>
+              <table class="container-table">
+                <tbody>
+                  <tr>
+                    <td *ngFor="let user of teamManagers">
+                      <div class="page-wrapper">
+                        <div id="profile-1" class="expandable-card">
+                          <div cardContent>
+                            <div collapsedContent>
+                              <div class="expandable-card--left-col col">
+                                <div class="expandable-card--profile-image">
+                                  <img
+                                    src="{{user.profile_Picture}}"
+                                    alt="">
+                                </div>
+                              </div>
+                              <div class="expandable-card--right-col col">
+                                <div class="expandable-card--title">
+                                  {{user.name}} {{user.apellido1}}
+                                </div>
+                                <div class="expandable-card--sub-title">
+                                  <p>{{user.puesto}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
               <div class="profile-card-ctr">
                 <button class="profile-card__button button--orange" (click)="open(mymodal)">Editar Perfil</button>
@@ -72,7 +97,7 @@
       </div>
       <footer class="footer">
         <div class="container">
-          <h2 class="brand_text">Atmira © </h2>
+          <h2 class="brand_text">Atmira <i class="far fa-copyright"></i> </h2>
         </div>
       </footer>
     </div>
@@ -81,7 +106,7 @@
 
 
 
-  <ng-template #mymodal  let-modal >
+  <ng-template #mymodal let-modal>
     <div class="modal-overlay" ng-class="{open: showModal == true}"></div>
     <div class="modal-header">
       <h4 class="" id="modal-basic-title">Editar tu perfil</h4>
@@ -92,21 +117,17 @@
 
     <div class="modal-body">
       <div class="login-box">
-        <form [formGroup]="formUser" enctype="multipart/form-data" >
-        <img class="profile-img" src="{{urlImage}}"/>
+        <form [formGroup]="formUser" enctype="multipart/form-data">
+          <img class="profile-img" src="{{urlImage}}" />
           <div class="profile-buttons-div">
             <div class="profile-img-input" id="profile-img-input">
               <label class="button" id="change-photo-label" for="change-photo">Cambiar foto</label>
-              <input id="change-photo" name="change-photo" (change)="qselectFile($event)" accept="image/png" type="file" style="display: none"/>
+              <input id="change-photo" name="change-photo" (change)="qselectFile($event)" max-file-size="1024"
+                accept="image/*" type="file" style="display: none" />
               <div *ngIf="currentFile" class="progress my-3">
-                <div
-                  class="progress-bar progress-bar-info progress-bar-striped"
-                  role="progressbar"
-                  attr.aria-valuenow="{{ progress }}"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  [ngStyle]="{ width: progress + '%' }"
-                >
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                  attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                  [ngStyle]="{ width: progress + '%' }">
                   {{ progress }}%
                 </div>
               </div>
@@ -141,7 +162,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Guardar</button>
+      <button type="button" (click)="modal.close()" class="custom-btn btn-3"><span>Guardar</span></button>
 
     </div>
 
@@ -149,6 +170,5 @@
 
 
 </body>
+
 </html>
-
-
