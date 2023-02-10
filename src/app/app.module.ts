@@ -17,6 +17,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {FullCalendarModule } from 'primeng/fullcalendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
 
   ],
   providers: [

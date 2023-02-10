@@ -17,17 +17,55 @@
       <header class='dashboard-toolbar'></header>
       <div class='dashboard-content'>
         <div class='container'>
-          <img src="https://images.theeventscalendar.com/uploads/2021/06/best-way-display-events-website.jpg" alt="">
-          <div class='card'>
-            <div class='card-header'>
-              <h1>Welcome back Jim</h1>
-            </div>
-            <div class='card-body'>
-              <p>Your account type is: Administrator</p>
-            </div>
-          </div>
+          <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
         </div>
+
+        <ng-template #viewModal>
+          <div class="modal-header active">
+            <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">Crear un nuevo evento</h4>
+          </div>
+          <div class="modal-body px-5">
+            <label class="mb-2 mt-2">Nombre del evento</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              [(ngModel)]="eventName"
+              placeholder="Introduce el nombre del evento..."
+              class="bg-transparent px-2 rounded h-30 w-100 mt-2"
+            />
+            <label class="mb-2 mt-2">Descripción del evento</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              [(ngModel)]="eventDescription"
+              placeholder="Introduce la descripción del evento..."
+              class="bg-transparent px-2 rounded h-30 w-100 mt-2"
+            />
+          </div>
+          <div class="d-flex justify-content-end mt-3 mb-4 px-5">
+            <button
+              class="btn btn-success mr-2 w-30"
+              (click)="createEvent()"
+              [disabled]="eventName === ''"
+            >
+              Guardar
+            </button>
+            <button
+              class="btn btn-danger ml-2 w-30 cancelBtn"
+              (click)="cancelDialog()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </ng-template>
       </div>
+      <footer class="footer">
+        <div class="container">
+          <h2 class="brand_text">Atmira © </h2>
+        </div>
+      </footer>
     </div>
   </div>
 </body>
