@@ -17,7 +17,9 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {FullCalendarModule } from 'primeng/fullcalendar';
 import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-tab
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
 
   ],
   providers: [
