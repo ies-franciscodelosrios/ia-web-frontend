@@ -113,7 +113,10 @@ export class ProfileComponent implements OnInit {
 
   public async getTeamManager(){
     try {
-      this.teamManagerNumber=await this.apiUser.getTeamManagerByUser(this.user.login);
+
+      let nameTM:string[]=await this.apiUser.getNameTeamManagerByUser(this.user.login);
+      this.teamManagerNames=nameTM;
+      this.teamManagerNumber=nameTM.length
       return this.teamManagerNumber;
     } catch (err) {
       console.log(err);

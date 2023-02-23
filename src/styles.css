@@ -75,6 +75,16 @@ h1, .h1 {
   height: 60px;
 }
 
+
+.logo_img2 {
+  position: absolute;
+  top: 5%;
+	color: #FFF;
+	text-align: center;
+  width: 200px;
+  height: 70px;
+  margin-left: 10px;
+}
 .card-body {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;

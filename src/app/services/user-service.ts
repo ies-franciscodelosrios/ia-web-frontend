@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpEvent, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { User } from "../models/user";
@@ -13,7 +13,6 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
   //Se realizan llamadas a la api de la APP mediante la clase HttpClient, realizando peticiones GET, POST, PUT y DELETE
-
 
   /**
    * @returns Promise<Kid[]>, una lista de todos los niños de la base de datos
@@ -30,12 +29,14 @@ export class UserService {
 
 
   public async getUserProfileByIdNavision(idNavision:string):Promise<User>{
-    let endpoint=environment.endpoint+environment.getUserByIDNAVISION+idNavision;
-    let user2:any=await this.http.get(endpoint,this.header).toPromise();
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('idnavision', idNavision)
+    let endpoint=environment.endpoint+environment.getUserByIDNAVISION;
+    let user2:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return user2;
   }
-
-
 
 
 
@@ -46,15 +47,14 @@ export class UserService {
   }
 
 
-  public async getTeamManagerByUser(idNavision:string) {
-    let endpoint=environment.endpoint+environment.getTeamManagerByUser+idNavision;
-    let user:any=await this.http.get(endpoint,this.header).toPromise();
-    return user;
-  }
 
   public async getNameTeamManagerByUser(idNavision:string):Promise<string[]> {
-    let endpoint=environment.endpoint+environment.getNameTeamManagerByUser+idNavision;
-    let users:any=await this.http.get(endpoint,this.header).toPromise();
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('id1', idNavision)
+    let endpoint=environment.endpoint+environment.getNameTeamManagerByUser;
+    let users:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return users;
   }
 
@@ -94,6 +94,4 @@ export class UserService {
       'Content-Type':'application/json'
     }
   }
-
-
 }

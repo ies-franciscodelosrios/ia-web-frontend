@@ -19,6 +19,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {FullCalendarModule } from 'primeng/fullcalendar';
 import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
+import { AdmindashboardComponent } from './components/admindashboard/admindashboard.component';
+import { UseradmindashboardComponent } from './components/useradmindashboard/useradmindashboard.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-tab
     ProfileComponent,
     PageNotFoundComponent,
     SidebarComponent,
-    NgbdTablePagination
+    NgbdTablePagination,
+    AdmindashboardComponent,
+    UseradmindashboardComponent
   ],
   imports: [
     BrowserModule,
