@@ -12,8 +12,8 @@ export class CalendarService {
 
   constructor(private http: HttpClient) { }
 
-  public getEvents(): Observable<Event[]>{
-   return this.http.get<Event[]>(`${this.baseUrl}`);
+  public getEvents(): Promise<Event[]>{
+   return this.http.get<Event[]>(`${this.baseUrl}`).toPromise();
   }
 
   public getEventsByUser(codigo:string): Observable<Event[]>{

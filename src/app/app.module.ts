@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,9 @@ import {FullCalendarModule } from 'primeng/fullcalendar';
 import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
 import { AdmindashboardComponent } from './components/admindashboard/admindashboard.component';
 import { UseradmindashboardComponent } from './components/useradmindashboard/useradmindashboard.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { UseradmindashboardComponent } from './components/useradmindashboard/use
     SidebarComponent,
     NgbdTablePagination,
     AdmindashboardComponent,
-    UseradmindashboardComponent
+    UseradmindashboardComponent,
+    PaginatePipe
   ],
   imports: [
     BrowserModule,
@@ -45,14 +49,17 @@ import { UseradmindashboardComponent } from './components/useradmindashboard/use
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule
-
+    FullCalendarModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    NgbToastModule
   ],
   providers: [
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
-    }
+    },
+
   ],
   bootstrap: [AppComponent]
 })

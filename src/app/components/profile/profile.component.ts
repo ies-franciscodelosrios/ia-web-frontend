@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit {
   currentFile?: File;
   progress = 0;
   message = '';
-  activo:boolean=true
+  isAdmin:any=true
+  show = false;
 
 
 
@@ -55,6 +56,9 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     await this.getUserByDNI();
+    this.show=false;
+
+
 
     this.formUser=this.fb.group({
       name:[this.nameUser],
@@ -62,7 +66,6 @@ export class ProfileComponent implements OnInit {
       apellido2:[this.apellido2],
       puesto:[this.puestoUser],
       oficina:[this.oficinaUser]
-
     });
 
 
@@ -83,6 +86,9 @@ export class ProfileComponent implements OnInit {
       console.error(err);
     }
   }
+
+
+
 
   public async getDataUser(){
     try {
@@ -140,8 +146,7 @@ export class ProfileComponent implements OnInit {
 
 
   public async updateUser(){
-
-   let userPhoto=this.apiUser.getUserByDNI(this.user.codigo)
+   let userPhoto=this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"))
     let newUser:User = {
       name: this.formUser.get("name").value,
       apellido1: this.formUser.get("apellido1").value,
@@ -160,16 +165,7 @@ export class ProfileComponent implements OnInit {
       profile_Picture: (await userPhoto).profile_Picture
     }
 
-    try {
-      this.apiUser.updateUser(newUser);
-      console.log('USER ACTUALIZADO');
-
-
-
-    } catch (err) {
-      console.log(err);
-
-    }
+      await this.apiUser.updateUser(newUser);
   }
 
 
@@ -189,7 +185,7 @@ export class ProfileComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.apiUser.upload(this.currentFile,this.user.codigo).subscribe(
+        this.apiUser.upload(this.currentFile,localStorage.getItem("user_current")).subscribe(
           (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
@@ -227,7 +223,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
+  hideToast() {
+    this.show=true;
+    setTimeout( () => {
+      this.show = false;
+    }, 3000);
+  }
 
 
   /**
@@ -239,13 +240,13 @@ export class ProfileComponent implements OnInit {
     this.modalService.open(content,  { windowClass : "./profile.component.css"}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       this.updateUser();
-      window.location.reload();
+      this.hideToast();
+      //window.location.reload();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
 
   }
-
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

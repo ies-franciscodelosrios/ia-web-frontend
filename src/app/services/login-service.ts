@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators'
   providedIn:'root'
 })
 export class LoginService {
-
     constructor(private http: HttpClient, private router: Router) {}
 
     login(creds: Credentials) {
@@ -21,12 +20,16 @@ export class LoginService {
 
             const bearerToken = headers.get("Authorization")!;
             const token = bearerToken.replace("Bearer ", "");
-
+            this.isLoggedIn();
             localStorage.setItem("token", token);
             localStorage.setItem("user_current",creds.login);
 
             return body;
         }))
+    }
+
+    public isLoggedIn(){
+      return true;
     }
 
     getToken() {

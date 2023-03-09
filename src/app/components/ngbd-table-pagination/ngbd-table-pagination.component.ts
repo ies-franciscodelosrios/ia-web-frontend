@@ -8,7 +8,7 @@ import { TurnService } from 'src/app/services/turn-service';
   templateUrl: './ngbd-table-pagination.component.html'
 })
 export class NgbdTablePagination implements OnInit{
-  	
+
   page = 1;
   pageSize = 4;
   turns: Turn[] = [];

@@ -9,6 +9,13 @@ export class TurnService {
 
   constructor(private http: HttpClient) { }
 
+
+  public async getAllTurns():Promise<Turn[]>{
+    let endpoint = `http://localhost:8080/api/turn/getAllTurns`;
+    let turns:any = await this.http.get(endpoint,this.header).toPromise();
+    return turns;
+  }
+
   public async getTurnById(turnId:number):Promise<Turn>{
     let endpoint = `http://localhost:8080/api/turn/getTurn/${turnId}`;
     let turn:any = await this.http.get(endpoint,this.header).toPromise();

@@ -29,19 +29,19 @@ export class LoginAdminComponent {
   login(form: NgForm) {
     this.loginService.login(this.creds).subscribe(() => {
       this.userService
-        .getUserByIdNavision(this.creds.login)
-        .subscribe((user: User) => {
+        .getUserProfileByIdNavision(this.creds.login)
+        .then((user: User) => {
           this.rolService.isAdmin(user.codigo).subscribe((response) => {
             if (response) {
-              this.router.navigate(['/admin/home']);
+              this.router.navigate(['/admindashboard']);
             } else {
               this.errorMessage = 'Este usuario no es Administrador'
               this.loginService.deleteToken();
             }
           });
-        });       
+        });
     },(err) => {
       this.errorMessage = 'Usuario o contraseña incorrectos'
-    });  
+    });
   }
 }

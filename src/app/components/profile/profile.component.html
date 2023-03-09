@@ -1,174 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class='dashboard-profile'>
+  <div class='dashboard-app'>
+    <div class="ngb">
+      <ngb-toast [autohide]="false" *ngIf="show">
+        Usuario editado con éxito
+      </ngb-toast>
+    </div>
+    <header class='dashboard-toolbar'></header>
+    <div class='dashboard-content'>
+      <div class='container'>
+        <div class="profile-card js-profile-card">
+          <div class="profile-card__img">
+            <img src="{{urlImage}}" alt="Problema al cargar">
+          </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
-    integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
+          <div class="profile-card__cnt js-profile-cnt">
+            <div class="profile-card__name">{{nameUser}} {{apellido1}} {{apellido2}}</div>
+            <div class="profile-card__txt">{{puestoUser}} <i class="fas fa-laptop"></i></div>
+            <div class="profile-card-loc">
+              <span class="profile-card-loc__icon">
+                <svg class="icon">
+                  <use xlink:href="#icon-location"></use>
+                </svg>
+              </span>
 
-<body>
-  <div class='dashboard-profile'>
-    <app-sidebar></app-sidebar>
-    <div class='dashboard-app'>
-      <header class='dashboard-toolbar'></header>
-      <div class='dashboard-content'>
-        <div class='container'>
-          <div class="profile-card js-profile-card">
-            <div class="profile-card__img">
-              <img src="{{urlImage}}" alt="Problema al cargar">
+              <span class="profile-card-loc__txt">
+                {{oficinaUser}}, {{paisUser}} <i class="fas fa-map-marker-alt"></i>
+              </span>
             </div>
 
-            <div class="profile-card__cnt js-profile-cnt">
-              <div class="profile-card__name">{{nameUser}} {{apellido1}} {{apellido2}}</div>
-              <div class="profile-card__txt">{{puestoUser}} <i class="fas fa-laptop"></i></div>
-              <div class="profile-card-loc">
-                <span class="profile-card-loc__icon">
-                  <svg class="icon">
-                    <use xlink:href="#icon-location"></use>
-                  </svg>
-                </span>
+            <hr>
 
-                <span class="profile-card-loc__txt">
-                  {{oficinaUser}}, {{paisUser}} <i class="fas fa-map-marker-alt"></i>
-                </span>
+            <div class="profile-card-inf">
+              <div class="profile-card-inf__item">
+                <div class="text-content">Numero de Eventos</div>
+                <div class="profile-card-inf__title">{{events}} <i class="fas fa-calendar-alt"></i></div>
+                <div class="profile-card-inf__txt">Eventos</div>
               </div>
 
-              <hr>
-
-              <div class="profile-card-inf">
-                <div class="profile-card-inf__item">
-                  <div class="text-content">Numero de Eventos</div>
-                  <div class="profile-card-inf__title">{{events}} <i class="fas fa-calendar-alt"></i></div>
-                  <div class="profile-card-inf__txt">Eventos</div>
-                </div>
-
-                <div class="profile-card-inf__item">
-                  <div class="text-content">Team Manager Asociados</div>
-                  <div class="profile-card-inf__title">{{teamManagerNumber}} <i class="fas fa-user"></i></div>
-                  <div class="profile-card-inf__txt">Asociados</div>
-                </div>
+              <div class="profile-card-inf__item">
+                <div class="text-content">Team Manager Asociados</div>
+                <div class="profile-card-inf__title">{{teamManagerNumber}} <i class="fas fa-user"></i></div>
+                <div class="profile-card-inf__txt">Asociados</div>
               </div>
+            </div>
 
-              <hr>
+            <hr>
 
-              <div class="text-content font-weight-bold">Evaluadores Asociados <i class="fas fa-users"></i></div>
-              <table class="container-table">
-                <tbody>
-                  <tr>
-                    <td *ngFor="let user of teamManagers">
-                      <div class="page-wrapper">
-                        <div id="profile-1" class="expandable-card">
-                          <div cardContent>
-                            <div collapsedContent>
-                              <div class="expandable-card--left-col col">
-                                <div class="expandable-card--profile-image">
-                                  <img
-                                    src="{{user.profile_Picture}}"
-                                    alt="">
-                                </div>
+            <div class="text-content font-weight-bold">Evaluadores Asociados <i class="fas fa-users"></i></div>
+            <table class="container-table">
+              <tbody>
+                <tr>
+                  <td *ngFor="let user of teamManagers">
+                    <div class="page-wrapper">
+                      <div id="profile-1" class="expandable-card">
+                        <div cardContent>
+                          <div collapsedContent>
+                            <div class="expandable-card--left-col col">
+                              <div class="expandable-card--profile-image">
+                                <img
+                                  src="{{user.profile_Picture}}"
+                                  alt="">
                               </div>
-                              <div class="expandable-card--right-col col">
-                                <div class="expandable-card--title">
-                                  {{user.name}} {{user.apellido1}}
-                                </div>
-                                <div class="expandable-card--sub-title">
-                                  <p>{{user.puesto}}</p>
-                                </div>
+                            </div>
+                            <div class="expandable-card--right-col col">
+                              <div class="expandable-card--title">
+                                {{user.name}} {{user.apellido1}}
+                              </div>
+                              <div class="expandable-card--sub-title">
+                                <p>{{user.puesto}}</p>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-              <div class="profile-card-ctr">
-                <button class="profile-card__button button--orange" (click)="open(mymodal)">Editar Perfil</button>
-              </div>
+            <div class="profile-card-ctr">
+              <button class="profile-card__button button--orange" (click)="open(mymodal)">Editar Perfil</button>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer">
-        <div class="container">
-          <h2 class="brand_text">Atmira <i class="far fa-copyright"></i> </h2>
-        </div>
-      </footer>
     </div>
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; Atmira</small>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
+
+<ng-template #mymodal let-modal>
+  <div class="modal-overlay" ng-class="{open: showModal == true}"></div>
+  <div class="modal-header">
+    <h4 class="" id="modal-basic-title">Editar tu perfil</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
   </div>
 
-
-
-
-  <ng-template #mymodal let-modal>
-    <div class="modal-overlay" ng-class="{open: showModal == true}"></div>
-    <div class="modal-header">
-      <h4 class="" id="modal-basic-title">Editar tu perfil</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-
-    <div class="modal-body">
-      <div class="login-box">
-        <form [formGroup]="formUser" enctype="multipart/form-data">
-          <img class="profile-img" src="{{urlImage}}" />
-          <div class="profile-buttons-div">
-            <div class="profile-img-input" id="profile-img-input">
-              <label class="button" id="change-photo-label" for="change-photo">Cambiar foto</label>
-              <input id="change-photo" name="change-photo" (change)="qselectFile($event)" max-file-size="1024"
-                accept="image/*" type="file" style="display: none" />
-              <div *ngIf="currentFile" class="progress my-3">
-                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                  attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
-                  [ngStyle]="{ width: progress + '%' }">
-                  {{ progress }}%
-                </div>
+  <div class="modal-body">
+    <div class="login-box">
+      <form [formGroup]="formUser" enctype="multipart/form-data">
+        <img class="profile-img" src="{{urlImage}}" />
+        <div class="profile-buttons-div">
+          <div class="profile-img-input" id="profile-img-input">
+            <label class="button" id="change-photo-label" for="change-photo">Cambiar foto</label>
+            <input id="change-photo" name="change-photo" (change)="qselectFile($event)" max-file-size="1024"
+              accept="image/*" type="file" style="display: none" />
+            <div *ngIf="currentFile" class="progress my-3">
+              <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                [ngStyle]="{ width: progress + '%' }">
+                {{ progress }}%
               </div>
             </div>
           </div>
+        </div>
 
 
 
-          <div class="user-box">
-            <input type="text" name="" required="" value="{{nameUser}}" formControlName="name">
-            <label>Usuario</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" value="{{apellido1}}" required="" formControlName="apellido1">
-            <label>Primer Apellido</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" value="{{apellido2}}" required="" formControlName="apellido2">
-            <label>Segundo Apellido</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" value="{{puestoUser}}" required="" formControlName="puesto">
-            <label>Puesto</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" value="{{oficinaUser}}" required="" formControlName="oficina">
-            <label>Oficina</label>
-          </div>
-        </form>
-      </div>
-
+        <div class="user-box">
+          <input type="text" name="" required="" value="{{nameUser}}" formControlName="name">
+          <label>Usuario</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="" value="{{apellido1}}" required="" formControlName="apellido1">
+          <label>Primer Apellido</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="" value="{{apellido2}}" required="" formControlName="apellido2">
+          <label>Segundo Apellido</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="" value="{{puestoUser}}" required="" formControlName="puesto">
+          <label>Puesto</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="" value="{{oficinaUser}}" required="" formControlName="oficina">
+          <label>Oficina</label>
+        </div>
+      </form>
     </div>
 
-    <div class="modal-footer">
-      <button type="button" (click)="modal.close()" class="custom-btn btn-3"><span>Guardar</span></button>
+  </div>
 
-    </div>
+  <div class="modal-footer">
+    <button type="button" (click)="modal.close()" class="custom-btn btn-3"><span>Guardar</span></button>
 
-  </ng-template>
+  </div>
 
-
-</body>
-
-</html>
+</ng-template>
