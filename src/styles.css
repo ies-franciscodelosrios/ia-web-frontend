@@ -352,3 +352,7 @@ footer{
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  .btn-link {
+    color: #f833a6 !important;
+}

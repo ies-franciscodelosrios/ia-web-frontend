@@ -1,5 +1,5 @@
 export interface Turn {
-    codigo?: number,
+    codigo?: string,
     lunes: number,
     lunesDescripcion?: string,
     martes: number,

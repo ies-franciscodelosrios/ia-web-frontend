@@ -11,7 +11,21 @@ export const environment = {
   getNameTeamManagerByUser:'userRelations/active',
   updateUser:'user',
   updatePhotoProfile:'photo/update/',
-  uploadPhoto:'photo/upload/'
+  uploadPhoto:'photo/upload/',
+  //Turns Endpoints
+  getAllTurns:'getAllTurns',
+  getTurnById: 'turn/getTurn',
+  deleteTurn: 'turn/delete',
+  saveTurn: 'turn/save/assignUser',
+  updateTurn: 'turn/update',
+  getUserTurns: 'turn/getUserTurns',
+  //Rols Endpoints
+  assignRolToUser: 'rol/assignRolToUser',
+  denyRolToUser: 'rol/denyRolToUser',
+  getUsersOfOneRol: 'rol/getUsersOfOneRol',
+  UserIsAdmin: 'rol/UserIsAdmin',
+  UserIsSocio: 'rol/UserIsSocio',
+  UserIsEvaluador: 'rol/UserIsEvaluador'
 };
 
 

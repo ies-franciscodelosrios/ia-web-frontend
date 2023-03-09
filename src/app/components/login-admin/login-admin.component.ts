@@ -29,9 +29,9 @@ export class LoginAdminComponent {
   login(form: NgForm) {
     this.loginService.login(this.creds).subscribe(() => {
       this.userService
-        .getUserByIdNavision(this.creds.login)
-        .subscribe((user: User) => {
-          this.rolService.isAdmin(user.codigo).subscribe((response) => {
+        .getUserProfileByIdNavision(this.creds.login)
+        .then((user: User) => {
+          this.rolService.isAdmin(user.codigo).then((response) => {
             if (response) {
               this.router.navigate(['/admin/home']);
             } else {

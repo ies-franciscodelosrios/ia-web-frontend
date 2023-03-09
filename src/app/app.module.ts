@@ -14,13 +14,21 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import {FullCalendarModule } from 'primeng/fullcalendar';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
 import { AdmindashboardComponent } from './components/admindashboard/admindashboard.component';
 import { UseradmindashboardComponent } from './components/useradmindashboard/useradmindashboard.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { RefreshTableDirective } from './directives/refresh-table.directive'  
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,8 @@ import { UseradmindashboardComponent } from './components/useradmindashboard/use
     SidebarComponent,
     NgbdTablePagination,
     AdmindashboardComponent,
-    UseradmindashboardComponent
+    UseradmindashboardComponent,
+    RefreshTableDirective,
   ],
   imports: [
     BrowserModule,
@@ -45,8 +54,13 @@ import { UseradmindashboardComponent } from './components/useradmindashboard/use
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule
-
+    FullCalendarModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     HttpClient,
