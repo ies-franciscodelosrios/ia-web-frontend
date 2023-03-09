@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   endpoint:'http://localhost:8080/api/',
   getUserByDNI:'user/search/dni/',
+  getAllUsers:'user/all',
   getUserByIDNAVISION:'user/search/id',
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',

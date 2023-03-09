@@ -32,16 +32,17 @@ export class LoginAdminComponent {
         .getUserProfileByIdNavision(this.creds.login)
         .then((user: User) => {
           this.rolService.isAdmin(user.codigo).then((response) => {
+
             if (response) {
-              this.router.navigate(['/admin/home']);
+              this.router.navigate(['/admindashboard']);
             } else {
               this.errorMessage = 'Este usuario no es Administrador'
               this.loginService.deleteToken();
             }
           });
-        });       
+        });
     },(err) => {
       this.errorMessage = 'Usuario o contraseña incorrectos'
-    });  
+    });
   }
 }

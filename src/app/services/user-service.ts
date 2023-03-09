@@ -15,7 +15,7 @@ export class UserService {
   //Se realizan llamadas a la api de la APP mediante la clase HttpClient, realizando peticiones GET, POST, PUT y DELETE
 
   /**
-   * @returns Promise<Kid[]>, una lista de todos los niños de la base de datos
+   * @returns Promise<User[]>, una lista de todos los usarios de la base de datos
    */
   public async getUserByDNI(dni:string):Promise<User>{
     let endpoint=environment.endpoint+environment.getUserByDNI+dni;
@@ -36,6 +36,13 @@ export class UserService {
     let endpoint=environment.endpoint+environment.getUserByIDNAVISION;
     let user2:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return user2;
+  }
+
+
+  public async getAllUsers():Promise<User[]> {
+    let endpoint=environment.endpoint+environment.getAllUsers;
+    let users:any=await this.http.get(endpoint,this.header).toPromise();
+    return users;
   }
 
 
@@ -60,12 +67,12 @@ export class UserService {
 
 
   public async updateUser(user:User):Promise<User> {
-    let endpoint=environment.endpoint+environment.updateUser;
+    let endpoint=environment.endpoint+environment.user;
     return new Promise ((resolve,reject)=>{
       if(user){
         this.http.put(endpoint,user,this.header).toPromise().then(d=>{
           resolve(user);
-          console.log(d);
+          console.log(user);
         }).catch(err=> reject(err));
       }else{
         reject('No hay resultados')
@@ -74,16 +81,49 @@ export class UserService {
   }
 
 
-  upload(file: File,dni:string): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest('PUT', `${environment.endpoint+environment.updatePhotoProfile+dni}`, formData, {
-      reportProgress: true
-
+  public async createUser(user:User):Promise<User> {
+    let endpoint=environment.endpoint+environment.user;
+    return new Promise ((resolve,reject)=>{
+      if(user){
+        this.http.post(endpoint,user,this.header).toPromise().then(d=>{
+          resolve(user);
+          console.log(user);
+        }).catch(err=> reject(err));
+      }else{
+        reject('No hay resultados')
+      }
     });
-    return this.http.request(req);
+  }
+
+
+   /**
+   *
+   * @param kid:Kid
+   * @returns Promise<Kid>, un DELETE del niño pasado por parametro (con sus respectivos datos)
+   */
+
+   public deleteKid(codigo:string):Promise<User>{
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('codigo', codigo)
+    const endpoint = environment.endpoint+environment.user;
+    let user:any = this.http.delete(endpoint,{'headers':headers}).toPromise()
+    return user;
+
+  }
+
+
+  upload(file: File,idNavision:string): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    let endpoint=environment.endpoint+environment.updatePhotoProfile;
+    formData.append('file', file);
+    const req = new HttpRequest('PUT', `${environment.endpoint+environment.updatePhotoProfile+idNavision}`, formData, {
+      reportProgress: true
+    });
+        return this.http.request(req);
+
+
   }
 
 

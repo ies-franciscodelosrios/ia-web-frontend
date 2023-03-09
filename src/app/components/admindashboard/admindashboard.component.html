@@ -1,116 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<div class='dashboard'>
+  <div class='dashboard-app'>
+    <div style="margin-top: -100px;" class="dashboard-content">
+        <div class="cards">
+            <div class="card">
+                    <h1>{{countUser}}</h1>
+                    <h3>Usuarios</h3>
+                    <i class="fas fa-2x fa-users" aria-hidden="true"></i>
+            </div>
+            <div class="card">
+                    <h1>{{countEvents}}</h1>
+                    <h3>Eventos</h3>
+                    <i class="fas fa-2x fa-calendar" aria-hidden="true"></i>
+            </div>
+            <div class="card">
+              <h1>{{countTurns}}</h1>
+              <h3>Turnos</h3>
+              <i class="fas fa-2x fa-clock" aria-hidden="true"></i>
+            </div>
+            <div class="card">
+              <h1>150</h1>
+              <h3>Encuestas</h3>
+              <i class="fas fa-2x fa-book" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="content-2">
+            <div class="recent-payments">
+                <div class="title">
+                    <h2 style="margin: 10px;">Usuarios Recientes</h2>
+                    <a routerLink="/admin/users" class="btn">Ver todos</a>
+                </div>
+                <table class="table-dashboard">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>IdNavision</th>
+                        <th>Activo</th>
+                    </tr>
+                    <tr *ngFor="let user of users | slice: (users.length > 6 ? users.length - 6 : 0); index as i">
+                        <td>{{user.name}}</td>
+                        <td>{{user.apellido1}} {{user.apellido2}}</td>
+                        <td>{{user.login}}</td>
+                        <td *ngIf="logeado"><span class="status text-success" >&bull;</span> Activo</td>
+                        <td *ngIf="!logeado"><span class="status text-danger" >&bull;</span> No Activo</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="new-students">
+                <div class="title">
+                    <h2 style="margin: 10px; margin-left: 130px;">Nuevos Eventos</h2>
+                </div>
+                <table>
+                    <tr>
+                        <th>Creador</th>
+                        <th>Evento</th>
+                        <th>Fecha</th>
+
+                    </tr>
+                    <tr>
+                        <td><img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g" alt=""></td>
+                        <td>Almuerzo </td>
+                        <td>12/05/2023</td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt=""></td>
+                        <td>Juegos De Mesa </td>
+                        <td>12/04/2023</td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29uYXxlbnwwfHwwfHw%3D&w=1000&q=80" alt=""></td>
+                        <td>Charla sobre Java </td>
+                        <td>05/06/2023</td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="https://cdnb.20m.es/sites/112/2019/04/cara6.jpg" alt=""></td>
+                        <td>Charla sobre Test </td>
+                        <td>22/10/2023</td>
+                    </tr>
+                    <tr>
+                      <td><img src="https://cdnb.20m.es/sites/112/2019/04/cara6.jpg" alt=""></td>
+                      <td>Charla sobre QA </td>
+                      <td>22/10/2023</td>
+                  </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; Atmira</small>
+      </div>
+    </footer>
+  </div>
+</div>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
     integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
-<body>
-  <div class="">
-    <div class="navbar">
-      <div class="title">
-        <header> <img src="/assets/img/logo-atmira.png" alt="" class="logo_img2"></header>
-      </div>
-      <div class="user">
-        <div class="avatar">
-          <i class="fas fa-2x fa-user-circle "></i>
-        </div>
-        Hola, Admin
-      </div>
-    </div>
-    <div class="body">
-      <div class="sidebar">
-        <div class="item active">
-          <i class="fas fa-2x fa-columns"></i>
-          <span class="text">Dashboard</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-
-        <a routerLink="/admindashboard/user"  routerLinkActive="active">
-        <div class="item">
-
-            <i class="fas fa-2x fa-user-circle  text-white"></i>
-            <span class="text">Usuarios</span>
-
-            <i class="material-icons">
-              chevron_right
-            </i>
-
-        </div>
-      </a>
-        <div class="item">
-          <i class="far fa-2x fa-calendar-alt"></i>
-          <span class="text">Eventos</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <div class="item">
-          <i class="fas fa-2x fa-history"></i>
-          <span class="text">Turnos</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <div class="item">
-          <i class="material-icons">
-            settings
-          </i>
-          <span class="text">Settings</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <br>
-        <div class="item">
-          <i class="material-icons">
-            lock_outline
-          </i>
-          <span class="text">Logout</span>
-        </div>
-      </div>
-      <div class="content">
-        <div class="content">
-          <div class="main-stats">
-            <div class="stat-item">
-              <div class="counter">
-                <i class="fas fa-3x fa-user-circle"></i>
-                <div class="count">400</div>
-                <div class="description">Usuarios Activos</div>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="counter">
-                <i class="far fa-3x fa-calendar-alt"></i>
-                <div class="count">13140</div>
-                <div class="description">Eventos</div>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="counter">
-                <i class="fas fa-3x fa-history"></i>
-                <div class="count">9001</div>
-                <div class="description">Turnos Activos</div>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="counter">
-                <i class="fas fa-3x fa-tasks"></i>
-                <div class="count">350</div>
-                <div class="description">Encuestas Activas</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</body>
-</html>

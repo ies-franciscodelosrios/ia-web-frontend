@@ -13,6 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./ngbd-table-pagination.component.css'],
   templateUrl: './ngbd-table-pagination.component.html',
 })
+
 export class NgbdTablePagination {
   displayedColumns: string[] = ['Codigo', 'Lunes', 'LunesDescripcion', 'Martes', 'MartesDescripcion', 'Miercoles', 'MiercolesDescripcion', 'Jueves', 'JuevesDescripcion', 'Viernes', 'ViernesDescripcion'];
   dataSource: MatTableDataSource<Turn>;
@@ -51,4 +52,5 @@ export class NgbdTablePagination {
     }
   }
 }
+
 

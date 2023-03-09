@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { TurnService } from 'src/app/services/turn-service';
+import { Turn } from 'src/app/models/turn';
+import { RolService } from 'src/app/services/rol-service';
+
 
 @Component({
   selector: 'app-home',
@@ -15,7 +18,7 @@ export class HomeComponent implements OnInit {
   hourStep: number = 1;
   minuteStep: number = 15;
   taskDescription: string = '';
-
+  isAdmin:any=true
   username: string = '';
   office: string = '';
 
@@ -27,7 +30,8 @@ export class HomeComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private userService: UserService,
-    private turnService: TurnService
+    private turnService: TurnService,
+    private rolService:RolService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +40,10 @@ export class HomeComponent implements OnInit {
       .then((user) => {
         this.username = user.name;
         this.office = user.oficina;
+      });
+
+      this.rolService.isAdmin('001').subscribe(data => {
+        this.isAdmin=data;
       });
   }
   

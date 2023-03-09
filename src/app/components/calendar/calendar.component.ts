@@ -9,6 +9,7 @@ import { NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Event } from '../../models/event';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user-service';
+import { RolService } from 'src/app/services/rol-service';
 
 @Component({
   selector: 'app-calendar',
@@ -19,7 +20,7 @@ export class CalendarComponent implements OnInit{
   user:User
   codigo:string
   modalRef: NgbModalRef | undefined;
-
+  isAdmin:any=true
   @ViewChild('viewModal')viewModal: TemplateRef<any>;
   @ViewChild('deleteModal')deleteModal: TemplateRef<any>;
   eventName: string = "";
@@ -32,7 +33,7 @@ export class CalendarComponent implements OnInit{
   public options:any;
 
 
-  constructor(private apiUser:UserService,private calendarService: CalendarService,  private modalService: NgbModal) { }
+  constructor(private apiUser:UserService,private rolService:RolService,private calendarService: CalendarService,  private modalService: NgbModal) { }
 
    ngOnInit(){
     this.getUserByDNI();
@@ -61,6 +62,9 @@ export class CalendarComponent implements OnInit{
       eventClick:this.handleEventClick.bind(this)
     }
 
+    this.rolService.isAdmin('001').subscribe(data => {
+      this.isAdmin=data;
+    });
 
   }
 

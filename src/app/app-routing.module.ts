@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdmindashboardComponent } from './components/admindashboard/admindashboard.component';
 import { UseradmindashboardComponent } from './components/useradmindashboard/useradmindashboard.component';
+import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'admindashboard', component: AdmindashboardComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['ADMIN']} } ,
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['SOCIO', 'EVALUADOR']} } ,
   { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'table', component: NgbdTablePagination },
   { path: '**',  redirectTo: '/page-not-found', pathMatch: 'full'}
 ];
 
