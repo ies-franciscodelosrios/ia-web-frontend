@@ -1,134 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
     integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
-
-<body>
-  <div class="">
-    <div class="navbar">
-      <div class="title">
-        <header> <img src="/assets/img/logo-atmira.png" alt="" class="logo_img2"></header>
-      </div>
-      <div class="user">
-        <div class="avatar">
-          <i class="fas fa-2x fa-user-circle "></i>
-        </div>
-        Hola, Admin
-      </div>
-    </div>
-    <div class="body">
-      <div class="sidebar">
-        <a routerLink="/admindashboard" routerLinkActive="active">
-        <div class="item">
-          <i class="fas fa-2x fa-columns"></i>
-          <span class="text">Dashboard</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-      </a>
-
-        <a routerLink="/admindashboard/user" routerLinkActive="active">
-          <div class="item active">
-            <i class="fas fa-2x fa-user-circle  text-white"></i>
-            <span class="text">Usuarios</span>
-            <i class="material-icons">
-              chevron_right
-            </i>
-          </div>
-        </a>
-        <div class="item">
-          <i class="far fa-2x fa-calendar-alt"></i>
-          <span class="text">Eventos</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <div class="item">
-          <i class="fas fa-2x fa-history"></i>
-          <span class="text">Turnos</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <div class="item">
-          <i class="material-icons">
-            settings
-          </i>
-          <span class="text">Settings</span>
-          <i class="material-icons">
-            chevron_right
-          </i>
-        </div>
-        <br>
-        <div class="item">
-          <i class="material-icons">
-            lock_outline
-          </i>
-          <span class="text">Logout</span>
-        </div>
-      </div>
-      <div class="content">
-        <button class="custom-btn btn-11">Crear usuario<div class="dot"></div></button>
-        <div class="container">
-          <div class="row le-hide">
-            <div class="col-lg-12">
-              <div class="m-0 row p-3">
-                <div class="col-sm-10 col-lg-2 p-0 pl-lg-5">
-                  <strong>DNI</strong>
-                </div>
-                <div class="col-sm-10 col-lg-2 p-0 pl-lg-5">
-                  <strong>Nombre</strong>
-                </div>
-                <div class="col-sm-10 col-lg-2 p-0 pl-lg-5">
-                  <strong>Apellidos</strong>
-                </div>
-                <div class="col-sm-10 col-lg-2 p-0 pl-lg-5">
-                  <strong>Idnavision</strong>
-                </div>
-                <div class="col-sm-10 col-lg-2 p-0 pl-lg-5">
-                  <strong>correo</strong>
-                </div>
-              </div>
+    <div class='dashboard'>
+      <div class='dashboard-app'>
+        <div class='dashboard-content'>
+        <div style="margin-top: -200px;" class="container">
+          <form>
+            <div class="input-group">
+              <input  id="table-complete-search"
+              type="search"
+              placeholder="Buscar Usuario por IdNavision"
+              name="searchTerm"
+              [(ngModel)]="searchText"  (input)="Search()"  class="form-control rounded fc"  aria-label="Search" aria-describedby="search-addon" />
+              <button type="button" (click)="open(mymodal)" class="btn btn-11">Crear Usuario</button>
             </div>
+
+            <table class="table bgtable">
+              <thead >
+                <tr class="bg-dark text-white">
+                  <th scope="col">Nombre</th>
+                  <th scope="col">DNI</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">IdNavision</th>
+                  <th scope="col">Puesto</th>
+                  <th scope="col">Oficina</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white text-dark" *ngFor="let user of listOfContacts | paginate:page_size:page_number">
+                  <td><img height="30" width="30" src="{{user.profile_Picture}}" class="avatar">{{user.name}}</td>
+                        <td>{{user.codigo}}</td>
+                        <td>{{user.apellido1}} {{user.apellido2}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.login}}</td>
+                        <td>{{user.puesto}}</td>
+                        <td>{{user.oficina}}</td>
+                        <td ><span class="status text-success">&bull;</span> Active</td>
+                        <td>
+                          <button (click)="open2(mymodal2); getUserByDNI(user.login)" type="button" class="btn"><i class="fas fa-gear" style="color: deeppink;" aria-hidden="true"></i></button>
+                      </td>
+                      <td> <button (click)="deleteUser(user.login)" type="button" class="btn"><i class="fas fa-trash" style="color: deeppink;" aria-hidden="true"></i></button></td>
+
+
+
+                      <ng-template #mymodal2 let-modal>
+                        <div class="modal-overlay" ng-class="{open: showModal == true}"></div>
+                        <div class="modal-header">
+                          <h4 class="" id="modal-basic-title">Crear usuario</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form [formGroup]="formUserUpdate">
+                              <div class="user-box">
+                                <label>DNI</label>
+                                <input type="text" name="codigo"  formControlName="codigo">
+                              </div>
+                              <div class="user-box">
+                                <label>Nombre</label>
+                                <input type="text" name="name" value="" formControlName="name">
+                              </div>
+                              <div class="user-box">
+                                <label>Apellido 1</label>
+                                <input type="text" name="apellido1" value="{{apellido1}}"   formControlName="apellido1">
+                              </div>
+                              <div class="user-box">
+                                <label>apellido2</label>
+                                <input type="text" name="apellido2"   formControlName="apellido2">
+                              </div>
+                              <div class="user-box">
+                                <label>Correo</label>
+                                <input type="text" name="email"  formControlName="email">
+
+                              </div>
+                              <div class="user-box">
+                                <label>IdNavision</label>
+                                <input type="text" name="login"   formControlName="login">
+                              </div>
+                              <div class="user-box">
+                                <label>Puesto</label>
+                                <input type="text" name="puesto"   formControlName="puesto">
+                              </div>
+                              <div class="user-box">
+                                <label>Oficina</label>
+                                <input type="text" name="oficina"   formControlName="oficina">
+                              </div>
+                            </form>
+                          </div>
+                        <div class="modal-footer">
+                          <button type="button" (click)="modal.close();updateUser();" class="btn btn-dark "><span>Guardar</span></button>
+                        </div>
+                      </ng-template>
+                    </tr>
+              </tbody>
+            </table>
+            <div class="clearfix">
+              <mat-paginator #paginator
+              class="pagination"
+              (page)="handlePageEvent($event)"
+              [length]="listOfContacts.length"
+              [pageSize]="page_size"
+              [pageSizeOptions]="pageSizeOptions"
+              [pageIndex]="0"
+              aria-label="Select page">
+              </mat-paginator>
           </div>
-          <div class="row ">
-            <div class="col-sm-4 col-lg-12 mt-2 mb-2">
-              <div class="m-2 row row-container bg-white p-3">
-                <div class="col-sm-12 col-lg-2  p-0 p-0 pl-lg-5">
-                  Juan
-                </div>
-                <div class="col-sm-12 col-lg-2  p-0 p-0 pl-lg-5">
-                  Juan
-                </div>
-                <div class="col-sm-12 col-lg-2 p-0 p-0 pl-lg-5">
-                  Morales Gómez
-                </div>
-                <div class="col-sm-12 col-lg-2 p-0 p-0 pl-lg-5">
-                  juanmorales@atmira.es
-                </div>
-                <div class="col-sm-12 col-lg-2 p-0 p-0 pl-lg-5">
-                  JMORALESG
-                </div>
-                <div class="col-sm-12 col-lg-1 p-0">
-                  <button class="btn btn-sm btn-pink d-inline-block mr-1"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-sm btn-danger d-inline-block"><i class="fas fa-trash-alt"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
-      </div>
     </div>
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; Atmira</small>
+      </div>
+    </footer>
+  </div>
   </div>
 
-</body>
 
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ng-template #mymodal let-modal>
+    <div class="modal-overlay" ng-class="{open: showModal == true}"></div>
+    <div class="modal-header">
+      <h4 class="" id="modal-basic-title">Crear usuario</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="formUserCreate">
+          <div class="user-box">
+            <label>DNI</label>
+            <input type="text" name="codigo"  formControlName="codigo">
+          </div>
+          <div class="user-box">
+            <label>Nombre</label>
+            <input type="text" name="name" value=""   formControlName="name">
+          </div>
+          <div class="user-box">
+            <label>Primer Apellido</label>
+            <input type="text" name="apellido1"   formControlName="apellido1">
+          </div>
+          <div class="user-box">
+            <label>Segundo Apellido</label>
+            <input type="text" name="apellido2"   formControlName="apellido2">
+          </div>
+          <div class="user-box">
+            <label>Correo</label>
+            <input type="text" name="email"  formControlName="email">
+
+          </div>
+          <div class="user-box">
+            <label>IdNavision</label>
+            <input type="text" name="login"   formControlName="login">
+          </div>
+          <div class="user-box">
+            <label>Puesto</label>
+            <input type="text" name="puesto"   formControlName="puesto">
+          </div>
+          <div class="user-box">
+            <label>Oficina</label>
+            <input type="text" name="oficina"   formControlName="oficina">
+          </div>
+          <div class="user-box">
+            <label>Contraseña</label>
+            <input type="text" name="password"   formControlName="password">
+          </div>
+          <div class="user-box">
+            <label>Selecciona el rol</label>
+            <div class="select">
+              <select class="select-body">
+                <option  *ngFor="let user of users" [value]="user.name">{{user.name}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="modal.close()" class="btn btn-dark "><span>Guardar</span></button>
+    </div>
+  </ng-template>

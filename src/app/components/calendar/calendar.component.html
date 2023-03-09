@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
     integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
 
-<body>
   <div class='dashboard'>
-    <app-sidebar></app-sidebar>
     <div class='dashboard-app'>
-      <header class='dashboard-toolbar'></header>
       <div class='dashboard-content'>
         <div class='container'>
-          <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+          <p-fullCalendar class="hola" [events]="events" [options]="options"></p-fullCalendar>
         </div>
 
         <ng-template #viewModal>
@@ -61,13 +52,10 @@
           </div>
         </ng-template>
       </div>
-      <footer class="footer">
-        <div class="container">
-          <h2 class="brand_text">Atmira © </h2>
+      <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>Copyright &copy; Atmira</small>
         </div>
       </footer>
     </div>
   </div>
-</body>
-
-</html>

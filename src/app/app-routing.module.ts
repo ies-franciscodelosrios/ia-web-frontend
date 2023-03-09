@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdmindashboardComponent } from './components/admindashboard/admindashboard.component';
 import { UseradmindashboardComponent } from './components/useradmindashboard/useradmindashboard.component';
+import { NgbdTablePagination } from './components/ngbd-table-pagination/ngbd-table-pagination.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -18,11 +19,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'admin/home', component: HomeAdminComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] } ,
-  { path: 'admindashboard/user', component: UseradmindashboardComponent, canActivate: [AuthGuard] } ,
+  { path: 'admin/users', component: UseradmindashboardComponent, canActivate: [AuthGuard] } ,
   { path: 'admindashboard', component: AdmindashboardComponent, canActivate: [AuthGuard] } ,
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] } ,
   { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'table', component: NgbdTablePagination },
   { path: '**',  redirectTo: '/page-not-found', pathMatch: 'full'}
+
 
 ];
 
