@@ -15,14 +15,14 @@ export class SidebarComponent implements OnInit {
   user:User
   constructor(private loginService: LoginService,private router: Router,private rolService:RolService,private userService:UserService) {  }
 
- ngOnInit() {
-    this.isAdminUser();
+ async ngOnInit() {
+    await this.isAdminUser();
   }
 
 
   public async isAdminUser(){
       this.user= await this.userService.getUserProfileByIdNavision(localStorage.getItem("user_current"))
-      this.isAdmin= await this.rolService.isAdmin(this.user.codigo).toPromise();
+      this.isAdmin= await this.rolService.isAdmin(this.user.codigo);
       console.log(this.isAdmin);
 
     return this.isAdmin;

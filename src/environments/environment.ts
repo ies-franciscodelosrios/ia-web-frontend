@@ -13,6 +13,7 @@ export const environment = {
   updateUser:'user',
   updatePhotoProfile:'photo/update/',
   uploadPhoto:'photo/upload/',
+  user:'user',
   //Turns Endpoints
   getAllTurns:'getAllTurns',
   getTurnById: 'turn/getTurn',

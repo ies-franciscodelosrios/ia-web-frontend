@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
         this.office = user.oficina;
       });
 
-      this.rolService.isAdmin('001').subscribe(data => {
+      this.rolService.isAdmin('001').then(data => {
         this.isAdmin=data;
       });
   }

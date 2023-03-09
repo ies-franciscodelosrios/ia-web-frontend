@@ -30,7 +30,7 @@ export class AdmindashboardComponent implements OnInit {
     this.countUser=this.users.length
     this.events= await this.eventService.getEvents();
     this.countEvents=this.events.length
-    this.turns= await this.turnService.getAllTurns();
+    this.turns= await this.turnService.getUserTurns(localStorage.getItem('user_current'));
     this.countTurns=this.turns.length
   }
 

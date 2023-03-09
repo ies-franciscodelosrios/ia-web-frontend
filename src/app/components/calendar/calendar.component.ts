@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit{
       eventClick:this.handleEventClick.bind(this)
     }
 
-    this.rolService.isAdmin('001').subscribe(data => {
+    this.rolService.isAdmin('001').then(data => {
       this.isAdmin=data;
     });
 

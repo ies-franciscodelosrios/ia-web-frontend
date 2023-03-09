@@ -28,7 +28,6 @@ import { MatTableModule } from '@angular/material/table';
 import { RefreshTableDirective } from './directives/refresh-table.directive'  
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -63,8 +62,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatIconModule
-    MatPaginatorModule,
+    MatIconModule,
     MatSelectModule,
     NgbToastModule
   ],
