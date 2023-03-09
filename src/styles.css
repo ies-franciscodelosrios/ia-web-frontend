@@ -346,6 +346,10 @@ h1, .h1 {
   }
 
 
+  .btn-link {
+    color: #f833a6 !important;
+}
+
 
   .body {
     width: 100%;
@@ -501,4 +505,5 @@ h1, .h1 {
   .text-danger {
     color: #ff5b5b;
   }
+
 

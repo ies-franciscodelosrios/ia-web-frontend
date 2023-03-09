@@ -1,3 +1,4 @@
+import { UserService } from './user-service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -8,6 +9,7 @@ import { map } from 'rxjs/operators'
   providedIn:'root'
 })
 export class LoginService {
+
     constructor(private http: HttpClient, private router: Router) {}
 
     login(creds: Credentials) {
@@ -36,7 +38,7 @@ export class LoginService {
         return localStorage.getItem("token");
     }
 
-    deleteToken() {
+    deleteToken() {    
         localStorage.removeItem("token");
         localStorage.removeItem("user_current")
     }

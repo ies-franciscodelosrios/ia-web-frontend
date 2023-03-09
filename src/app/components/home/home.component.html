@@ -16,7 +16,7 @@
               <h1>Añadir registro del Turno</h1>
               <form class="flex-container" #form="ngForm" (ngSubmit)="registerTurn(form)">
                 <div>
-                  <ngb-timepicker
+                  <ngb-timepicker class="timepicker"
                     name="time"
                     [(ngModel)]="time"
                     [hourStep]="hourStep"
@@ -56,11 +56,11 @@
                     cols="50"
                     placeholder="Describe las tareas realizadas durante este turno..."
                   ></textarea>
-                  <input class="btn-register" type="submit" name="" value="Registrar Turno">
-                </div>
-              </form>
+                  <button class="btn-register" type="submit" mat-raised-button color="accent">Registrar Turno</button>
+                </div>              
+              </form> 
             </div>
-            <ngbd-table-pagination></ngbd-table-pagination>
+            <ngbd-table-pagination *appRefreshTable="refresh"></ngbd-table-pagination>
           </div>
         </div>
         <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">

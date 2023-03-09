@@ -7,6 +7,7 @@ import { TurnService } from 'src/app/services/turn-service';
 import { Turn } from 'src/app/models/turn';
 import { RolService } from 'src/app/services/rol-service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,6 +22,10 @@ export class HomeComponent implements OnInit {
   username: string = '';
   office: string = '';
 
+  updateTurn;
+  newTurn;
+  refresh:number = 0;
+
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -31,8 +36,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService
-      .getUserByIdNavision(localStorage.getItem('user_current'))
-      .subscribe((user) => {
+      .getUserProfileByIdNavision(localStorage.getItem('user_current'))
+      .then((user) => {
         this.username = user.name;
         this.office = user.oficina;
       });
@@ -41,6 +46,7 @@ export class HomeComponent implements OnInit {
         this.isAdmin=data;
       });
   }
+  
 
   async registerTurn(form) {
     const numberToDay = {
@@ -52,14 +58,18 @@ export class HomeComponent implements OnInit {
       '5': 'Viernes',
       '6': 'Sabado',
     };
-    //
-    let updateTurn = await this.turnService.getTurnById(
-      this.getWeekYearNumber(new Date())
-    );
 
-    if (!updateTurn) {
-      let newTurn: Turn = {
-        codigo: this.getWeekYearNumber(new Date()),
+    try {
+      this.updateTurn = await this.turnService.getTurnById(
+        `${this.getWeekYearNumber(new Date())}-${localStorage.getItem("user_current")}`
+      );
+    } catch(error) {
+      console.log(error)
+    }
+
+    if (!this.updateTurn) {
+      this.newTurn = {
+        codigo: `${this.getWeekYearNumber(new Date())}-${localStorage.getItem("user_current")}`,
         lunes: 0,
         lunesDescripcion: 'Sin Descripción',
         martes: 0,
@@ -80,84 +90,86 @@ export class HomeComponent implements OnInit {
 
       switch (numberToDay[new Date().getDay()]) {
         case 'Lunes':
-          newTurn.lunes = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.lunesDescripcion = this.taskDescription;
+          this.newTurn.lunes = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.lunesDescripcion = this.taskDescription;
           break;
         case 'Martes':
-          newTurn.martes = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.martesDescripcion = this.taskDescription;
+          this.newTurn.martes = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.martesDescripcion = this.taskDescription;
           break;
         case 'Miercoles':
-          newTurn.miercoles = parseFloat(
+          this.newTurn.miercoles = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          newTurn.miercolesDescripcion = this.taskDescription;
+          this.newTurn.miercolesDescripcion = this.taskDescription;
           break;
         case 'Jueves':
-          newTurn.jueves = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.juevesDescripcion = this.taskDescription;
+          this.newTurn.jueves = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.juevesDescripcion = this.taskDescription;
           break;
         case 'Viernes':
-          newTurn.viernes = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.viernesDescripcion = this.taskDescription;
+          this.newTurn.viernes = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.viernesDescripcion = this.taskDescription;
           break;
         case 'Sabado':
-          newTurn.sabado = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.sabadoDescripcion = this.taskDescription;
+          this.newTurn.sabado = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.sabadoDescripcion = this.taskDescription;
           break;
         case 'Domingo':
-          newTurn.domingo = parseFloat(`${this.time.hour}.${this.time.minute}`);
-          newTurn.domingoDescripcion = this.taskDescription;
+          this.newTurn.domingo = parseFloat(`${this.time.hour}.${this.time.minute}`);
+          this.newTurn.domingoDescripcion = this.taskDescription;
           break;
       }
-      this.turnService.saveTurn(newTurn);
+      await this.turnService.saveTurn(this.newTurn);
+      this.refresh += 1;
+      
     } else {
       switch (numberToDay[new Date().getDay()]) {
         case 'Lunes':
-          updateTurn.lunes = parseFloat(
+          this.updateTurn.lunes = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.lunesDescripcion = this.taskDescription;
+          this.updateTurn.lunesDescripcion = this.taskDescription;
           break;
         case 'Martes':
-          updateTurn.martes = parseFloat(
+          this.updateTurn.martes = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.martesDescripcion = this.taskDescription;
+          this.updateTurn.martesDescripcion = this.taskDescription;
           break;
         case 'Miercoles':
-          updateTurn.miercoles = parseFloat(
+          this.updateTurn.miercoles = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.miercolesDescripcion = this.taskDescription;
+          this.updateTurn.miercolesDescripcion = this.taskDescription;
           break;
         case 'Jueves':
-          updateTurn.jueves = parseFloat(
+          this.updateTurn.jueves = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.juevesDescripcion = this.taskDescription;
+          this.updateTurn.juevesDescripcion = this.taskDescription;
           break;
         case 'Viernes':
-          updateTurn.viernes = parseFloat(
+          this.updateTurn.viernes = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.viernesDescripcion = this.taskDescription;
+          this.updateTurn.viernesDescripcion = this.taskDescription;
           break;
         case 'Sabado':
-          updateTurn.sabado = parseFloat(
+          this.updateTurn.sabado = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.sabadoDescripcion = this.taskDescription;
+          this.updateTurn.sabadoDescripcion = this.taskDescription;
           break;
         case 'Domingo':
-          updateTurn.domingo = parseFloat(
+          this.updateTurn.domingo = parseFloat(
             `${this.time.hour}.${this.time.minute}`
           );
-          updateTurn.domingoDescripcion = this.taskDescription;
+          this.updateTurn.domingoDescripcion = this.taskDescription;
           break;
       }
-
-      this.turnService.saveTurn(updateTurn);
+         await this.turnService.saveTurn(this.updateTurn);  
+         this.refresh += 1;
     }
   }
 

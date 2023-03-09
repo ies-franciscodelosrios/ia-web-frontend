@@ -1,3 +1,6 @@
 export interface Rol {
-  rolname:String
+    id: number,
+    description: string,
+    create_date: Date,
+    rolname: string
 }

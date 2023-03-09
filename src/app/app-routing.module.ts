@@ -1,3 +1,4 @@
+import { HasRoleGuard } from './helpers/has-role.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './components/calendar/calendar.component';
@@ -16,17 +17,15 @@ const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'login/admin', component: LoginAdminComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'admin/home', component: HomeAdminComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] } ,
-  { path: 'admin/users', component: UseradmindashboardComponent, canActivate: [AuthGuard] } ,
-  { path: 'admindashboard', component: AdmindashboardComponent, canActivate: [AuthGuard] } ,
-  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] } ,
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['SOCIO', 'EVALUADOR']} },
+  { path: 'admin/home', component: HomeAdminComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['ADMIN']} },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['SOCIO', 'EVALUADOR']} } ,
+  { path: 'admindashboard/user', component: UseradmindashboardComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['ADMIN']} } ,
+  { path: 'admindashboard', component: AdmindashboardComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['ADMIN']} } ,
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard, HasRoleGuard], data: {allowedRoles: ['SOCIO', 'EVALUADOR']} } ,
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: 'table', component: NgbdTablePagination },
   { path: '**',  redirectTo: '/page-not-found', pathMatch: 'full'}
-
-
 ];
 
 @NgModule({

@@ -1,62 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Filtra por cualquier parámetro..." #input>
+</mat-form-field>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
-    integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
+<button mat-raised-button color="accent" (click)="exportAsXLSX()">Exportar <mat-icon>trending_down</mat-icon></button> &nbsp;
+<button mat-raised-button color="accent" (click)="exportAsXLSXFiltered()">Exportar Filtrados <mat-icon>trending_down</mat-icon></button>
 
-<body>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Lunes</th>
-          <th scope="col">Desc.</th>
-          <th scope="col">Martes</th>
-          <th scope="col">Desc.</th>
-          <th scope="col">Miercoles</th>
-          <th scope="col">Desc.</th>
-          <th scope="col">Jueves</th>
-          <th scope="col">Desc.</th>
-          <th scope="col">Viernes</th>
-          <th scope="col">Desc.</th>
-          <th scope="col">Semana</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let turn of turns">
-          <th scope="row">{{ turn.codigo }}</th>
-          <td>
-            {{ turn.lunes | number}} <i class="fas fa-clock"></i>
-          </td>
-          <td>{{ turn.lunesDescripcion}}</td>
-          <td>{{ turn.martes| number}} <i class="fas fa-clock"></i></td>
-          <td>{{ turn.martesDescripcion}}</td>
-          <td>{{ turn.miercoles | number }} <i class="fas fa-clock"></i></td>
-          <td>{{ turn.miercolesDescripcion}}</td>
-          <td>{{ turn.jueves | number }} <i class="fas fa-clock"></i></td>
-          <td>{{ turn.juevesDescripcion}}</td>
-          <td>{{ turn.viernes | number }} <i class="fas fa-clock"></i></td>
-          <td>{{ turn.viernesDescripcion}}</td>
-          <td>{{ turn.semana }}</td>
-        </tr>
-        </tbody>
-      </table>
-      
-      <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
-        </ngb-pagination>
-      
-        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
-          <option [ngValue]="2">2 turnos por página</option>
-          <option [ngValue]="4">4 turnos por página</option>
-          <option [ngValue]="6">6 turnos por página</option>
-        </select>
-      </div>
-</body>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
 
+    <!-- ID Column -->
+    <ng-container matColumnDef="Codigo">
+      <th mat-header-cell *matHeaderCellDef> Codigo </th>
+      <td mat-cell *matCellDef="let row"> {{row.codigo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Lunes">
+      <th mat-header-cell *matHeaderCellDef> Lunes </th>
+      <td mat-cell *matCellDef="let row"> {{row.lunes}} <i class="far fa-clock"></i></td> 
+    </ng-container>
+
+    <ng-container matColumnDef="LunesDescripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.lunesDescripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Martes">
+      <th mat-header-cell *matHeaderCellDef> Martes </th>
+      <td mat-cell *matCellDef="let row"> {{row.martes}} <i class="far fa-clock"></i></td>
+    </ng-container>
+
+    <ng-container matColumnDef="MartesDescripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.martesDescripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Miercoles">
+      <th mat-header-cell *matHeaderCellDef> Miercoles </th>
+      <td mat-cell *matCellDef="let row"> {{row.miercoles}} <i class="far fa-clock"></i></td>
+    </ng-container>
+
+    <ng-container matColumnDef="MiercolesDescripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.miercolesDescripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Jueves">
+      <th mat-header-cell *matHeaderCellDef> Jueves </th>
+      <td mat-cell *matCellDef="let row"> {{row.jueves}} <i class="far fa-clock"></i></td>
+    </ng-container>
+
+    <ng-container matColumnDef="JuevesDescripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.juevesDescripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Viernes">
+      <th mat-header-cell *matHeaderCellDef> Viernes </th>
+      <td mat-cell *matCellDef="let row"> {{row.viernes}} <i class="far fa-clock"></i></td>
+    </ng-container>
+
+    <ng-container matColumnDef="ViernesDescripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.viernesDescripcion}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+</div>

@@ -5,6 +5,7 @@ import { UserService } from '../../services/user-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
