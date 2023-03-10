@@ -506,4 +506,51 @@ h1, .h1 {
     color: #ff5b5b;
   }
 
+  .calendario button{
+    border: #f833a6 1px solid !important;
+    background-color: #f833a6 !important;
+  }
+
+  .calendario button:hover{
+    border: #af1b72 1px solid !important;
+    background-color: #af1b72 !important;
+  }
+
+  .calendario .active{
+    border: #af1b72 1px solid !important;
+    background-color: #af1b72 !important;
+  }
+
+
+  .alert{
+    color: rgba(0, 0, 0, 0.589);
+    background-color: #af1b7127 !important;
+  }
+
+  .calendario td{
+    border: 0.5px solid rgba(0, 0, 0, 0.192) !important;
+  }
+
+  .calendario a{
+    color: black !important;
+  }
+
+  .calendario .fc-col-header-cell{
+    border: 1px solid rgba(0, 0, 0, 0.192) !important;
+  }
+
+  .calendario .fc-view-harness{
+    border: 6px solid #403F4C !important;
+  }
+
+  .tippy-box {
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    background: rgb(148, 148, 148);
+    font-size: 1rem;
+  }
+
 
