@@ -1,5 +1,5 @@
 export interface Event {
-  id?:BigInteger,
+  id?:string,
   create_date:Date,
   date_Start_Event:Date,
   description:string,

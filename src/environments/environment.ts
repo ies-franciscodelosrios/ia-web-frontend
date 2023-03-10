@@ -27,7 +27,16 @@ export const environment = {
   getUsersOfOneRol: 'rol/getUsersOfOneRol',
   UserIsAdmin: 'rol/UserIsAdmin',
   UserIsSocio: 'rol/UserIsSocio',
-  UserIsEvaluador: 'rol/UserIsEvaluador'
+  UserIsEvaluador: 'rol/UserIsEvaluador',
+  //Endpoints Events(Calendar)
+  getEventId:'event/',
+  getAllEvents:'event/all',
+  getEventUser:'event/user/',
+  putEventUpdate:'event/update/',
+  postEventCreate:'event/save/assignUser/',
+  delEventId:'event/delete/',
+  delAllEventUser:'event/delete/user',
+  delEventUser:'event/delete/user/'
 };
 
 
