@@ -1,17 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
-import bootstrapPlugin from '@fullcalendar/bootstrap';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import intercationPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarService } from 'src/app/services/calendar.service';
-import { NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Event } from '../../models/event';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user-service';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import tippy from "tippy.js";
-
 
 
 @Component({

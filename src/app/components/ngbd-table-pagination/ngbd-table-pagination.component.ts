@@ -39,7 +39,6 @@ export class NgbdTablePagination {
     this.turnService.getUserTurns(localStorage.getItem("user_current")).then(data => {
       this.dataSource = new MatTableDataSource<Turn>(data)
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource.data)
     });
   }
 
