@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/models/event';
 import { Turn } from 'src/app/models/turn';
@@ -19,10 +20,14 @@ export class AdmindashboardComponent implements OnInit {
   countUser:any;
   countEvents:any;
   countTurns:any;
-  constructor(private userService:UserService,private eventService:CalendarService,private turnService:TurnService) { }
+  constructor(private userService:UserService,private eventService:CalendarService,private turnService:TurnService, private router:Router) { }
 
   ngOnInit(): void {
     this.getAll();
+  }
+
+  navigateToUsers() {
+    this.router.navigate(['/users'])
   }
 
   async getAll(){

@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { TurnService } from 'src/app/services/turn-service';
-import { Turn } from 'src/app/models/turn';
 import { RolService } from 'src/app/services/rol-service';
 
 
