@@ -14,7 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AngularMaterialModule } from './components/shared/angular-material/angular-material.module';
-import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-calendar.component';
+import { QuestionarieComponent } from './components/questionarie/questionarie.component';
+import { PollAssignmentsComponent } from './components/poll-assignments/poll-assignments.component';
+import { MatTableModule } from '@angular/material/table';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-
     LoginComponent,
     LoginAdminComponent,
     PageNotFoundComponent,
-    SidebarComponent, 
+    SidebarComponent,
+    QuestionarieComponent,
+    PollAssignmentsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +41,7 @@ import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-
     ReactiveFormsModule,
     NgbToastModule,
     AngularMaterialModule,
+    MatTableModule
   ],
   providers: [
     HttpClient,

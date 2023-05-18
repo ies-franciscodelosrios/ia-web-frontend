@@ -114,20 +114,8 @@ h1, .h1 {
 }
 
 .dashboard-app {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 2;
-  -webkit-flex-grow: 2;
-  -ms-flex-positive: 2;
-  flex-grow: 2;
-  margin-top: 84px;
+  width: 100vw;
+  padding: 10rem;
 }
 
 .dashboard-content {
@@ -140,15 +128,6 @@ h1, .h1 {
   background-repeat: no-repeat;
 }
 
-.dashboard-nav {
-  min-width: 238px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  overflow: auto;
-  background-color: #403F4C;
-}
 
 .dashboard-compact .dashboard-nav {
   display: none;
@@ -226,9 +205,6 @@ h1, .h1 {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.active {
-  background: #f833a6;
-}
 
 .nav-item-divider {
   height: 1px;
@@ -239,7 +215,7 @@ h1, .h1 {
 
 @media (min-width: 992px) {
   .dashboard-app {
-      margin-left: 238px;
+
   }
 
   .dashboard-compact .dashboard-app {
@@ -360,32 +336,6 @@ h1, .h1 {
 
   }
 
-  .navbar {
-    height: 80px;
-    background-color: #585769;
-    display: flex;
-  }
-  .navbar .material-icons {
-    color: #fff;
-    margin-left: 8px;
-  }
-
-
-  .navbar .user {
-    color: #fff;
-    padding-right: 16px;
-  }
-  .navbar .user .avatar {
-    margin-right: 8px;
-  }
-  .navbar .user .avatar .material-icons {
-    font-size: 16px;
-  }
-
-  .navbar .user .avatar span{
-    margin-left: 16px;
-    font-size: 20px;
-  }
 
 
   .contenedor {

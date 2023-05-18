@@ -8,6 +8,7 @@ import { RolService } from './services/rol-service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  implements OnInit{
+  isLoggedIn = false;
 
   constructor(public login:LoginService,private rolService:RolService) {
   }
@@ -15,14 +16,13 @@ export class AppComponent  implements OnInit{
   ngOnInit(): void {
 
     this.rolService.isAdmin(localStorage.getItem("user_current"));
+    this.login.isLoggedIn().subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = true;
+    })
 
   }
+  
 
-  async ionViewDidEnter(){
-
-    !this.login.isLoggedIn();
-
-  }
 
 
 

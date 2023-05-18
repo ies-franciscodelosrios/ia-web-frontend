@@ -9,7 +9,6 @@ import { CalendarComponent } from './calendar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
-import { SidebarCalendarComponent } from '../sidebar-calendar/sidebar-calendar.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -19,8 +18,7 @@ FullCalendarModule.registerPlugins([
 
 @NgModule({
   declarations: [   
-    CalendarComponent,
-    SidebarCalendarComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,

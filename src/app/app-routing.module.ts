@@ -5,6 +5,8 @@ import { AuthGuard } from './helpers/auth.guard';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { QuestionarieComponent } from './components/questionarie/questionarie.component';
+import { PollAssignmentsComponent } from './components/poll-assignments/poll-assignments.component';
 
 const routes: Routes = [
   { 
@@ -14,7 +16,19 @@ const routes: Routes = [
   },
   { 
     path: 'login',
-    component: LoginComponent 
+    component: LoginComponent
+  },
+  { 
+    path: 'q',
+    component: QuestionarieComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']},
+  },
+  { 
+    path: 'pa',
+    component: PollAssignmentsComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']},
   },
   { 
     path: 'login/admin',

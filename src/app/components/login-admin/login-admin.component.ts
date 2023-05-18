@@ -37,7 +37,7 @@ export class LoginAdminComponent {
               this.router.navigate(['/admindashboard']);
             } else {
               this.errorMessage = 'Este usuario no es Administrador'
-              this.loginService.deleteToken();
+              this.loginService.logout();
             }
           });
         });
