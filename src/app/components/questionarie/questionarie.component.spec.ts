@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidebarCalendarComponent } from './sidebar-calendar.component';
+import { QuestionarieComponent } from './questionarie.component';
 
-describe('SidebarCalendarComponent', () => {
-  let component: SidebarCalendarComponent;
-  let fixture: ComponentFixture<SidebarCalendarComponent>;
+describe('QuestionarieComponent', () => {
+  let component: QuestionarieComponent;
+  let fixture: ComponentFixture<QuestionarieComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidebarCalendarComponent ]
+      declarations: [ QuestionarieComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidebarCalendarComponent);
+    fixture = TestBed.createComponent(QuestionarieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,7 +7,7 @@
   background-size: 100%;
   max-width: 100%;
   background-repeat: no-repeat;
-  background-image: url('https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg');
+  background-color: #d8d8d8;
 }
 
 @media screen and (max-width: 1279px) {

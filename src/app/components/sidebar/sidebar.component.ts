@@ -19,7 +19,6 @@ export class SidebarComponent implements OnInit {
     await this.isAdminUser();
   }
 
-
   public async isAdminUser(){
       this.user= await this.userService.getUserProfileByIdNavision(localStorage.getItem("user_current"))
       this.isAdmin= await this.rolService.isAdmin(this.user.codigo);
@@ -30,7 +29,7 @@ export class SidebarComponent implements OnInit {
 
 
   public async logout(){
-    this.loginService.deleteToken();
+    this.loginService.logout();
     await this.router.navigate(['/login'])
 
   }
