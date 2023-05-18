@@ -36,7 +36,9 @@ export const environment = {
   postEventCreate:'event/save/assignUser/',
   delEventId:'event/delete/',
   delAllEventUser:'event/delete/user',
-  delEventUser:'event/delete/user/'
+  delEventUser:'event/delete/user/',
+  //Surveys Endpoints
+  getAllPollsAssignmentsByUser: 'pollAssignments/ByUser'
 };
 
 
