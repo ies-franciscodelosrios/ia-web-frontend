@@ -1,3 +1,16 @@
+.boton-margen{
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    margin-left: 10px;
+}
+
+.boton-margen:hover{
+    background-color: rgb(212, 212, 212);
+    color: black;
+    transition: ease;
+}
+
 .navbar-responsive {
     color: #fff;
     position: absolute;
@@ -76,6 +89,7 @@
 }
 .after-transform a {
     position: relative;
+    margin-top: 20px;
 }
 .after-transform a:after {
     content: "";

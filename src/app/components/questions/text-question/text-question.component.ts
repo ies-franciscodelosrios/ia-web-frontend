@@ -4,18 +4,24 @@ import { Question } from 'src/app/models/questions';
 import { Survey2 } from 'src/app/models/survey2';
 
 @Component({
-  selector: 'app-questionarie',
-  templateUrl: './questionarie.component.html',
-  styleUrls: ['./questionarie.component.css']
+  selector: 'app-text-question',
+  templateUrl: './text-question.component.html',
+  styleUrls: ['./text-question.component.css']
 })
-export class QuestionarieComponent implements OnInit {
+export class TextQuestionComponent implements OnInit {
+
   survey: Survey2;
   surveyForm: FormGroup;
 
   preguntas: Question[] = [
     new Question('¿Que te parecio la charla?'),
     new Question('¿La repetirías?'),
+    new Question('¿Que propones que cambiemos?'),
+    new Question('¿Que propones que cambiemos?'),
+    new Question('¿Que propones que cambiemos?'),
+    new Question('¿Que propones que cambiemos?'),
     new Question('¿Que propones que cambiemos?')
+
   ]
 
   constructor(private fb: FormBuilder) {}

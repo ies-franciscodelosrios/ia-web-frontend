@@ -17,6 +17,13 @@ import { AngularMaterialModule } from './components/shared/angular-material/angu
 import { QuestionarieComponent } from './components/questionarie/questionarie.component';
 import { MatTableModule } from '@angular/material/table';
 import { FooterComponent } from './components/footer/footer.component';
+import { SliderQuestionComponent } from './components/questions/slider-question/slider-question.component';
+import { TextQuestionComponent } from './components/questions/text-question/text-question.component';
+import { SelectQuestionComponent } from './components/questions/select-question/select-question.component';
+import { ToastrModule } from 'ngx-toastr';
+import { Ng5SliderModule } from 'ng5-slider';
+import { LeyendComponent } from './components/leyend/leyend.component';
+import { StepsComponent } from './components/steps/steps.component';
 
 
 @NgModule({
@@ -27,7 +34,13 @@ import { FooterComponent } from './components/footer/footer.component';
     PageNotFoundComponent,
     SidebarComponent,
     QuestionarieComponent,
-    FooterComponent
+    PollAssignmentsComponent,
+    FooterComponent,
+    SliderQuestionComponent,
+    TextQuestionComponent,
+    SelectQuestionComponent,
+    LeyendComponent,
+    StepsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +52,9 @@ import { FooterComponent } from './components/footer/footer.component';
     ReactiveFormsModule,
     NgbToastModule,
     AngularMaterialModule,
-    MatTableModule
+    MatTableModule,
+    Ng5SliderModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     HttpClient,

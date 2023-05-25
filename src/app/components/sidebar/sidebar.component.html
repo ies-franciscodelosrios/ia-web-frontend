@@ -1,5 +1,6 @@
-<div class="header">
-  <div class="navbar">
+<div [ngSwitch]="isAdmin" *ngIf="islogged" class="header">
+  <div *ngSwitchCase="false">
+    <div  class="navbar">
       <div class="navbar__wrapper">
           <nav class="navbar__menu"><a class="navbar__brand" routerLink="/profile"><img src="../../../assets/img/logo-atmira-rosa.svg" height="30" width="100" alt="" /></a>
               <div id="nav-icon3"><span></span><span></span><span></span><span></span></div>
@@ -9,7 +10,7 @@
                   <li class="navbar__link after-transform"><a routerLink="/calendar" routerLinkActive="active">Calendario</a></li>
                   <li class="navbar__link after-transform"><a routerLink="/polls-assignment" routerLinkActive="active">Encuestas</a></li>
                   <li class="navbar__link after-transform">
-                    <button type="button" (click)="logout()" class="btn btn-dark mt-1">
+                    <button type="button" (click)="logout()" class="btn boton-margen">
                       Cerrar Sesión 
                       <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
                     </button>
@@ -26,5 +27,36 @@
           <li class="navbar-responsive__link after-transform"><a routerLink="/polls-assignment" routerLinkActive="active">Encuestas</a></li>
       </ul>
   </div>
+  </div>
+  <div *ngSwitchCase="true">
+    <div  class="navbar">
+      <div class="navbar__wrapper">
+          <nav class="navbar__menu"><a class="navbar__brand" routerLink="/profile"><img src="../../../assets/img/logo-atmira-rosa.svg" height="30" width="100" alt="" /></a>
+              <div id="nav-icon3"><span></span><span></span><span></span><span></span></div>
+              <ul class="navbar__nav">
+                  <li class="navbar__link after-transform"><a routerLink="/admindashboard" routerLinkActive="active">Información</a></li>
+                  <li class="navbar__link after-transform"><a routerLink="/home" routerLinkActive="active">Usuarios</a></li>
+                  <li class="navbar__link after-transform"><a routerLink="/calendar" routerLinkActive="active">Roles</a></li>
+                  <li class="navbar__link after-transform"><a routerLink="/pa" routerLinkActive="active">Asignaciones</a></li>
+                  <li class="navbar__link after-transform">
+                    <button type="button" (click)="logoutAdmin()" class="btn boton-margen">
+                      Cerrar Sesión 
+                      <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
+                    </button>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+  </div>
+  <div class="navbar-responsive">
+      <ul class="navbar-responsive__nav" aria-expanded="true">
+          <li class="navbar-responsive__link after-transform"><a routerLink="/profile" routerLinkActive="active">Información</a></li>
+          <li class="navbar-responsive__link after-transform"><a routerLink="/home" routerLinkActive="active">Usuarios</a></li>
+          <li class="navbar-responsive__link after-transform"><a routerLink="/calendar" routerLinkActive="active">Roles</a></li>
+          <li class="navbar-responsive__link after-transform"><a routerLink="/pa" routerLinkActive="active">Asignaciones</a></li>
+      </ul>
+  </div>
+  </div>
 </div>
+
 
