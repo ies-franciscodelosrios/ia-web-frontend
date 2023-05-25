@@ -11,7 +11,7 @@ export const environment = {
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
   updateUser:'user',
-  updatePhotoProfile:'photo/update/',
+  updatePhotoProfile:'photo/',
   uploadPhoto:'photo/upload/',
   user:'user',
   //Turns Endpoints

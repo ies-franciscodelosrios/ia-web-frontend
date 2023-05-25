@@ -5,6 +5,7 @@ import { UserService } from '../../services/user-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { LoginService } from 'src/app/services/login-service';
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
 
 
 
-  constructor(private apiUser:UserService,private modalService: NgbModal,private fb:FormBuilder) {
+  constructor(private apiUser:UserService,private modalService: NgbModal,private fb:FormBuilder, private login:LoginService) {
 
     this.formUser=this.fb.group({
       name:["",Validators.required],
@@ -50,16 +51,18 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  async ionViewDidEnter(){
-
-
-  }
+  
 
   async ngOnInit() {
-    await this.getUserByDNI();
+    if(localStorage.getItem("user_current")){
+      this.login.isLoggedInSubject.next(true);
+    }else{
+      this.login.isLoggedInSubject.next(false);
+    }
+
+    await this.getUserByIDNavision();
+
     this.show=false;
-
-
 
     this.formUser=this.fb.group({
       name:[this.nameUser],
@@ -75,7 +78,7 @@ export class ProfileComponent implements OnInit {
 
 
 
-  public async getUserByDNI(){
+  public async getUserByIDNavision(){
     try{
       this.user=await this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"));
       await this.getDataUser();
@@ -110,8 +113,15 @@ export class ProfileComponent implements OnInit {
   public async getEvents(){
     try {
       let event:Event[]=await this.apiUser.getUserEvents(this.user.codigo);
-      this.events= event.length;
+
+      if(event){
+        this.events= event.length;
         return this.events;
+      }else{
+        this.events= 0;
+        return this.events;
+      }
+      
     } catch (err) {
       console.error(err);
       return err;
@@ -148,6 +158,8 @@ export class ProfileComponent implements OnInit {
 
   public async updateUser(){
    let userPhoto=this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"))
+   console.log(userPhoto);
+   
     let newUser:User = {
       name: this.formUser.get("name").value,
       apellido1: this.formUser.get("apellido1").value,
@@ -167,6 +179,7 @@ export class ProfileComponent implements OnInit {
     }
 
       await this.apiUser.updateUser(newUser);
+      await this.ngOnInit();
   }
 
 

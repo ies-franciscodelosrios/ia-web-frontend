@@ -10,21 +10,15 @@ import { RolService } from './services/rol-service';
 export class AppComponent  implements OnInit{
   isLoggedIn = false;
 
-  constructor(public login:LoginService,private rolService:RolService) {
-  }
+  constructor(public login:LoginService) {}
 
   ngOnInit(): void {
 
-    this.rolService.isAdmin(localStorage.getItem("user_current"));
-    this.login.isLoggedIn().subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = true;
-    })
+   
+   
 
   }
+
   
-
-
-
-
   title = 'ia';
 }
