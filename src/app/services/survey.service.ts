@@ -49,11 +49,11 @@ export class SurveyService {
     );
   }
 
-  findPollAssignment(IdQG: number){
+  findPollAssignment(pollId: number){
     this.PollsAssignmentData
     .pipe(
       switchMap(data => from(data)),
-      find(data => data.questionaryGroup.id === IdQG)
+      find(data => data.id === pollId)
     ).subscribe(
       data => {
         this.pollAssignmentFound$.next(data);

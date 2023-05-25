@@ -22,8 +22,8 @@ export const environment = {
   updateTurn: 'turn/update',
   getUserTurns: 'turn/getUserTurns',
   //Rols Endpoints
-  assignRolToUser: 'rol/assignRolToUser',
-  denyRolToUser: 'rol/denyRolToUser',
+  assignRolToUser: 'rol/assignRolToUser/',
+  denyRolToUser: 'rol/denyRolToUser/',
   getUsersOfOneRol: 'rol/getUsersOfOneRol',
   UserIsAdmin: 'rol/UserIsAdmin',
   UserIsSocio: 'rol/UserIsSocio',
