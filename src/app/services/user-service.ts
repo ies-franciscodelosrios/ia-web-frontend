@@ -32,9 +32,10 @@ export class UserService {
     let headers = new HttpHeaders()
     headers=headers.append('content-type','application/json')
     headers=headers.append('Access-Control-Allow-Origin', '*')
-    headers=headers.append('idnavision', idNavision)
+    headers=headers.append('idnavision', idNavision);
     let endpoint=environment.endpoint+environment.getUserByIDNAVISION;
     let user2:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
+    
     return user2;
   }
 
@@ -48,8 +49,12 @@ export class UserService {
 
 
   public async getUserEvents(dni:string):Promise<Event[]> {
-    let endpoint=environment.endpoint+environment.getUserEvents+dni;
-    let events:any=await this.http.get(endpoint,this.header).toPromise();
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('userId', dni);
+    let endpoint=environment.endpoint+environment.getUserEvents;
+    let events:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return events;
   }
 
@@ -116,7 +121,6 @@ export class UserService {
 
   upload(file: File,idNavision:string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    let endpoint=environment.endpoint+environment.updatePhotoProfile;
     formData.append('file', file);
     const req = new HttpRequest('PUT', `${environment.endpoint+environment.updatePhotoProfile+idNavision}`, formData, {
       reportProgress: true

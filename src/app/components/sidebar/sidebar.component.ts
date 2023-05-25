@@ -11,27 +11,38 @@ import { UserService } from 'src/app/services/user-service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  islogged:any;
   isAdmin:any
   user:User
-  constructor(private loginService: LoginService,private router: Router,private rolService:RolService,private userService:UserService) {  }
+  constructor(private loginService: LoginService,private router: Router,private rolService:RolService) {  }
 
- async ngOnInit() {
-    await this.isAdminUser();
+  ngOnInit() {
+    this.comprobarLogin();
+    console.log(this.islogged);
   }
-
-  public async isAdminUser(){
-      this.user= await this.userService.getUserProfileByIdNavision(localStorage.getItem("user_current"))
-      this.isAdmin= await this.rolService.isAdmin(this.user.codigo);
-      console.log(this.isAdmin);
-
-    return this.isAdmin;
-  }
-
 
   public async logout(){
     this.loginService.logout();
     await this.router.navigate(['/login'])
 
+  }
+
+  public async logoutAdmin(){
+    this.loginService.logout();
+    await this.router.navigate(['/login/admin'])
+
+  }
+
+  comprobarLogin(){
+    this.islogged=this.loginService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.islogged=isLoggedIn;
+    });
+    this.rolService.isAdmin(localStorage.getItem("user_current")).then((isUserAdmin: boolean) => {
+      this.isAdmin=isUserAdmin
+    })
+    .catch((error: any) => {
+      console.warn('Error al obtener el estado de administrador:', error);
+    });    
   }
 
 }

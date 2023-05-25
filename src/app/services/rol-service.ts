@@ -38,13 +38,22 @@ export class RolService {
       return this.http.get(endpoint,{'headers':headers}).toPromise();
     }
 
-    isAdmin(userId: string) {
+    isAdmin(userId: string) : Promise<boolean> {
       let headers = new HttpHeaders()
       headers = headers.append('content-type','application/json')
       headers = headers.append('Access-Control-Allow-Origin', '*')
       headers = headers.append('userId', userId)
       let endpoint = environment.endpoint+environment.UserIsAdmin;
-      return this.http.get(endpoint,{'headers':headers}).toPromise();
+      return new Promise<boolean>((resolve, reject) => {
+        this.http.get(endpoint, { headers: headers })
+          .toPromise()
+          .then((response: boolean) => {
+            resolve(response);
+          })
+          .catch((error: any) => {
+            reject(error);
+          });
+      });
     }
 
     isEvaluador(userId: string) {

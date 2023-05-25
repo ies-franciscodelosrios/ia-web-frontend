@@ -1,0 +1,65 @@
+ /* STEPS QUESTIONARIE */
+
+ .registercontpage {
+    position: relative;
+    z-index: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 15px;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 50px;
+}
+.btn-circle{
+	background: #fac7e5;
+    border: 1px solid black;
+}
+
+.stepwizard-step p {
+	margin-top: 10px;
+}
+.stepwizard-row {
+	display: table-row;
+}
+.stepwizard {
+    margin-top: 20px;
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.stepwizard-row:before {
+	top: 14px;
+	bottom: 0;
+	position: absolute;
+	content: " ";
+	width: 100%;
+	height: 1px;
+	background-color: #000000;
+	z-order: 0;
+}
+.stepwizard-step {
+	display: table-cell;
+	text-align: center;
+	position: relative;
+    color: black;
+}
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+}
+
+.active-pa{
+    background: #f833a6 !important;
+    border: 1px solid black !important;
+}

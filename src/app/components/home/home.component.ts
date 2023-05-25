@@ -40,10 +40,6 @@ export class HomeComponent implements OnInit {
         this.username = user.name;
         this.office = user.oficina;
       });
-
-      this.rolService.isAdmin('001').then(data => {
-        this.isAdmin=data;
-      });
   }
   
 

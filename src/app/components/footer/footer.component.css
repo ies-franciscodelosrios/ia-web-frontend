@@ -1,0 +1,33 @@
+
+    .footer{
+    background:#343a40;
+    padding:5px 0px;
+    font-family: 'Play', sans-serif;
+    text-align:center;
+    z-index: 0;
+    }
+    
+    .footer .row{
+        display:flex;
+        justify-content: center;
+    }
+
+    .footer .row h4{
+        margin-top: 1rem;
+        color:gray;
+    }
+    
+    @media (max-width:720px){
+    .footer{
+    text-align:left;
+    padding:5%;
+    }
+    .footer .row ul li{
+    display:block;
+    margin:10px 0px;
+    text-align:left;
+    }
+    .footer .row a i{
+    margin:0% 3%;
+    }
+    }

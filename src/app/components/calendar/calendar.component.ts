@@ -51,13 +51,10 @@ export class CalendarComponent implements OnInit{
     this.changeDetector.detectChanges();
     setTimeout(() => {
       this.calendarService.getEventsByUser(this.codigo).then((data: any[]) => {
-        console.log(data);
       this.calendarOptions.events=this.events = data.map((e:any) => ({id: e.id, title: e.name, start: e.date_Start_Event, description: e.description, allDay : true}));
       });
       this.changeDetector.detectChanges();
   }, 500);
-    console.log(this.events)
-    console.log("Esto es antes de las opciones del calendario")
 
     this.calendarOptions = {
       headerToolbar: {
@@ -93,7 +90,7 @@ export class CalendarComponent implements OnInit{
       }
     */
    };
-   console.log("Esto despues de las opciones del calendario")
+
    this.changeDetector.detectChanges();
   };
 
@@ -101,7 +98,6 @@ export class CalendarComponent implements OnInit{
 
   public async loadEvents(){
     this.calendarService.getEventsByUser(this.codigo).then((data: any[]) => {
-      console.log(data);
       this.calendarOptions.events=this.events = data.map((e:any) => ({id: e.id, title: e.name, start: e.date_Start_Event, description: e.description, allDay : true}));
     });
     this.changeDetector.detectChanges();
@@ -153,7 +149,6 @@ export class CalendarComponent implements OnInit{
       description:this.descripcion,
       user_id:this.codigo
     };
-    console.log(event);
     await this.calendarService.updateEvent(event,this.eventId)
     this.modalService.dismissAll();
     this.ngOnInit();
@@ -166,8 +161,6 @@ export class CalendarComponent implements OnInit{
     try{
       this.user=await this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"));
       await this.getCodeUser();
-      console.log(this.user);
-
     }catch(err){
       console.error(err);
     }
@@ -177,7 +170,6 @@ export class CalendarComponent implements OnInit{
   public async getCodeUser(){
     try {
       this.codigo=this.user.codigo;
-      console.log(this.codigo)
     } catch (err) {
       console.error(err);
     }

@@ -31,7 +31,7 @@ export class LoginAdminComponent {
       this.userService
         .getUserProfileByIdNavision(this.creds.login)
         .then((user: User) => {
-          this.rolService.isAdmin(user.codigo).then((response) => {
+          this.rolService.isAdmin(user.login).then((response) => {
 
             if (response) {
               this.router.navigate(['/admindashboard']);
