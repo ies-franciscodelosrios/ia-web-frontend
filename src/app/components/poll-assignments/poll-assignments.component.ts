@@ -1,19 +1,12 @@
-import {Component} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
-const enum TodoSliceEnum {
-  COMPLETE = "Complete",
-  INCOMPLETE = "Incomplete"
-}
+import { SurveyService } from './../../services/survey.service';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { PollAssignment } from 'src/app/models/survey';
+import { Router } from '@angular/router';
 
-class Todo {
-  id: string
-  description: string
-  completed: boolean
-}
 
-const todos: Todo[] = [{ id: '123', description: 'Complete me!', completed: false }]
-const todos2: Todo[] = [{ id: '321', description: 'Done!', completed: true }]
 @Component({
   selector: 'app-poll-assignments',
   templateUrl: './poll-assignments.component.html',
@@ -21,15 +14,51 @@ const todos2: Todo[] = [{ id: '321', description: 'Done!', completed: true }]
 })
 
 export class PollAssignmentsComponent {
- /**
-   * Control column ordering and which columns are displayed.
-   */
- displayedColumns:string[] =  ['id', 'description', 'actions']
- dataSource: MatTableDataSource<Todo>
 
- ngOnInit() {
-   const self = this;
-   this.dataSource = new MatTableDataSource(todos);
- }
- ngOnDestroy() {}
+  pollsAssignment: PollAssignment[] = []
+  pollsAssignmentFound: PollAssignment;
+  pollAssignmentSub: Subscription;
+  pollAssignmentFoundSub: Subscription;
+
+  displayedColumns: string[] = ['id', 'questionaryGroup.name', 'questionaryGroup.description'
+  , 'questionaryGroup.startDate', 'questionaryGroup.endDate', 'poll.signed', 'button'];
+  dataSource: MatTableDataSource<PollAssignment>;;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private surveyService: SurveyService, private route: Router) {} 
+
+  ngOnInit() {
+    this.getPollsAssignment()
+  }
+
+  getPollsAssignment() {
+    this.surveyService.loadData(localStorage.getItem("user_current"))
+    this.pollAssignmentSub = this.surveyService.PollsAssignmentData.subscribe(data => {
+      this.dataSource = new MatTableDataSource<PollAssignment>(data)
+      this.dataSource.paginator = this.paginator;
+      this.pollsAssignment = data
+      console.log(this.pollsAssignment)
+    })
+  }
+
+  getPollAssignmentFound(poll) {
+    if (this.pollAssignmentFoundSub instanceof Subscription) {
+      this.pollAssignmentFoundSub.unsubscribe()
+    }
+
+    this.surveyService.findPollAssignment(poll.id)
+    this.pollAssignmentFoundSub = this.surveyService.PollsAssignmentFound.subscribe(data => {
+      this.pollsAssignmentFound = data
+      console.log(this.pollsAssignmentFound)
+    })
+
+    this.route.navigate(['polls-assignment/questionnaire'], { queryParams: { id: poll.id }})
+  } 
+
+  ngOnDestroy() {
+    if (this.pollAssignmentSub instanceof Subscription) {
+      this.pollAssignmentSub.unsubscribe()
+    }   
+  }
+
 }

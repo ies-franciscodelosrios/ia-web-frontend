@@ -4,7 +4,8 @@ import { Rol } from 'src/app/models/rol';
 import { User } from 'src/app/models/user';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import { UserService } from 'src/app/services/user-service';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { RolService } from 'src/app/services/rol-service';
 
 
 @Component({
@@ -34,8 +35,13 @@ export class UseradmindashboardComponent implements OnInit {
   page_size :number = 5;
   page_number: number = 1;
   pageSizeOptions = [5, 10, 25];
+  rolNameCodeMapper = {
+    ADMIN: 1,
+    SOCIO: 2,
+    EVALUADOR: 3
+  }
 
-  constructor(private modalService: NgbModal, private userService:UserService,private fb:FormBuilder) {
+  constructor(private modalService: NgbModal, private userService:UserService,private fb:FormBuilder, private rolService: RolService) {
 
     this.formUserCreate=this.fb.group({
       codigo:[""],
@@ -46,7 +52,8 @@ export class UseradmindashboardComponent implements OnInit {
       login:[""],
       puesto:[""],
       oficina:[""],
-      password:[""]
+      password:[""],
+      rolSelect:new FormControl('ADMIN')
     })
 
 
@@ -57,9 +64,11 @@ export class UseradmindashboardComponent implements OnInit {
       apellido2:[""],
       email:[""],
       login:[""],
-      puesto:[""],
+      puesto:[""], 
       oficina:[""],
-      password:[""]
+      password:[""],
+      rolSelectUpdate:[""],
+      denyRolSelected:[""]
     })
 
 
@@ -77,7 +86,6 @@ export class UseradmindashboardComponent implements OnInit {
   public async getUserByDNI(codigo:string){
     try{
       this.user=await this.userService.getUserProfileByIdNavision(codigo);
-
       this.formUserUpdate=this.fb.group({
         codigo:[this.user.codigo],
         name:[this.user.name],
@@ -87,8 +95,8 @@ export class UseradmindashboardComponent implements OnInit {
         oficina:[this.user.oficina],
         login:[this.user.login],
         email:[this.user.email],
-
-
+        rolSelectUpdate:new FormControl("NO"),
+        denyRolSelected:new FormControl("NO")
       });
 
     }catch(err){
@@ -137,12 +145,16 @@ export class UseradmindashboardComponent implements OnInit {
        password: this.formUserCreate.get("password").value,
        profile_Picture: 'https://res.cloudinary.com/dgzlsuwnt/image/upload/v1676912069/profile_fcw78c.jpg'
      }
-     await this.userService.createUser(newUser);
+     let user = await this.userService.createUser(newUser);
+     let codigoRol = this.rolNameCodeMapper[this.formUserCreate.get("rolSelect").value]
+
+     await this.rolService.assignRolToUser(user.codigo,codigoRol);
      await this.ngOnInit();
    }
 
 
    public async updateUser(){
+    console.log(this.user)
     let newUser:User = {
       codigo: this.formUserUpdate.get("codigo").value,
       name: this.formUserUpdate.get("name").value,
@@ -160,9 +172,41 @@ export class UseradmindashboardComponent implements OnInit {
       password: this.user.password,
       profile_Picture: this.user.profile_Picture
     }
+      let user = await this.userService.updateUser(newUser);
 
-      await this.userService.updateUser(newUser);
-      await this.ngOnInit();
+      if (this.formUserUpdate.get("rolSelectUpdate").value === "NO" &&
+          this.formUserUpdate.get("denyRolSelected").value === "NO") {
+            await this.ngOnInit();
+            return;
+      }
+      if (this.formUserUpdate.get("rolSelectUpdate").value === "NO" &&
+          this.formUserUpdate.get("denyRolSelected").value !== "NO") {
+          let rolRemoved = this.rolNameCodeMapper[this.formUserUpdate.get("denyRolSelected").value]
+          await this.rolService.denyRolToUser(user.codigo, rolRemoved);
+          await this.ngOnInit();
+          return;  
+      }
+      if (this.formUserUpdate.get("denyRolSelected").value == "NO" &&
+          this.formUserUpdate.get("rolSelectUpdate").value !== "NO") {
+          let rolUpdated = this.rolNameCodeMapper[this.formUserUpdate.get("rolSelectUpdate").value]
+          await this.rolService.assignRolToUser(user.codigo, rolUpdated);
+          await this.ngOnInit();
+          return;
+      }
+      if (this.formUserUpdate.get("denyRolSelected").value !== "NO" &&
+          this.formUserUpdate.get("rolSelectUpdate").value !== "NO") {
+          let rolUpdated = this.rolNameCodeMapper[this.formUserUpdate.get("rolSelectUpdate").value]
+          let rolRemoved = this.rolNameCodeMapper[this.formUserUpdate.get("denyRolSelected").value]
+          await this.rolService.assignRolToUser(user.codigo, rolUpdated);
+          await this.rolService.denyRolToUser(user.codigo, rolRemoved);
+          await this.ngOnInit();
+          return;
+      }
+      /*let rolUpdated = this.rolNameCodeMapper[this.formUserUpdate.get("rolSelectUpdate").value]
+      let rolRemoved = this.rolNameCodeMapper[this.formUserUpdate.get("denyRolSelected").value]
+      
+      await this.rolService.assignRolToUser(user.codigo, rolUpdated);
+      await this.rolService.denyRolToUser(user.codigo, rolRemoved);*/     
   }
 
 
@@ -173,10 +217,9 @@ export class UseradmindashboardComponent implements OnInit {
    */
 
   open(content: any) {
-    this.modalService.open(content,  { windowClass : "./profile.component.css"}).result.then((result) => {
+    this.modalService.open(content,  { windowClass : "../profile.component.css"}).result.then((result) => {
       this.createUser();
       this.closeResult = `Closed with: ${result}`;
-
       //window.location.reload();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -185,10 +228,8 @@ export class UseradmindashboardComponent implements OnInit {
   }
 
   public async open2(content: any) {
-    this.modalService.open(content,  { windowClass : "./profile.component.css"}).result.then(async (result) => {
+    this.modalService.open(content,  { windowClass : "../profile.component.css"}).result.then(async (result) => {
       this.closeResult = `Closed with: ${result}`;
-
-
       //window.location.reload();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -219,4 +260,38 @@ export class UseradmindashboardComponent implements OnInit {
            }
        }
 
+       checkRoleUpdate(rol: string): boolean {
+        if (this.user.rols.length >=2 ) {
+          return true;
+        }
+
+        if (rol === 'EVALUADOR' || rol === 'SOCIO') {
+          let resultSocio = this.user.rols.some(role => role.rolname === 'SOCIO');
+          let resultEvaluador = this.user.rols.some(role => role.rolname === 'EVALUADOR');
+          if (resultSocio && resultEvaluador) {
+            return true
+          }
+          if (resultEvaluador) {
+            return true
+          }
+          if (resultSocio) {
+            return true
+          }
+          return false
+        }
+        
+        return this.user.rols.some(role => role.rolname === rol);
+
+      }
+
+      checkRoleDenie(rolName: string) {
+        switch(rolName) {
+          case 'ADMIN':
+            return !this.user.rols.some(role => role.rolname === rolName)
+          case 'EVALUADOR':
+            return !this.user.rols.some(role => role.rolname === rolName)
+          case 'SOCIO':
+            return !this.user.rols.some(role => role.rolname === rolName)
+        }
+      }
 }

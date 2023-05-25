@@ -15,7 +15,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AngularMaterialModule } from './components/shared/angular-material/angular-material.module';
 import { QuestionarieComponent } from './components/questionarie/questionarie.component';
-import { PollAssignmentsComponent } from './components/poll-assignments/poll-assignments.component';
 import { MatTableModule } from '@angular/material/table';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -28,7 +27,6 @@ import { FooterComponent } from './components/footer/footer.component';
     PageNotFoundComponent,
     SidebarComponent,
     QuestionarieComponent,
-    PollAssignmentsComponent,
     FooterComponent
   ],
   imports: [

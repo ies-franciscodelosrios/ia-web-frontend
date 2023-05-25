@@ -13,20 +13,20 @@ export class RolService {
       let headers = new HttpHeaders()
       headers = headers.append('content-type','application/json')
       headers = headers.append('Access-Control-Allow-Origin', '*')
-      headers = headers.append('userId', userId)
-      headers = headers.append('rolId', ""+rolId)
-      let endpoint = environment.endpoint+environment.assignRolToUser;
-      return this.http.get(endpoint,{'headers':headers}).toPromise();
+      /*headers = headers.append('rolId', ""+rolId)
+      headers = headers.append('userId', userId)*/
+      let endpoint = environment.endpoint+environment.assignRolToUser+userId+"/"+rolId;
+      return this.http.post(endpoint,{'headers':headers}).toPromise();
     }
 
     denyRolToUser(userId: string, rolId:number) {
       let headers = new HttpHeaders()
       headers = headers.append('content-type','application/json')
-      headers = headers.append('Access-Control-Allow-Origin', '*')
+      /*headers = headers.append('Access-Control-Allow-Origin', '*')
       headers = headers.append('userId', userId)
-      headers = headers.append('rolId', ""+rolId)
-      let endpoint = environment.endpoint+environment.denyRolToUser;
-      return this.http.get(endpoint,{'headers':headers}).toPromise();
+      headers = headers.append('rolId', ""+rolId)*/
+      let endpoint = environment.endpoint+environment.denyRolToUser+userId+"/"+rolId;
+      return this.http.delete(endpoint,{'headers':headers}).toPromise();
     }
 
     getUsersOfOneRol(rolId:number) {

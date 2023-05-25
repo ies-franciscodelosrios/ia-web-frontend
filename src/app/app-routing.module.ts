@@ -6,7 +6,6 @@ import { LoginAdminComponent } from './components/login-admin/login-admin.compon
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { QuestionarieComponent } from './components/questionarie/questionarie.component';
-import { PollAssignmentsComponent } from './components/poll-assignments/poll-assignments.component';
 
 const routes: Routes = [
   { 
@@ -19,14 +18,14 @@ const routes: Routes = [
     component: LoginComponent
   },
   { 
-    path: 'q',
+    path: 'polls-assignment/questionnaire',
     component: QuestionarieComponent,
     canActivate: [AuthGuard, HasRoleGuard],
     data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']},
   },
   { 
-    path: 'pa',
-    component: PollAssignmentsComponent,
+    path: 'polls-assignment',
+    loadChildren: () => import('./components/poll-assignments/poll-assignments.module').then((m) => m.PollAssignmentsModule),
     canActivate: [AuthGuard, HasRoleGuard],
     data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']},
   },

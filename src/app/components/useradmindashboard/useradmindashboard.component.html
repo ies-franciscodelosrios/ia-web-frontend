@@ -93,6 +93,29 @@
                                 <label>Oficina</label>
                                 <input type="text" name="oficina"   formControlName="oficina">
                               </div>
+                              <div class="user-box">
+                                <label>Seleccionar Rol</label>
+                                <div class="select">
+                                  <select class="select-body" formControlName="rolSelectUpdate">
+                                    <option value="NO">No Seleccionado</option>
+                                    <option [disabled]="checkRoleUpdate('ADMIN')" value="ADMIN">Admin</option>
+                                    <option [disabled]="checkRoleUpdate('EVALUADOR')" value="EVALUADOR">Evaluador</option>
+                                    <option [disabled]="checkRoleUpdate('SOCIO')" value="SOCIO">Socio</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="user-box">
+                                <label>Eliminar Rol</label>
+                                <div class="select">
+                                  <select class="select-body" formControlName="denyRolSelected">
+                                    <option selected value="NO">No Seleccionado</option>
+                                    <option [disabled]="checkRoleDenie('ADMIN')" value="ADMIN">Admin</option>
+                                    <option [disabled]="checkRoleDenie('EVALUADOR')" value="EVALUADOR">Evaluador</option>
+                                    <option [disabled]="checkRoleDenie('SOCIO')" value="SOCIO">Socio</option>
+                                  </select>
+                                </div>
+                              </div>
                             </form>
                           </div>
                         <div class="modal-footer">
@@ -182,10 +205,12 @@
             <input type="text" name="password"   formControlName="password">
           </div>
           <div class="user-box">
-            <label>Selecciona el rol</label>
+            <label>Seleccionar Rol</label>
             <div class="select">
-              <select class="select-body">
-                <option  *ngFor="let user of users" [value]="user.name">{{user.name}}</option>
+              <select class="select-body" formControlName="rolSelect">
+                <option value="ADMIN">Admin</option>
+                <option value="EVALUADOR">Evaluador</option>
+                <option value="SOCIO">Socio</option>
               </select>
             </div>
           </div>

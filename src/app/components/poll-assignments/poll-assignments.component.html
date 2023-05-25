@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-  <div class="containerTable">
-    <h1>Asignaciones</h1>
-    <mat-table class="mat-elevation-z8" [dataSource]="dataSource">
+  <h1 class="title-poll">Asignaciones</h1>
+  <div class="mat-elevation-z8">
+    <table style="margin-top: 35px;" mat-table [dataSource]="dataSource">
+
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef>Título</mat-header-cell>
-        <mat-cell *matCellDef="let row;">{{row.id}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>PA ID</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
       </ng-container>
-      <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
-        <mat-cell *matCellDef="let row;">{{row.description}}</mat-cell>
+
+      <ng-container matColumnDef="questionaryGroup.name">
+        <th mat-header-cell *matHeaderCellDef>Nombre Cuestionario
+        </th>
+        <td mat-cell *matCellDef="let element">{{element.questionaryGroup.name}}</td>
       </ng-container>
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let row;">
-          <button type="button" class="btn btn-primary">Primary</button>
-        </mat-cell>
+
+      <ng-container matColumnDef="questionaryGroup.description">
+        <th mat-header-cell *matHeaderCellDef>Descripcion Cuestionario
+        </th>
+        <td mat-cell *matCellDef="let element">{{element.questionaryGroup.description}}</td>
       </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns">
-      </mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
+
+      <ng-container matColumnDef="questionaryGroup.startDate">
+        <th mat-header-cell *matHeaderCellDef>Fecha Inicio
+        </th>
+        <td mat-cell *matCellDef="let element">{{element.questionaryGroup.startDate| date}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="questionaryGroup.endDate">
+        <th mat-header-cell *matHeaderCellDef>Fecha Final
+        </th>
+        <td mat-cell *matCellDef="let element">{{element.questionaryGroup.endDate| date}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="poll.signed">
+        <th mat-header-cell *matHeaderCellDef>Firmado
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element.poll.signed; else elseBlock">
+            <i class="far fa-check-circle fa-lg"></i>
+          </div>
+          <ng-template #elseBlock>
+            <i class="far fa-times-circle fa-lg"></i>
+          </ng-template>
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef>Questionario</th>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="getPollAssignmentFound(element)" mat-raised-button color="accent">Abrir Cuestionario</button>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+    ></mat-paginator>
   </div>
-
-
-
 </body>
 </html>
+

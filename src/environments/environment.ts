@@ -11,7 +11,7 @@ export const environment = {
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
   updateUser:'user',
-  updatePhotoProfile:'photo/update/',
+  updatePhotoProfile:'photo/',
   uploadPhoto:'photo/upload/',
   user:'user',
   //Turns Endpoints
@@ -22,8 +22,8 @@ export const environment = {
   updateTurn: 'turn/update',
   getUserTurns: 'turn/getUserTurns',
   //Rols Endpoints
-  assignRolToUser: 'rol/assignRolToUser',
-  denyRolToUser: 'rol/denyRolToUser',
+  assignRolToUser: 'rol/assignRolToUser/',
+  denyRolToUser: 'rol/denyRolToUser/',
   getUsersOfOneRol: 'rol/getUsersOfOneRol',
   UserIsAdmin: 'rol/UserIsAdmin',
   UserIsSocio: 'rol/UserIsSocio',
