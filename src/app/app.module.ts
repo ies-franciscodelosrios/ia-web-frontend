@@ -34,7 +34,6 @@ import { StepsComponent } from './components/steps/steps.component';
     PageNotFoundComponent,
     SidebarComponent,
     QuestionarieComponent,
-    PollAssignmentsComponent,
     FooterComponent,
     SliderQuestionComponent,
     TextQuestionComponent,
