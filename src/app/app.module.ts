@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppComponent } from './app.component';
 import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { Ng5SliderModule } from 'ng5-slider';
 import { LeyendComponent } from './components/leyend/leyend.component';
 import { StepsComponent } from './components/steps/steps.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -34,7 +35,6 @@ import { StepsComponent } from './components/steps/steps.component';
     PageNotFoundComponent,
     SidebarComponent,
     QuestionarieComponent,
-    PollAssignmentsComponent,
     FooterComponent,
     SliderQuestionComponent,
     TextQuestionComponent,

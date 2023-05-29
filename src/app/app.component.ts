@@ -13,12 +13,12 @@ export class AppComponent  implements OnInit{
   constructor(public login:LoginService) {}
 
   ngOnInit(): void {
+    console.log()
 
-   
-   
+
 
   }
 
-  
+
   title = 'ia';
 }

@@ -1,4 +1,4 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -15,9 +15,12 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    //"types": [ "node", "jest" ]
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictTemplates": false,
+    "enableIvy": false
   }
 }

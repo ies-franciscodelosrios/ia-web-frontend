@@ -37,7 +37,6 @@ export class PollAssignmentsComponent {
       this.dataSource = new MatTableDataSource<PollAssignment>(data)
       this.dataSource.paginator = this.paginator;
       this.pollsAssignment = data
-      console.log(this.pollsAssignment)
     })
   }
 

@@ -51,11 +51,12 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  
+
 
   async ngOnInit() {
     if(localStorage.getItem("user_current")){
       this.login.isLoggedInSubject.next(true);
+
     }else{
       this.login.isLoggedInSubject.next(false);
     }
@@ -121,7 +122,7 @@ export class ProfileComponent implements OnInit {
         this.events= 0;
         return this.events;
       }
-      
+
     } catch (err) {
       console.error(err);
       return err;
@@ -159,7 +160,7 @@ export class ProfileComponent implements OnInit {
   public async updateUser(){
    let userPhoto=this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"))
    console.log(userPhoto);
-   
+
     let newUser:User = {
       name: this.formUser.get("name").value,
       apellido1: this.formUser.get("apellido1").value,
