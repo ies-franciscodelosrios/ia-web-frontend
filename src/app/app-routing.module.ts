@@ -64,6 +64,12 @@ const routes: Routes = [
     data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']} 
   },
   { 
+    path: 'survey',
+    loadChildren: () => import('./components/survey/survey.module').then((m) => m.SurveyModule),
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {allowedRoles: ['SOCIO', 'EVALUADOR', 'ADMIN']} 
+  },
+  { 
     path: 'page-not-found',
     component: PageNotFoundComponent 
   },

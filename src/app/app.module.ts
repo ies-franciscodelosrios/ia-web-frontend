@@ -39,7 +39,7 @@ import { StepsComponent } from './components/steps/steps.component';
     TextQuestionComponent,
     SelectQuestionComponent,
     LeyendComponent,
-    StepsComponent
+    StepsComponent,
   ],
   imports: [
     BrowserModule,

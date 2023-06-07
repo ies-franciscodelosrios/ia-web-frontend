@@ -1,0 +1,396 @@
+.survey-container { 
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  margin-top: 3.5em;
+  gap: 0px 7.5em; 
+  grid-template-areas:
+    "col1 col2";
+}
+
+.col1 {
+  grid-area: col1;
+  justify-self: end; 
+  align-self: stretch;
+  width: 100%;
+}
+
+.col2 {
+  grid-area: col2;
+  justify-self: start; 
+  align-self: stretch; 
+  width: 100%;
+}
+
+.title-survey {
+  font-size: 30px;
+  font-weight: 500;
+  position: relative;
+  display: block;
+  padding-bottom: 5px;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.title-survey::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 80px;
+  background: #c81a67;
+}
+
+.qgForm {
+  background-color: #fff;
+  width: 85%;
+  margin-left: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="range"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #ccc;
+  border-bottom-width: 2.5px;
+  border-radius: 5px;
+}
+
+.btn-submit {
+  width: 30%;
+  background-color: #e81f76;
+  color: #fff;
+  padding: 8px;
+  margin-top: 2em;
+  border-radius: 5px;
+  border: 1px solid #c81a67;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  font-size: 1.2em;
+}
+
+.btn-submit i {
+  margin-top: 1.5px;
+}
+
+input[type="text"]:focus,
+input[type="range"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #c81a67;
+}
+
+input[type="text"]:valid,
+input[type="range"]:valid,
+input[type="date"]:valid,
+textarea:valid {
+  outline: none;
+  border-color: #c81a67;
+}
+
+textarea {
+  height: 100px;
+}
+
+.btn-submit:hover {
+  background-color: #c81a67;
+}
+
+label {
+  display: block;
+}
+
+
+.checkbox-select-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-container {
+  width: 50%;
+}
+
+.select-container select {
+  width: 50%;
+}
+
+#categoria {
+  border-radius: 5px;
+  border: 1.5px solid #ccc;
+  border-bottom-width: 2.5px;
+  padding: 3.5px;
+}
+
+.checkbox-container {
+  width: 30%;
+}
+
+.questionsForm {
+  background-color: #fff;
+  width: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.responseOptions {
+  display: block;
+  margin-top: 1.2em;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.tabs__label {
+  padding: 10px;
+  margin-top: 0px;
+  cursor: pointer;
+}
+
+.tabs__radio {
+  display: none;
+}
+
+.tabs__content {
+  order: 1;
+  width: 100%;
+  display: none;
+}
+
+.tabs__radio:checked + .tabs__label {
+  font-weight: bold;
+  color: #c81a67;
+  border-bottom: 2px solid #c81a67;
+}
+
+.tabs__radio:checked + .tabs__label + .tabs__content {
+  display: initial;
+}
+
+
+.add-relation {
+  margin-top: 2.5em;
+  background-color: #fff;
+  width: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-box-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-box {
+  width: 48%;
+  position: relative;
+}
+
+.select-option {
+  position: relative;
+  outline: 0;
+  border-radius: 5px;
+  border: 1.5px solid #ccc;
+  border-bottom-width: 2.5px;
+}
+
+.select-option input {
+    width: 100%;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 0 !important;
+    outline: 0 !important;
+}
+
+.select-option:after {
+    content:"";
+    border-top: 12px solid #535252;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.content {
+    background-color: #cf81a3;
+    position: absolute;
+    color: #fff;
+    border-radius: 7px;
+    margin-top: 15px;
+    width: 100%;
+    padding: 20px;
+    z-index: 999;
+    display: none;
+}
+
+.search input {
+    width: 100%;
+    font-size: 17px;
+    padding: 10px;
+    outline: 0;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+}
+
+.options {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.options::-webkit-scrollbar {
+  width: 12px;           
+}
+
+.options::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 20px;       
+}
+
+.options::-webkit-scrollbar-thumb {
+  background: #e81f76;  
+  border-radius: 20px;     
+}
+
+.options li {
+    width: 95%;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+}
+
+.options li:hover {
+    background-color: #b95c84;   
+}
+
+.select-box.active .content {
+  display: block;
+}
+
+.select-box.active .select-option:after {
+  transform: rotate(-180deg);
+}
+
+.edit-survey {
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Estilos tabla*/
+
+.qgTable {
+  margin-left: auto;
+  margin-top: 2.5em;
+  background-color: #fff;
+  width: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 85%;
+}
+
+th {
+  background-color: #e81f76;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  margin-bottom: 1rem;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #ff4081 !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color:  #ff4081 !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #ff4081 !important;
+}
+
+
+.mat-cell {
+padding: 8px 8px 8px 0;
+}
+
+.mat-table {
+display: table;
+width: 100%;
+}
+
+.mat-header-row, .mat-row {
+display: table-row;
+padding: 0;
+border: none;
+}
+
+.mat-header-cell,  .mat-cell {
+display: table-cell;
+height: 48px;
+vertical-align: middle;
+border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+
+@media(max-width: 1040px) {
+  .survey-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "col1" 
+    "col2";
+  }
+  .qgForm, .qgTable, .questionsForm, .add-relation {
+    margin: 0 auto;
+    margin-bottom: 2.5em;
+  }
+}

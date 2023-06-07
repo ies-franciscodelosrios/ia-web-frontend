@@ -18,7 +18,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.comprobarLogin();
-    console.log(this.islogged);
   }
 
   public async logout(){

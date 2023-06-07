@@ -77,7 +77,6 @@ export class UserService {
       if(user){
         this.http.put(endpoint,user,this.header).toPromise().then(d=>{
           resolve(user);
-          console.log(user);
         }).catch(err=> reject(err));
       }else{
         reject('No hay resultados')
@@ -130,6 +129,23 @@ export class UserService {
 
   }
 
+  getAllUsersRelations() {
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    const endpoint = environment.endpoint+environment.getAllUsersRelations;
+    let userRelations:any = this.http.get(endpoint,{'headers':headers}).toPromise()
+    return userRelations;
+  }
+
+  createUserRelation(userRelation) {
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    const endpoint = environment.endpoint+environment.createUserRelation;
+    let userRelations:any = this.http.post(endpoint,userRelation,{'headers':headers}).toPromise()
+    return userRelations;
+  }
 
 
   private get header():any{

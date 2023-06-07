@@ -1,0 +1,219 @@
+<div class="survey-container">
+  <div class="col1">
+    <form class="qgForm" action="#" method="post" [formGroup]="surveyForm" (ngSubmit)="submitSurvey()">
+      <div class="title-survey">Crear una Encuesta</div>
+      <label for="nombre">Nombre de la encuesta</label>
+      <input formControlName="name" type="text" id="nombre" name="nombre" required />
+
+      <label for="descripcion">Descripción de la encuesta</label>
+      <textarea formControlName="description" id="descripcion" name="descripcion" required></textarea>
+
+      <div class="checkbox-select-container">
+        <div class="select-container">
+          <label for="categoria">Categoría de la persona</label>
+          <select formControlName="personCategory" id="categoria" name="categoria" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="checkbox-container">
+          <label for="activa">Activar Encuesta</label>
+          <mat-slide-toggle formControlName="active" id="active" name="active"></mat-slide-toggle>
+        </div>
+      </div>
+
+      <label for="fechaInicio">Fecha de inicio</label>
+      <input formControlName="startDate" type="date" id="fechaInicio" name="fechaInicio" required />
+
+      <label for="fechaFinalizacion">Fecha de finalización</label>
+      <input formControlName="endDate" type="date" id="fechaFinalizacion" name="fechaFinalizacion" required />
+
+      <button class="btn-submit">Crear Encuesta <i class="fas fa-plus-circle"></i></button>
+    </form>
+
+    <div class="qgTable">
+      <div class="title-survey">Activar / Desactivar Encuestas</div>
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtra por cualquier parámetro..." #input />
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Codigo</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+            <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef>Inicio</th>
+            <td mat-cell *matCellDef="let row">{{ row.startDate | date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef>Fin</th>
+            <td mat-cell *matCellDef="let row">{{ row.endDate | date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Activar</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row.active" (change)="toggleActive(row)">
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No hay datos que coincidan con el filtro "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+  <div class="col2">
+    <div class="questionsForm">
+      <div class="title-survey">Crear nueva Pregunta</div>
+      <div class="tabs">
+        <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
+        <label for="tab1" class="tabs__label">Texto</label>
+        <div class="tabs__content">
+          <form class="textForm" action="#" method="post" [formGroup]="questionTextForm" (ngSubmit)="submitTextQuestion()">
+            <label for="textQuestion">Escribe la pregunta</label>
+            <input formControlName="text" type="text" id="textQuestion" name="textQuestion" required />
+            <button class="btn-submit">Crear Pregunta <i class="fas fa-plus-circle"></i></button>
+          </form>
+        </div>
+        <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+        <label for="tab2" class="tabs__label">Selección Múltiple</label>
+        <div class="tabs__content">
+          <form class="radioForm" action="#" method="post" [formGroup]="questionRadioForm" (ngSubmit)="submitRadioQuestion()">
+            <label for="radioQuestion">Escribe la pregunta</label>
+            <input formControlName="text" type="text" id="radioQuestion" name="radioQuestion" required />
+            <span class="responseOptions">Opciones de respuesta:</span>
+            <label for="response1">Primera respuesta</label>
+            <input formControlName="radioResponse1" type="text" id="response1" name="response1" required />
+            <label for="response2">Segunda respuesta</label>
+            <input formControlName="radioResponse2" type="text" id="response2" name="response2" required />
+            <label for="response3">Tercera respuesta</label>
+            <input formControlName="radioResponse3" type="text" id="response3" name="response3" required />
+            <button class="btn-submit">Crear Pregunta <i class="fas fa-plus-circle"></i></button>
+          </form>
+        </div>
+        <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
+        <label for="tab3" class="tabs__label">Slider</label>
+        <div class="tabs__content">
+          <form class="sliderForm" action="#" method="post" [formGroup]="questionSliderForm" (ngSubmit)="submitSliderQuestion()">
+            <label for="sliderQuestion">Escribe la pregunta</label>
+            <input formControlName="text" type="text" id="sliderQuestion" name="sliderQuestion" required />
+            <button class="btn-submit">Crear Pregunta <i class="fas fa-plus-circle"></i></button>
+          </form>
+        </div>
+      </div>  
+    </div>
+
+    <div class="add-relation">
+      <div class="title-survey">Asignar Encuesta</div>
+      <div class="select-box-container">
+        <div class="select-box" #selectBoxSurvey>
+          <div class="select-option">
+            <input (click)="toggleSelectBoxSurvey()" type="text" placeholder="Selecciona una encuesta..."
+              #inputSurveyValue readonly name="" />
+          </div>
+          <div class="content">
+            <div class="search">
+              <input #inputSearchSurvey (input)="filterSurveys()" type="text" id="optionSearch"
+                placeholder="Buscar encuesta..." name="" />
+            </div>
+            <ul #ulOptionsSurvey class="options">
+              <li *ngFor="let survey of surveysNames" (click)="setInputSurveyValue(survey)">
+                {{ survey }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="select-box" #selectBoxUser>
+          <div class="select-option">
+            <input (click)="toggleSelectBoxUser()" type="text" placeholder="Selecciona un usuario..." #inputUserValue
+              readonly name="" />
+          </div>
+          <div class="content">
+            <div class="search">
+              <input #inputSearchUser (input)="filterUsers()" type="text" id="optionSearch"
+                placeholder="Buscar usuario..." name="" />
+            </div>
+            <ul #ulOptionsUser class="options">
+              <li *ngFor="let user of users" (click)="setInputUserValue(user)">
+                {{ user }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <button (click)="assignSurvey()" class="btn-submit">Asignar <i class="fas fa-plus-circle"></i></button>
+    </div>
+
+    <div class="add-relation">
+      <div class="title-survey">Asignar Pregunta a Encuesta</div>
+      <div class="select-box-container">
+        <div class="select-box" #selectBoxSurveyQuestion>
+          <div class="select-option">
+            <input (click)="toggleSelectBoxSurveyQuestion()" type="text" placeholder="Selecciona una encuesta..."
+              #inputSurveyQuestionValue readonly name="" />
+          </div>
+          <div class="content">
+            <div class="search">
+              <input #inputSearchSurveyQuestion (input)="filterSurveysQuestion()" type="text" id="optionSearch"
+                placeholder="Buscar encuesta..." name="" />
+            </div>
+            <ul #ulOptionsSurveyQuestion class="options">
+              <li *ngFor="let survey of surveysNames" (click)="setInputSurveyQuestionValue(survey)">
+                {{ survey }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="select-box" #selectBoxQuestion>
+          <div class="select-option">
+            <input (click)="toggleSelectBoxQuestion()" type="text" placeholder="Selecciona una pregunta..." #inputQuestionValue
+              readonly name="" />
+          </div>
+          <div class="content">
+            <div class="search">
+              <input #inputSearchQuestion (input)="filterQuestions()" type="text" id="optionSearch"
+                placeholder="Buscar pregunta..." name="" />
+            </div>
+            <ul #ulOptionsQuestion class="options">
+              <li *ngFor="let question of questionsNames" (click)="setInputQuestionValue(question)">
+                {{ question }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <button (click)="assignSurveyQuestion()" class="btn-submit">Asignar <i class="fas fa-plus-circle"></i></button>
+    </div>
+
+  </div>
+</div>
