@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
     })
     .catch((error: any) => {
       console.warn('Error al obtener el estado de administrador:', error);
-    });    
+    });
   }
 
 }

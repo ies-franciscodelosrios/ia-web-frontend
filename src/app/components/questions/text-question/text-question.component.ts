@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Question } from 'src/app/models/questions';
-import { Survey2 } from 'src/app/models/survey2';
+import {modelObject} from 'src/app/models/surveyFG';
+import {combineLatest, Observable, Subscription} from "rxjs";
+import {SurveyService} from "../../../services/survey.service";
+import {take, takeLast} from "rxjs/operators";
+import {PollAssignment} from "../../../models/survey";
 
 @Component({
   selector: 'app-text-question',
@@ -9,43 +13,38 @@ import { Survey2 } from 'src/app/models/survey2';
   styleUrls: ['./text-question.component.css']
 })
 export class TextQuestionComponent implements OnInit {
+  questionnaire: FormGroup;
+  preguntas: Question [] = [];
+  questionsSub: Subscription;
+  pollsAssignmentFound: PollAssignment;
+  nameQG: string
 
-  survey: Survey2;
-  surveyForm: FormGroup;
-
-  preguntas: Question[] = [
-    new Question('¿Que te parecio la charla?'),
-    new Question('¿La repetirías?'),
-    new Question('¿Que propones que cambiemos?'),
-    new Question('¿Que propones que cambiemos?'),
-    new Question('¿Que propones que cambiemos?'),
-    new Question('¿Que propones que cambiemos?'),
-    new Question('¿Que propones que cambiemos?')
-
-  ]
-
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private _surveyService: SurveyService) {
+  }
 
   ngOnInit() {
-    this.survey = new Survey2('Encuesta sobre la charla de SPA', this.preguntas);
 
-    this.surveyForm = this.fb.group({
-      questions: this.fb.array(
-        this.survey.questions.map((question) =>
-          this.fb.group({
-            answer: '',
-          })
-        )
-      ),
+
+  }
+
+  /*
+  combinateSubscriptions(){
+    combineLatest(
+      this._surveyService.AllQuestions,
+      this._surveyService.PollsAssignmentFound
+    ).subscribe(([questionsData, pollsData]) => {
+      console.log([questionsData,pollsData]);
+      const questionsArray = this.questionnaire.get('questions') as FormArray;
+      questionsData.forEach((questionData: Question) => {
+        const questionGroup = this.createQuestion(questionData.text);
+        questionsArray.push(questionGroup);
+      });
+
+      this.pollsAssignmentFound = pollsData;
+      this.nameQG = pollsData.questionaryGroup.name;
     });
   }
 
+   */
 
-
-  onSubmit() {
-    const responses = this.surveyForm.value.questions.map(
-      (question) => question.answer
-    );
-    console.log(responses);
-  }
 }

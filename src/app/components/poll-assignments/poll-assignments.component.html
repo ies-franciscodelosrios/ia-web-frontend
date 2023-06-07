@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <h1 class="title-poll">Asignaciones</h1>
+  <h1 class="title-poll">Encuestas</h1>
   <div class="mat-elevation-z8">
     <table style="margin-top: 35px;" mat-table [dataSource]="dataSource">
 
@@ -52,14 +52,14 @@
           </ng-template>
         </td>
       </ng-container>
-      
+
       <ng-container matColumnDef="button">
         <th mat-header-cell *matHeaderCellDef>Questionario</th>
         <td mat-cell *matCellDef="let element">
           <button (click)="getPollAssignmentFound(element)" mat-raised-button color="accent">Abrir Cuestionario</button>
         </td>
       </ng-container>
-      
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>

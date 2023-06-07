@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-leyend',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./leyend.component.css']
 })
 export class LeyendComponent implements OnInit {
+  @Input() nameQG: string;
+  @Input() descriptionQG: string;
 
   constructor() { }
 

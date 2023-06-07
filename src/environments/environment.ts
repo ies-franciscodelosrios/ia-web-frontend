@@ -40,6 +40,10 @@ export const environment = {
   delEventUser:'event/delete/user/',
   //Surveys Endpoints
   getAllPollsAssignmentsByUser: 'pollAssignments/ByUser',
+  getAllQuestions:'tr/all/questions/user',
+  createResponse:'response',
+  //Polls EndPoints
+  updatePoll:'poll/update',
   getAllQuestionnaireGroups: 'group/all',
   getAllQuestions: 'question/all',
   assignCuestionnaireToUser: 'pollAssignments/save/assignQG',

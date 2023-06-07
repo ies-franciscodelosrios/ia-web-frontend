@@ -25,6 +25,9 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { LeyendComponent } from './components/leyend/leyend.component';
 import { StepsComponent } from './components/steps/steps.component';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatPaginatorIntl} from "@angular/material/paginator";
+import {CustomPaginator} from "./models/CustomPaginatorConfiguration";
+import { TextareaAutosizeDirective } from './directives/textarea-autosize.directive';
 
 
 @NgModule({
@@ -41,27 +44,28 @@ import { BrowserModule } from '@angular/platform-browser';
     SelectQuestionComponent,
     LeyendComponent,
     StepsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbToastModule,
-    AngularMaterialModule,
-    MatTableModule,
-    Ng5SliderModule,
-    ToastrModule.forRoot()
-  ],
+    TextareaAutosizeDirective
+    ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbToastModule,
+        AngularMaterialModule,
+        MatTableModule,
+        Ng5SliderModule,
+        ToastrModule.forRoot()
+    ],
   providers: [
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     },
-
+    { provide: MatPaginatorIntl, useValue: CustomPaginator() }
   ],
   bootstrap: [AppComponent]
 })

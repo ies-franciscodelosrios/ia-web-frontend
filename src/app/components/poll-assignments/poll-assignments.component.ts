@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { SurveyService } from './../../services/survey.service';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { PollAssignment } from 'src/app/models/survey';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./poll-assignments.component.css']
 })
 
-export class PollAssignmentsComponent {
+export class PollAssignmentsComponent implements OnDestroy{
 
   pollsAssignment: PollAssignment[] = []
   pollsAssignmentFound: PollAssignment;
@@ -22,10 +22,12 @@ export class PollAssignmentsComponent {
 
   displayedColumns: string[] = ['id', 'questionaryGroup.name', 'questionaryGroup.description'
   , 'questionaryGroup.startDate', 'questionaryGroup.endDate', 'poll.signed', 'button'];
-  dataSource: MatTableDataSource<PollAssignment>;;
+  dataSource: MatTableDataSource<PollAssignment>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private surveyService: SurveyService, private route: Router) {} 
+
+
+  constructor(private surveyService: SurveyService, private route: Router) {}
 
   ngOnInit() {
     this.getPollsAssignment()
@@ -48,16 +50,16 @@ export class PollAssignmentsComponent {
     this.surveyService.findPollAssignment(poll.id)
     this.pollAssignmentFoundSub = this.surveyService.PollsAssignmentFound.subscribe(data => {
       this.pollsAssignmentFound = data
-      console.log(this.pollsAssignmentFound)
+
     })
 
     this.route.navigate(['polls-assignment/questionnaire'], { queryParams: { id: poll.id }})
-  } 
+  }
 
   ngOnDestroy() {
     if (this.pollAssignmentSub instanceof Subscription) {
       this.pollAssignmentSub.unsubscribe()
-    }   
+    }
   }
 
 }

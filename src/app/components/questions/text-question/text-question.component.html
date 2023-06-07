@@ -9,22 +9,65 @@
 </head>
 <body>
   <div class="scroll">
-    <form  [formGroup]="surveyForm" (submit)="onSubmit()">
-      <h1 style="color:rgb(255, 0, 106); margin-bottom: 30px;">{{ survey.name }}</h1>
-      <div formArrayName="questions">
-        <div *ngFor="let question of survey.questions; let i=index">
-          <div [formGroupName]="i">
-            <h3>{{ question.text }}</h3>
-            <input type="text" formControlName="answer" class="form__field" placeholder="Ingrese tu respuesta"
-              name="response" />
-            <h5 class="check-answer" *ngIf="surveyForm.invalid && (surveyForm.dirty || surveyForm.touched)">Debes de
-              ingresar una respuesta 😊</h5>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="button-confirm first" [disabled]="!surveyForm.dirty">Enviar Formulario</button>
-    </form>
+
   </div>
-  
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,9 +1,9 @@
 
-html, body { 
+html, body {
   background-image: url('./assets/img/fondo.png');
   height:100%;
   width:100%;
-};
+}
 
 
 
@@ -104,7 +104,7 @@ h1, .h1 {
 
 .dashboard-app {
 
-  overflow: hidden; 
+  overflow: hidden;
   width: 100vw;
   padding: 10rem;
 }
@@ -570,25 +570,18 @@ h1, .h1 {
   border-radius: 0.6em;
   color: #df1365;
   cursor: pointer;
-  display: flex;
-  align-self: center;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1;
   margin: 20px 0px 0px 0px;
-  padding: 1.2em 2.8em;
   text-decoration: none;
   text-align: center;
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .first {
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 }
 .first:hover {
   color: white;
-  box-shadow: 0 0 40px 40px #df1365 inset;
+  box-shadow: 0 0 40px 40px #1a1a1a inset;
 }
 
 .button-confirm:disabled{
