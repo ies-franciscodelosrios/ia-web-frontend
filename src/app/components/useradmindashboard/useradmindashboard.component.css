@@ -1,5 +1,217 @@
+.qgTable {
+  margin: 0 auto;
+  margin-top: 2.5em;
+  background-color: #fff;
+  width: 70%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.qgTable table {
+  width: 100%;
+}
+
+th {
+  background-color: #e81f76;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  margin-bottom: 1rem;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #ff4081 !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color:  #ff4081 !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #ff4081 !important;
+}
 
 
+.mat-cell {
+padding: 8px 8px 8px 0;
+}
+
+.mat-table {
+display: table;
+width: 100%;
+}
+
+.mat-header-row, .mat-row {
+display: table-row;
+padding: 0;
+border: none;
+}
+
+.mat-header-cell,  .mat-cell {
+display: table-cell;
+height: 48px;
+vertical-align: middle;
+border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.title-survey {
+  font-size: 30px;
+  font-weight: 500;
+  position: relative;
+  display: block;
+  padding-bottom: 5px;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.add-relation {
+  margin: 0 auto;
+  margin-top: 5em;
+  background-color: #fff;
+  width: 70%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-box-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-box {
+  width: 48%;
+  position: relative;
+}
+
+.select-option {
+  position: relative;
+  outline: 0;
+  border-radius: 5px;
+  border: 1.5px solid #ccc;
+  border-bottom-width: 2.5px;
+}
+
+.select-option input {
+    width: 100%;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 0 !important;
+    outline: 0 !important;
+}
+
+.select-option:after {
+    content:"";
+    border-top: 12px solid #535252;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.content {
+    background-color: #cf81a3;
+    position: absolute;
+    color: #fff;
+    border-radius: 7px;
+    margin-top: 15px;
+    width: 100%;
+    padding: 20px;
+    z-index: 999;
+    display: none;
+}
+
+.search input {
+    width: 100%;
+    font-size: 17px;
+    padding: 10px;
+    outline: 0;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+}
+
+.options {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.options::-webkit-scrollbar {
+  width: 12px;           
+}
+
+.options::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 20px;       
+}
+
+.options::-webkit-scrollbar-thumb {
+  background: #e81f76;  
+  border-radius: 20px;     
+}
+
+.options li {
+    width: 95%;
+    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+}
+
+.options li:hover {
+    background-color: #b95c84;   
+}
+
+.select-box.active .content {
+  display: block;
+}
+
+.select-box.active .select-option:after {
+  transform: rotate(-180deg);
+}
+
+.btn-submit {
+  width: 30%;
+  background-color: #e81f76;
+  color: #fff;
+  padding: 8px;
+  margin-top: 2em;
+  border-radius: 5px;
+  border: 1px solid #c81a67;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  font-size: 1.2em;
+}
+
+th {
+  background-color: #e81f76;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+}
 
 .btn-pink{
   color: white;
@@ -35,6 +247,7 @@
 
 .btn-11 {
   width: 160px;
+  height: 38px;
   max-width: 160px;
   border: none;
   background: rgb(251,33,117);

@@ -40,7 +40,7 @@ import { BrowserModule } from '@angular/platform-browser';
     TextQuestionComponent,
     SelectQuestionComponent,
     LeyendComponent,
-    StepsComponent
+    StepsComponent,
   ],
   imports: [
     BrowserModule,

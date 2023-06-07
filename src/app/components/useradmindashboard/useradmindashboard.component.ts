@@ -1,11 +1,14 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbTypeaheadModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Rol } from 'src/app/models/rol';
 import { User } from 'src/app/models/user';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import { UserService } from 'src/app/services/user-service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { RolService } from 'src/app/services/rol-service';
+import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource } from '@angular/material/table';
+import { SurveyService } from 'src/app/services/survey.service';
 
 
 @Component({
@@ -40,8 +43,32 @@ export class UseradmindashboardComponent implements OnInit {
     SOCIO: 2,
     EVALUADOR: 3
   }
+  socios = [];
+  evaluadores = [];
+  displayedColumns: string[] = [
+    'idNavision',
+    'idNavision2',
+    'relationCreateDate',
+    'active',
+  ];
+  dataSource: MatTableDataSource<any>;
+  relations: any = []
 
-  constructor(private modalService: NgbModal, private userService:UserService,private fb:FormBuilder, private rolService: RolService) {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild('selectBoxSocio') selectBoxSocio: ElementRef;
+  @ViewChild('selectBoxEvaluador') selectBoxEvaluador: ElementRef;
+
+  @ViewChild('inputSocioValue') inputSocioValue: ElementRef;
+  @ViewChild('inputEvaluadorValue') inputEvaluadorValue: ElementRef;
+  
+  @ViewChild('inputSearchSocio') inputSearchSocio: ElementRef;
+  @ViewChild('inputSearchEvaluador') inputSearchEvaluador: ElementRef;  
+ 
+  @ViewChild('ulOptionsSocio') ulOptionsSocio: ElementRef;
+  @ViewChild('ulOptionsEvaluador') ulOptionsEvaluador: ElementRef;
+
+  constructor(private modalService: NgbModal, private userService:UserService,private fb:FormBuilder, private rolService: RolService, private toastService: ToastrService, private surveyService: SurveyService) {
 
     this.formUserCreate=this.fb.group({
       codigo:[""],
@@ -75,12 +102,124 @@ export class UseradmindashboardComponent implements OnInit {
 
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.getAllUsers();
+    this.surveyService.getAllUserRelations().then((relations) => {
+      console.log(relations)
+      this.relations = relations.map(relation => {
+        let idNavision = relation.userRelationsPK.idNavision
+        let idNavision2 = relation.userRelationsPK.idNavision2
+        let {active, relationCreateDate } = relation
+        let relationsFormat: any = {
+          idNavision,
+          idNavision2,
+          active,
+          relationCreateDate
+        }
+        return relationsFormat
+      })
+     
+      this.dataSource = new MatTableDataSource<any>(this.relations);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  async toggleActive(userRelation) {
+    await this.surveyService.updateUserRelations(userRelation.idNavision, userRelation.idNavision2)
+  }
+
+  toggleSelectBoxSocio() {
+    this.selectBoxSocio.nativeElement.classList.toggle('active');
+  }
+
+  toggleSelectBoxEvaluador() {
+    this.selectBoxEvaluador.nativeElement.classList.toggle('active');
+  }
+
+  setInputSocioValue(socio) {
+    this.inputSocioValue.nativeElement.value = socio.login;
+    this.selectBoxSocio.nativeElement.classList.remove('active');
+  }
+
+  setInputEvaluadorValue(evaluador) {
+    this.inputEvaluadorValue.nativeElement.value = evaluador.login;
+    this.selectBoxEvaluador.nativeElement.classList.remove('active');
+  }
+
+  filterSocio() {
+    let filter = this.inputSearchSocio.nativeElement.value.toLowerCase();
+    let ul = this.ulOptionsSocio.nativeElement;
+    let liElements = ul.children;
+
+    for (var i = 0; i < liElements.length; i++) {
+      let li = liElements[i];
+      let textValue = li.textContent;
+
+      if (textValue.toLowerCase().indexOf(filter) > -1) {
+        li.style.display = '';
+      } else {
+        li.style.display = 'none';
+      }
+    }
+  }
+
+  filterEvaluador() {
+    let filter = this.inputSearchEvaluador.nativeElement.value.toLowerCase();
+    let ul = this.ulOptionsEvaluador.nativeElement;
+    let liElements = ul.children;
+
+    for (var i = 0; i < liElements.length; i++) {
+      let li = liElements[i];
+      let textValue = li.textContent;
+
+      if (textValue.toLowerCase().indexOf(filter) > -1) {
+        li.style.display = '';
+      } else {
+        li.style.display = 'none';
+      }
+    }
+  }
+
+  async assignSocioEvaluador() {
+    let idNavision = this.inputSocioValue.nativeElement.value;
+    let idNavision2 = this.inputEvaluadorValue.nativeElement.value;
+    if (!idNavision || !idNavision2) {
+      this.toastService.error('Debes seleccionar a un usuario y un evaluador', 'Asignación inválida', {
+        timeOut: 2000,
+      });
+      return;
+    }
+    let userRelation = {
+      userRelationsPK: {
+          "idNavision": idNavision,
+          "idNavision2": idNavision2
+      },
+      active: true,
+      personCategory: "2",
+      idNavisionIsPT: true,
+      idNavision2Name: idNavision2,
+      idNavision2Mail: `${idNavision2}@atmira.com`,
+      relationCreateDate: new Date(),
+      idNavision2IsPT: false,
+      idNavisionMail: `${idNavision}@atmira.com`,
+      personCategory2: "3",
+      idNavisionName: idNavision
+  }
+  this.toastService.success('La asignación ha sido creada correctamente', 'Asignación válida', {
+    timeOut: 2000,
+  });
+   await this.userService.createUserRelation(userRelation)
 
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
 
   public async getUserByDNI(codigo:string){
@@ -114,9 +253,17 @@ export class UseradmindashboardComponent implements OnInit {
 
   async getAllUsers(){
     this.users= await this.userService.getAllUsers();
+    this.users.forEach((user:User) => {
+      user.rols.forEach(rol => {
+        if (rol.rolname === 'SOCIO') {
+          this.socios.push(user)
+        }
+        if (rol.rolname === 'EVALUADOR') {
+          this.evaluadores.push(user)
+        }
+      })
+    })
     this.listOfContacts=this.users
-    console.log(this.users);
-
   }
 
 
@@ -261,13 +408,13 @@ export class UseradmindashboardComponent implements OnInit {
        }
 
        checkRoleUpdate(rol: string): boolean {
-        if (this.user.rols.length >=2 ) {
+        if (this.user?.rols?.length >=2 ) {
           return true;
         }
 
         if (rol === 'EVALUADOR' || rol === 'SOCIO') {
-          let resultSocio = this.user.rols.some(role => role.rolname === 'SOCIO');
-          let resultEvaluador = this.user.rols.some(role => role.rolname === 'EVALUADOR');
+          let resultSocio = this.user?.rols.some(role => role.rolname === 'SOCIO');
+          let resultEvaluador = this.user?.rols.some(role => role.rolname === 'EVALUADOR');
           if (resultSocio && resultEvaluador) {
             return true
           }
@@ -280,18 +427,18 @@ export class UseradmindashboardComponent implements OnInit {
           return false
         }
         
-        return this.user.rols.some(role => role.rolname === rol);
+        return this.user?.rols.some(role => role.rolname === rol);
 
       }
 
       checkRoleDenie(rolName: string) {
         switch(rolName) {
           case 'ADMIN':
-            return !this.user.rols.some(role => role.rolname === rolName)
+            return !this.user?.rols.some(role => role.rolname === rolName)
           case 'EVALUADOR':
-            return !this.user.rols.some(role => role.rolname === rolName)
+            return !this.user?.rols.some(role => role.rolname === rolName)
           case 'SOCIO':
-            return !this.user.rols.some(role => role.rolname === rolName)
+            return !this.user?.rols.some(role => role.rolname === rolName)
         }
       }
 }
