@@ -145,7 +145,7 @@ export class SurveyService {
   }
 
   public async getAllQuestions() {
-    let endpoint=environment.endpoint+environment.getAllQuestions;
+    let endpoint=environment.endpoint+environment.getAllQuestionsAdmin;
     let questions:any=await this.http.get(endpoint,this.header).toPromise();
     return questions;
   }
@@ -161,14 +161,14 @@ export class SurveyService {
     headers = headers.append('content-type','application/json')
     headers = headers.append('Access-Control-Allow-Origin', '*')
     headers = headers.append('QGname', ""+surveyId)
-    let pollAssignment = {   
+    let pollAssignment = {
       name: login,
       email: `${login}@atmira.com`,
       active: true,
       idNavision: login,
       idNavision2: "DEFAULT",
       personCategory: 2
-    } 
+    }
     let endpoint = environment.endpoint+environment.assignCuestionnaireToUser;
     return this.http.post(endpoint,pollAssignment,{'headers':headers}).toPromise();
   }
@@ -179,16 +179,16 @@ export class SurveyService {
     headers = headers.append('Access-Control-Allow-Origin', '*')
     headers = headers.append('id_qg', ""+surveyId)
     headers = headers.append('q', ""+questionId)
-    let textRelation = {   
+    let textRelation = {
       question: {},
       questionaryGroup: {},
       relationId: 0
-    } 
+    }
     let endpoint = environment.endpoint+environment.assignQuestionToSurvey;
     return this.http.post(endpoint,textRelation,{'headers':headers}).toPromise();
   }
-  
-  
+
+
   private get header():any{
     return{
       'Access-Control-Allow-Origin':'*',

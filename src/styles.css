@@ -3,11 +3,8 @@ html, body {
   background-image: url('./assets/img/fondo.png');
   height:100%;
   width:100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-
-
-
 
 nav {
   display: block;
@@ -601,7 +598,3 @@ h1, .h1 {
   color: #fff;
 }
 
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

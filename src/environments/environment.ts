@@ -45,7 +45,7 @@ export const environment = {
   //Polls EndPoints
   updatePoll:'poll/update',
   getAllQuestionnaireGroups: 'group/all',
-  getAllQuestions: 'question/all',
+  getAllQuestionsAdmin: 'question/all',
   assignCuestionnaireToUser: 'pollAssignments/save/assignQG',
   assignQuestionToSurvey: 'tr',
   createQuestionnaire: 'group/create',
