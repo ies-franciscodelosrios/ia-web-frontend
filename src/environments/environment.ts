@@ -15,6 +15,7 @@ export const environment = {
   updatePhotoProfile:'photo/',
   uploadPhoto:'photo/upload/',
   user:'user',
+  setUserActive:'user/active',
   //Turns Endpoints
   getAllTurns:'getAllTurns',
   getTurnById: 'turn/getTurn',
@@ -53,7 +54,9 @@ export const environment = {
   updateUserRelations: 'userRelations',
   createQuestion: 'question',
   createUserRelation: 'userRelations',
-  getAllUserRelations: 'userRelations/all'
+  getAllUserRelations: 'userRelations/all',
+  //UserRelations Endpoints
+  getActiverRelationsByIdNavision: 'userRelations/active',
 };
 
 

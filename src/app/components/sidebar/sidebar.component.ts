@@ -14,22 +14,22 @@ export class SidebarComponent implements OnInit {
   islogged:any;
   isAdmin:any
   user:User
-  constructor(private loginService: LoginService,private router: Router,private rolService:RolService) {  }
+  constructor(private loginService: LoginService,private router: Router,private rolService:RolService, private userService:UserService) {  }
 
   ngOnInit() {
     this.comprobarLogin();
   }
 
   public async logout(){
+    this.userService.userActive(localStorage.getItem("user_current"),"false");
     this.loginService.logout();
     await this.router.navigate(['/login'])
-
   }
 
   public async logoutAdmin(){
+    this.userService.userActive(localStorage.getItem("user_current"),"false");
     this.loginService.logout();
     await this.router.navigate(['/login/admin'])
-
   }
 
   comprobarLogin(){

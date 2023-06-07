@@ -16,5 +16,6 @@ export interface User {
   login:string,
   name:string,
   password:string,
-  profile_Picture:string
+  profile_Picture:string,
+  active?:string
 }

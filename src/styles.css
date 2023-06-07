@@ -598,3 +598,75 @@ h1, .h1 {
   color: #fff;
 }
 
+.tippy-box {
+  color: #000000;
+  border-radius: 8px;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  background-color: #fbf8c8;
+  font-size: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.truncate {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+
+
+.tippy-box::before {
+  content: '';
+  position: absolute;
+  width: auto;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #fbf8c8;
+  top: 100%; /* Posiciona el bocadillo debajo del popover */
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+.tippy-box h3 {
+  /* Estilos existentes del título */
+  border-bottom: 1px solid #000000;
+  padding-bottom: 6px;
+  margin-bottom: 5px;
+}
+
+.calendario button{
+  border: #f833a6 1px solid !important;
+  background-color: #f833a6 !important;
+}
+
+.calendario button:hover{
+  border: #af1b72 1px solid !important;
+  background-color: #af1b72 !important;
+}
+
+.calendario .active{
+  border: #af1b72 1px solid !important;
+  background-color: #af1b72 !important;
+}
+
+
+.calendario td{
+  border: 0.5px solid rgba(0, 0, 0, 0.192) !important;
+}
+
+.calendario a{
+  color: black !important;
+}
+
+.calendario .fc-col-header-cell{
+  border: 1px solid rgba(0, 0, 0, 0.192) !important;
+}
+
+.calendario .fc-view-harness{
+  border: 6px solid #403F4C !important;
+}
+
+

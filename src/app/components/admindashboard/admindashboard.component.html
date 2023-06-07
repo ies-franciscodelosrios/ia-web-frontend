@@ -10,7 +10,7 @@
             <div class="card">
                     <h1>{{countRelations}}</h1>
                     <h3>Relaciones de Usuarios</h3>
-                    <i class="fas fa-2x fa-users" aria-hidden="true"></i>    
+                    <i class="fas fa-2x fa-users" aria-hidden="true"></i>
             </div>
             <div class="card">
               <h1>{{countTurns}}</h1>
@@ -40,8 +40,10 @@
                         <td>{{user.name}}</td>
                         <td>{{user.apellido1}} {{user.apellido2}}</td>
                         <td>{{user.login}}</td>
-                        <td *ngIf="logeado"><span class="status text-success" >&bull;</span> Activo</td>
-                        <td *ngIf="!logeado"><span class="status text-danger" >&bull;</span> No Activo</td>
+                        <td ><span class="status" [ngClass]="{
+                          'text-success': user.active,
+                          'text-danger': !user.active
+                        }">&bull; </span> {{user.active ? 'En línea' : 'Desconectado'}}</td>
                     </tr>
                 </table>
             </div>

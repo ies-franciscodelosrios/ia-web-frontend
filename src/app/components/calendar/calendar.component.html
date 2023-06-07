@@ -1,92 +1,129 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+  integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 <div class='dashboard'>
+  <!--<app-sidebar-calendar></app-sidebar-calendar>-->
   <div class='dashboard-app'>
     <header class='dashboard-toolbar'></header>
     <div class='dashboard-content'>
       <div class='container'>
-        <full-calendar class="calendario" [options]="calendarOptions"></full-calendar>
+        <full-calendar style="background-color: #d8d8d8;" class="calendario" [options]="calendarOptions">
+          <ng-template #eventContent let-arg>
+            <b>{{arg.timeText}}</b>
+            <i>{{arg.event.title}}</i>
+          </ng-template>
+
+        </full-calendar>
+
+
+
+
+        <!--Modal para crear un evento al hacer click sobre una fecha-->
+        <ng-template #viewModal>
+          <div style="background-color: #f833a6 !important;" class="modal-header active">
+            <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">Crear un nuevo evento</h4>
+          </div>
+          <div class="modal-body px-5">
+            <label class="mb-2 mt-2">Nombre del evento</label>
+            <input type="text" id="title" name="title" [(ngModel)]="eventName"
+              placeholder="Introduce el nombre del evento..." class="bg-transparent px-2 rounded h-30 w-100 mt-2" />
+            <label class="mb-2 mt-2">Descripción del evento</label>
+            <textarea rows="3"  id="description" name="description" [(ngModel)]="eventDescription"
+              placeholder="Introduce la descripción del evento..."
+              class="bg-transparent px-2 rounded h-30 w-100 mt-2"></textarea>
+              <div class="user-box mt-2" *ngIf="isEvaluator">
+                <label>Selecciona el socio :</label>
+                <div class="select">
+                  <select class="select-body" (change)="onChangeUserRelation($event)" [(ngModel)]="selectedUserInRelation">
+                    <option *ngFor="let relation of activeUserRelations" [value]="relation">{{relation}}</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end mt-3 mb-4 px-5">
+            <button class="btn btn-success mr-2 w-30" (click)="createEvent()" [disabled]="eventName === ''">
+              Guardar
+            </button>
+            <button class="btn btn-danger ml-2 w-30 cancelBtn" (click)="cancelDialog()">
+              Cancelar
+            </button>
+          </div>
+        </ng-template>
+        <!--Modal para crear un evento al hacer click sobre el botón añadir evento-->
+        <ng-template #createModal>
+          <div style="background-color: #f833a6 !important;" class="modal-header active">
+            <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">Crear un nuevo evento</h4>
+          </div>
+          <div class="modal-body px-5">
+            <label class="mb-2 mt-2">Nombre del evento:</label>
+            <input type="text" id="title" name="title" [(ngModel)]="eventName"
+              placeholder="Introduce el nombre del evento..." class="bg-transparent px-2 rounded h-30 w-100 mt-2" />
+            <label class="mb-2 mt-2">Descripción del evento:</label>
+            <textarea rows="3" id="description" name="description" [(ngModel)]="eventDescription"
+              placeholder="Introduce la descripción del evento..."
+              class="bg-transparent px-2 rounded h-30 w-100 mt-2"></textarea>
+              <div class="d-flex">
+                <label class="mr-2 mt-4 pt-2">Fecha:</label>
+                <div class="d-flex flex-grow-1">
+                  <input type="text" class="form-control h-30 mr-2 col-sm-4 mt-4"
+                  placeholder="yyyy-mm-dd"
+                  [(ngModel)]="dateNgb" ngbDatepicker #dp="ngbDatepicker"/>
+                  <button class="btn btn-outline-secondary mt-4" (click)="dp.toggle()"><i class="fas fa fa-calendar"></i></button>
+                </div>
+              </div>
+              <div class="user-box mt-2" *ngIf="isEvaluator">
+            <label>Selecciona el socio :</label>
+            <div class="select">
+              <select class="select-body" (change)="onChangeUserRelation($event)" [(ngModel)]="selectedUserInRelation">
+                <option *ngFor="let relation of activeUserRelations" [value]="relation">{{relation}}</option>
+              </select>
+            </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end mt-3 mb-4 px-5">
+            <button class="btn btn-success mr-2 w-30" (click)="createEventButton()" [disabled]="!(eventName && dateNgb)">
+              Guardar
+            </button>
+            <button class="btn btn-danger ml-2 w-30 cancelBtn" (click)="cancelDialog()">
+              Cancelar
+            </button>
+          </div>
+        </ng-template>
+        <!-- Modal para editar o eliminar-->
+        <ng-template #deleteModal>
+          <div style="background-color: #f833a6 !important;" class="modal-header active">
+            <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">{{titleModalEdit}}</h4>
+          </div>
+          <div class="modal-body px-5">
+            <label class="mb-2 mt-2">Nombre del evento :</label>
+            <input type="text" id="title" name="title" [(ngModel)]="nombre"
+              placeholder="Introduce el nombre del evento..." class="bg-transparent px-2 rounded h-30 w-100 mt-2" [disabled]="!(codeOfEventCreator === codigo)" />
+            <label class="mb-2 mt-2">Descripción del evento :</label>
+            <textarea rows="3" id="description" name="description" [(ngModel)]="descripcion"
+              placeholder="Introduce la descripción del evento..."
+              class="bg-transparent px-2 rounded h-30 w-100 mt-2 mb-2" [disabled]="!(codeOfEventCreator === codigo)"></textarea>
+              <div class="user-box mt-2" *ngIf="isEvaluator">
+                <label>Selecciona el socio :</label>
+                <div class="select">
+                  <select class="select-body" (change)="onChangeUserRelation($event)" [(ngModel)]="selectedUserInRelation">
+                    <option *ngFor="let relation of activeUserRelations" [value]="relation">{{relation}}</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end mt-3 mb-4 px-5" *ngIf="(codeOfEventCreator === codigo)">
+            <button class="btn btn-success mr-2 w-30" (click)="updateEvent()" [disabled]="nombre === ''">
+              Actualizar
+            </button>
+            <button class="btn btn-danger ml-2 w-30 cancelBtn" (click)="deleteEvent()">
+              Eliminar
+            </button>
+          </div>
+        </ng-template>
       </div>
-<!--Modal para crear un evento al hacer click sobre una fecha-->
-      <ng-template #viewModal>
-        <div class="modal-header active">
-          <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">Crear un nuevo evento</h4>
-        </div>
-        <div class="modal-body px-5">
-          <label class="mb-2 mt-2">Nombre del evento</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            [(ngModel)]="eventName"
-            placeholder="Introduce el nombre del evento..."
-            class="bg-transparent px-2 rounded h-30 w-100 mt-2"
-          />
-          <label class="mb-2 mt-2">Descripción del evento</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            [(ngModel)]="eventDescription"
-            placeholder="Introduce la descripción del evento..."
-            class="bg-transparent px-2 rounded h-30 w-100 mt-2"
-          />
-        </div>
-        <div class="d-flex justify-content-end mt-3 mb-4 px-5">
-          <button
-            class="btn btn-success mr-2 w-30"
-            (click)="createEvent()"
-            [disabled]="eventName === ''"
-          >
-            Guardar
-          </button>
-          <button
-            class="btn btn-danger ml-2 w-30 cancelBtn"
-            (click)="cancelDialog()"
-          >
-            Cancelar
-          </button>
-        </div>
-      </ng-template>
-<!-- Modal para editar o eliminar-->
-      <ng-template #deleteModal>
-        <div class="modal-header active">
-          <h4 class="modal-title text-white text-uppercase my-auto mx-auto text-center">Editar evento</h4>
-        </div>
-        <div class="modal-body px-5">
-          <label class="mb-2 mt-2">Nombre del evento</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            [(ngModel)]="nombre"
-            placeholder="Introduce el nombre del evento..."
-            class="bg-transparent px-2 rounded h-30 w-100 mt-2"
-          />
-          <label class="mb-2 mt-2">Descripción del evento</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            [(ngModel)]="descripcion"
-            placeholder="Introduce la descripción del evento..."
-            class="bg-transparent px-2 rounded h-30 w-100 mt-2"
-          />
-        </div>
-        <div class="d-flex justify-content-end mt-3 mb-4 px-5">
-          <button
-            class="btn btn-success mr-2 w-30"
-            (click)="updateEvent()"
-            [disabled]="nombre === ''"
-          >
-            Actualizar
-          </button>
-          <button
-            class="btn btn-danger ml-2 w-30 cancelBtn"
-            (click)="deleteEvent()"
-          >
-            Eliminar
-          </button>
-        </div>
-      </ng-template>
     </div>
+
   </div>
 </div>

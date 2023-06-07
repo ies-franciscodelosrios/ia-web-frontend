@@ -3,7 +3,7 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from "@angular/common
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { User } from "../models/user";
-import { Event } from '../models/event';
+import { Events } from '../models/event';
 
 @Injectable({
   providedIn:'root'
@@ -34,9 +34,22 @@ export class UserService {
     return users;
   }
 
+  /**
+   * @returns Promise<User[]>, una lista de todos los usarios de la base de datos
+   */
+  public async getUserByDNI(dni:string):Promise<User>{
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('codigo', dni)
+    let endpoint=environment.endpoint+environment.getUserByDNI;
+    let user:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
+    return user;
+  }
 
 
-  public async getUserEvents(dni:string):Promise<Event[]> {
+
+  public async getUserEvents(dni:string):Promise<Events[]> {
     let headers = new HttpHeaders()
     headers=headers.append('content-type','application/json')
     headers=headers.append('Access-Control-Allow-Origin', '*')
@@ -134,6 +147,18 @@ export class UserService {
     let userRelations:any = this.http.post(endpoint,userRelation,{'headers':headers}).toPromise()
     return userRelations;
   }
+
+  public async userActive(idNavision:string, active:string):Promise<any>{
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('idnavision', idNavision)
+    headers=headers.append('active', active)
+    let endpoint=environment.endpoint+environment.setUserActive;
+    let res:any=await this.http.put(endpoint,{},{'headers':headers}).toPromise();
+    return res;
+  }
+
   private get header():any{
     return{
       'Access-Control-Allow-Origin':'*',
