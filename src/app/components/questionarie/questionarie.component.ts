@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {QuestionResponseObject, Response} from 'src/app/models/surveyFG';
+import {QuestionResponseObject, Response} from '../../models/surveyFG';
 import {SurveyService} from "../../services/survey.service";
 import {Subscription} from "rxjs";
 import {Poll, PollAssignment} from "../../models/survey";
 import {Router} from "@angular/router";
 import { NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PollServiceService} from "../../services/poll-service.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-questionarie',
@@ -36,7 +37,13 @@ export class QuestionarieComponent implements OnInit, OnDestroy {
   val: number = 65;
   response: number | string;
 
-  constructor(private fb: FormBuilder, private _surveyService:SurveyService,private router:Router,private modalService: NgbModal,config: NgbModalConfig, public _poll:PollServiceService) {
+  constructor(private fb: FormBuilder,
+              private _surveyService:SurveyService,
+              private router:Router,
+              private modalService: NgbModal,
+              config: NgbModalConfig,
+              public _poll:PollServiceService,
+              private toastService: ToastrService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -108,13 +115,14 @@ export class QuestionarieComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log('papi')
     const originalResponses: QuestionResponseObject[] = this.preguntas;
     const currentResponses: any[] = this.questionnaire.value.questions;
     const promises: Promise<any>[] = [];
     for (let i = 0; i < originalResponses.length; i++) {
       if (originalResponses[i].integer_value !== currentResponses[i].answer && originalResponses[i].text_value !== currentResponses[i].answer) {
         const response: Response = {
-          id: originalResponses[i].ResponseID,
+          id: originalResponses[i].ResponseID|0,
           integer_Value: 0,
           text_Value: "",
           textRelation: {
@@ -137,19 +145,29 @@ export class QuestionarieComponent implements OnInit, OnDestroy {
   }
 
 
+
   getPA(){
     this._surveyService.PollsAssignmentFound.subscribe(data => {
       this.pollsAssignmentFound = data
       this.state=data.poll
       this.nameQG=data.questionaryGroup.name
       this.descriptionQG=data.questionaryGroup.description
-      console.log(data)
     })
   }
 
   confirmSurvey(content){
     this.modalService.open(content);
+    this.toastService.success('Su encuesta ha sido guardada correctamente', 'Encuesta Válida',  {
+      timeOut: 2000,
+    });
+  }
+
+  saveSurvey(){
     this.onSubmit();
+    this.toastService.success('Su encuesta ha sido guardada correctamente', 'Encuesta Válida',  {
+      timeOut: 2000,
+    });
+    this.router.navigate(['/polls-assignment']);
   }
 
   numberToString(num: number): string {
@@ -166,6 +184,9 @@ export class QuestionarieComponent implements OnInit, OnDestroy {
     this.state.completed=true;
     this._poll.updatePoll(this.pollsAssignmentFound.id.toString(),this.state).subscribe();
     this.modalService.dismissAll(content);
+    this.toastService.success('Su encuesta ha sido guardada correctamente', 'Encuesta Válida',  {
+      timeOut: 2000,
+    });
   }
 
   signedSurvey(){
@@ -173,6 +194,9 @@ export class QuestionarieComponent implements OnInit, OnDestroy {
     this.state.onLoad=false;
     this._poll.updatePoll(this.pollsAssignmentFound.id.toString(),this.state).subscribe();
     this.router.navigate(['/polls-assignment']);
+    this.toastService.success('Su encuesta ha sido firmada correctamente', 'Encuesta Válida',  {
+      timeOut: 2000,
+    });
   }
 
 

@@ -1,7 +1,7 @@
 <div class="container-questionaire">
   <app-steps [estado]="state"></app-steps>
   <button class="btn btn-primary back-Button" (click)="open(content)"><i class="fa fa-sign-out"></i> | Salir</button>
-      <form [formGroup]="questionnaire" (ngSubmit)="onSubmit()">
+      <form [formGroup]="questionnaire">
         <div class="alignKBD">
           <kbd><kbd> {{nameQG}}</kbd></kbd>
         </div>
@@ -49,7 +49,9 @@
             </ng-container>
           </div>
         </div>
-        <button class="button-confirm first" [disabled]="state.completed==true" (click)="confirmSurvey(confirmModal)" style="margin-right: 1rem"><i class="fas fa-save fa-3x" style="color: #df1365;"></i></button>
+
+        <button class="button-confirm first" [disabled]="state.completed==true" (click)="saveSurvey()" style="margin-right: 1rem"><i class="fas fa-save fa-3x" style="color: #df1365;"></i></button>
+        <button class="button-confirm first" [disabled]="state.completed==true" (click)="confirmSurvey(confirmModal)" style="margin-right: 1rem"><i class="fas fa-file-upload fa-3x" style="color: #df1365;"></i></button>
         <button [disabled]="state.completed==false || state.signed==true"  class="button-confirm first" (click)="signedSurvey()" ><i class="fas fa-pen-nib fa-3x" style="color: #df1365;"></i></button>
       </form>
 
