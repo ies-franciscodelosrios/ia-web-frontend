@@ -14,18 +14,6 @@ export class UserService {
   constructor(private http:HttpClient) { }
   //Se realizan llamadas a la api de la APP mediante la clase HttpClient, realizando peticiones GET, POST, PUT y DELETE
 
-  /**
-   * @returns Promise<User[]>, una lista de todos los usarios de la base de datos
-   */
-  public async getUserByDNI(dni:string):Promise<User>{
-    let endpoint=environment.endpoint+environment.getUserByDNI+dni;
-    let user:any=await this.http.get(endpoint,this.header).toPromise();
-    return user;
-  }
-
-  public getUserByIdNavision(idNavision:string): Observable<User> {
-    return this.http.get<User>(`http://localhost:8080/api/user/search/id/${idNavision}`);
-  }
 
 
   public async getUserProfileByIdNavision(idNavision:string):Promise<User>{
@@ -35,7 +23,7 @@ export class UserService {
     headers=headers.append('idnavision', idNavision);
     let endpoint=environment.endpoint+environment.getUserByIDNAVISION;
     let user2:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
-    
+
     return user2;
   }
 
@@ -129,8 +117,6 @@ export class UserService {
 
 
   }
-
-
 
   private get header():any{
     return{

@@ -1,26 +1,25 @@
 <div class="registercontpage">
-    <div class="stepwizard col-md-offset-3">
-      <div class="stepwizard-row setup-panel">
-        <div class="stepwizard-step">
-          <div type="button" class="btn btn-circle btn-primary active-pa">1</div>
-          <p>Pendiente de hacer</p>
-        </div>
+  <div class="stepwizard col-md-offset-3">
+    <div class="stepwizard-row setup-panel">
+      <div class="stepwizard-step">
+        <div type="button" class="btn btn-circle" [ngClass]="{'btn-primary active-pa': estado.onLoad==true || estado.onLoad==false && estado.completed==true && estado.signed==true}">1</div>
+        <p>En proceso</p>
+      </div>
 
-        <div class="stepwizard-step">
-          <div type="button" class="btn btn-circle btn-primary active-pa">2</div>
-          <p>Pendiente de revision</p>
-        </div>
+      <div class="stepwizard-step">
+        <div type="button" class="btn btn-circle" [ngClass]="{'btn-primary active-pa': estado.onLoad==true && estado.completed==true || estado.onLoad==false && estado.completed==true && estado.signed==true} ">2</div>
+        <p>Completa</p>
+      </div>
 
-        <div class="stepwizard-step">
-          <div type="button" class="btn btn-circle btn-primary">3</div>
-          <p>Pendiente de firmar</p>
-        </div>
+      <div class="stepwizard-step">
+        <div type="button" class="btn btn-circle" [ngClass]="{'btn-primary active-pa': estado.onLoad==true && estado.completed==true && estado.signed==false || estado.onLoad==false && estado.completed==true && estado.signed==true}">3</div>
+        <p>Pendiente de firmar</p>
+      </div>
 
-        <div class="stepwizard-step">
-          <div type="button" class="btn btn-circle btn-primary">4</div>
-          <p>Enviada</p>
-        </div>
-
+      <div class="stepwizard-step">
+        <div type="button" class="btn btn-circle" [ngClass]="{'btn-primary active-pa': estado.onLoad==false && estado.completed==true && estado.signed==true}">4</div>
+        <p>Firmada</p>
       </div>
     </div>
   </div>
+</div>

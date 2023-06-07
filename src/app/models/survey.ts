@@ -11,13 +11,13 @@ export interface PollAssignment {
 }
 
 export interface Poll {
-    id:           number;
-    lastModified: null;
+    id?:           number;
+    lastModified: string;
     active:       boolean;
     signed:       boolean;
     completed:    boolean;
     onLoad:       boolean;
-    create_Date:  Date;
+    create_Date:  string;
 }
 
 export interface QuestionaryGroup {

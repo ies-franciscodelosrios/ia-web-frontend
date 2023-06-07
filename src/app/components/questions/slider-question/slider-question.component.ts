@@ -3,6 +3,8 @@ import { Component, OnInit} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Options } from 'ng5-slider/options';
+import {MatPaginatorIntl} from "@angular/material/paginator";
+import {CustomPaginator} from "../../../models/CustomPaginatorConfiguration";
 
 @Component({
   selector: 'app-slider-question',
@@ -16,41 +18,41 @@ export class SliderQuestionComponent implements OnInit {
   maxValue=4;
   resultSlider: number = +'';
   value: number = 5;
- 
- 
- 
+
+
+
    constructor(private toastr: ToastrService,private fb:FormBuilder) {
      this.sliderForm= this.fb.group({
        slider:  ['', Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(100)])]
      })
    }
- 
+
    ngOnInit(): void {
      this.resultSlider=1;
      this.sliderForm.get('slider').setValue(1);
- 
+
    }
-  
- 
+
+
    getValueSlider = (value: number): number => {
      this.sliderForm.get('slider').setValue(value);
     return this.resultSlider=value;
    }
-   
+
    logForm(){
      console.log(this.resultSlider);
-     
+
    }
- 
+
    show() {
      this.toastr.info('Hello world!', 'INFO!');
      this.toastr.error('Hello world!', 'DANGER!');
      this.toastr.warning('Hello world!', 'warning!');
      this.toastr.success('Hello world!', 'Success!');
    }
- 
- 
-  
+
+
+
    options: Options = {
      showTicksValues: true,
      rightToLeft:false,

@@ -38,7 +38,11 @@ export const environment = {
   delAllEventUser:'event/delete/user',
   delEventUser:'event/delete/user/',
   //Surveys Endpoints
-  getAllPollsAssignmentsByUser: 'pollAssignments/ByUser'
+  getAllPollsAssignmentsByUser: 'pollAssignments/ByUser',
+  getAllQuestions:'tr/all/questions/user',
+  createResponse:'response',
+  //Polls EndPoints
+  updatePoll:'poll/update'
 };
 
 

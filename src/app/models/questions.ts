@@ -1,5 +1,7 @@
 
-export class Question {
-    constructor(public text: string) {}
+export interface Question {
+      id:string,
+      text:string,
+      type:string
   }
 
