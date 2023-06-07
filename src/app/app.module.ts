@@ -45,7 +45,7 @@ import { TextareaAutosizeDirective } from './directives/textarea-autosize.direct
     LeyendComponent,
     StepsComponent,
     TextareaAutosizeDirective
-  ],
+    ],
     imports: [
         BrowserModule,
         NgbModule,

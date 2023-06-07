@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UseradmindashboardRoutingModule } from './useradmindashboard-routing/useradmindashboard-routing.module';
 import { UseradmindashboardComponent } from './useradmindashboard.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ToastrModule } from 'ngx-toastr';
+import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     FormsModule,
     MatPaginatorModule,
-    UseradmindashboardRoutingModule
+    UseradmindashboardRoutingModule,
+    AngularMaterialModule,
+    ToastrModule.forRoot()
   ],
   exports: [UseradmindashboardComponent]
 })

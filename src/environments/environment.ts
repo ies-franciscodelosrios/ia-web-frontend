@@ -10,6 +10,7 @@ export const environment = {
   getUserByIDNAVISION:'user/search/id',
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
+  getAllUsersRelations: 'userRelations/all',
   updateUser:'user',
   updatePhotoProfile:'photo/',
   uploadPhoto:'photo/upload/',
@@ -42,7 +43,17 @@ export const environment = {
   getAllQuestions:'tr/all/questions/user',
   createResponse:'response',
   //Polls EndPoints
-  updatePoll:'poll/update'
+  updatePoll:'poll/update',
+  getAllQuestionnaireGroups: 'group/all',
+  getAllQuestions: 'question/all',
+  assignCuestionnaireToUser: 'pollAssignments/save/assignQG',
+  assignQuestionToSurvey: 'tr',
+  createQuestionnaire: 'group/create',
+  updateQuestionnaire: 'group/update',
+  updateUserRelations: 'userRelations',
+  createQuestion: 'question',
+  createUserRelation: 'userRelations',
+  getAllUserRelations: 'userRelations/all'
 };
 
 

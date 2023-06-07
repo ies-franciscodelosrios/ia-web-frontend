@@ -589,6 +589,18 @@ h1, .h1 {
 }
 
 
+#toast-container>.toast-success {
+  margin-top: 4em;
+  background-color: #e81f76;
+  color: #fff;
+}
+
+#toast-container>.toast-error {
+  margin-top: 4em;
+  background-color: #e64141;
+  color: #fff;
+}
+
 
 
 html, body { height: 100%; }

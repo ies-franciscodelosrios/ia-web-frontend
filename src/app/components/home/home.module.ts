@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { HomeRoutingModule } from './home-routing/home-routing.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeRoutingModule } from './home-routing/home-routing.module';
     NgbModule,
     FormsModule,
     AngularMaterialModule,
-    HomeRoutingModule 
+    HomeRoutingModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     HomeComponent,
