@@ -115,7 +115,7 @@ export class SurveyComponent implements OnInit {
     await this.surveyService.updateQuestionnaire(qg.id, qg)
   }
 
-  submitSurvey() {
+  async submitSurvey() {
     if (this.surveyForm.invalid) {
       this.toastService.error('Debes de rellenar todos los campos de la encuesta', 'Encuesta inválida', {
         timeOut: 2000,
@@ -123,10 +123,13 @@ export class SurveyComponent implements OnInit {
       return;
     }
     try {
-      this.surveyService.createQuestionnaire(this.surveyForm.value);
+     let survey:any = await this.surveyService.createQuestionnaire(this.surveyForm.value);
       this.toastService.success('Su encuesta ha sido creada correctamente', 'Encuesta Válida',  {
         timeOut: 2000,
       });
+      this.surveysNames.push(survey.name);
+      this.surveys.push(survey)
+      this.dataSource = new MatTableDataSource<any>(this.surveys);
     } catch(err) {
       this.toastService.error('Se ha producido un error al crear la encuesta', 'Encuesta inválida', {
         timeOut: 2000,
@@ -134,7 +137,7 @@ export class SurveyComponent implements OnInit {
     }
   }
 
-  submitTextQuestion() {
+  async submitTextQuestion() {
     let question = this.questionTextForm.value
     if(!question.text) {
       this.toastService.error('Debes de rellenar todos los campos de la pregunta', 'Pregunta Inválida', {
@@ -146,10 +149,11 @@ export class SurveyComponent implements OnInit {
     this.toastService.success('Su pregunta ha sido creada correctamente', 'Pregunta Válida',  {
       timeOut: 2000,
     });
-    this.surveyService.createQuestion(question);
+    await this.surveyService.createQuestion(question);
+    this.questionsNames.push(question.text)
   }
 
-  submitRadioQuestion() {
+  async submitRadioQuestion() {
     let question:any = {};
     let {text, radioResponse1, radioResponse2, radioResponse3} = this.questionRadioForm.value
     question.text = `${text};${radioResponse1};${radioResponse2};${radioResponse3}`
@@ -163,10 +167,11 @@ export class SurveyComponent implements OnInit {
     this.toastService.success('Su pregunta ha sido creada correctamente', 'Pregunta Válida',  {
       timeOut: 2000,
     });
-    this.surveyService.createQuestion(question);
+    await this.surveyService.createQuestion(question);
+    this.questionsNames.push(question.text)
   }
 
-  submitSliderQuestion() {
+  async submitSliderQuestion() {
     let question = this.questionSliderForm.value
     if(!question.text) {
       this.toastService.error('Debes de rellenar todos los campos de la pregunta', 'Pregunta Inválida', {
@@ -178,7 +183,8 @@ export class SurveyComponent implements OnInit {
     this.toastService.success('Su pregunta ha sido creada correctamente', 'Pregunta Válida',  {
       timeOut: 2000,
     });
-    this.surveyService.createQuestion(question);
+    await this.surveyService.createQuestion(question);
+    this.questionsNames.push(question.text)
   }
 
   
@@ -223,7 +229,7 @@ export class SurveyComponent implements OnInit {
     this.toastService.success('Su asignación ha sido creada correctamente', 'Asignación Válida',  {
       timeOut: 2000,
     });
-    this.surveyService.assignQuestionToSurvey(surveyId, questionId);
+    this.surveyService.assignQuestionToSurvey(surveyId, questionId);    
   }
 
   toggleSelectBoxSurvey() {

@@ -57,9 +57,6 @@ export class HomeComponent implements OnInit {
         `${this.getWeekYearNumber(new Date())}-${localStorage.getItem("user_current")}`
       );
     } catch(error) {
-      this.toastService.error('Se ha producido un error el crear el turno', 'Turnos', {
-        timeOut: 2000,
-      });
       console.log(error)
     }
 
@@ -123,9 +120,6 @@ export class HomeComponent implements OnInit {
         });
         this.refresh += 1;
       } catch (error) {
-        this.toastService.error('Se ha producido un error el crear el turno', 'Turnos', {
-          timeOut: 2000,
-        });
       }
       
       
@@ -181,9 +175,6 @@ export class HomeComponent implements OnInit {
          });
           this.refresh += 1;  
         } catch(error) {
-          this.toastService.error('Se ha producido un error el crear el turno', 'Turnos', {
-            timeOut: 2000,
-          });
         }
            
     }
