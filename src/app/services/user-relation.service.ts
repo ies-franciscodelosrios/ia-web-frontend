@@ -16,7 +16,6 @@ export class UserRelationService {
     headers=headers.append('Access-Control-Allow-Origin', '*')
     headers=headers.append('idnavision', idnavision)
     let endpoint=environment.endpoint+environment.getActiverRelationsByIdNavision;
-    console.log(endpoint);
     let activeUserRelations:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return activeUserRelations;
   }

@@ -1,3 +1,21 @@
 .ngb-dp-weekday {
   color: #f833a6 !important;
 }
+
+.kbd_socio{
+  background-color: #ffc0cb;
+  color: black;
+
+}
+
+.kbd_evaluador{
+  background-color: #808080;
+  color: white;
+}
+
+.kbd_container{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}

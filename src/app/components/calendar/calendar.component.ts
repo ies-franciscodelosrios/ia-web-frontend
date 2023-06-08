@@ -138,6 +138,7 @@ export class CalendarComponent implements OnInit {
         start: e.dateStartEvent,
         description: e.description,
         color: e.userId === e.assignByUserId ? 'pink' : 'gray',
+        textColor: e.userId === e.assignByUserId ? 'black' : 'white',
         extendedProps: {
           assignbyuser_id: e.userId != e.assignByUserId ? 'Evento asignado' : 'Evento propio',
           codecreator_event: e.userId,
@@ -315,6 +316,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public onChangeUserRelation(event: Event): void {
+    console.log("onChangeUserRelation called");
     const selectElement = event.target as HTMLSelectElement;
     const selectedUser = selectElement.value;
     console.log(selectedUser.toString())

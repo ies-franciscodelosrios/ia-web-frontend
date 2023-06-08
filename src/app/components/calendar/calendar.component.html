@@ -9,6 +9,11 @@
     <header class='dashboard-toolbar'></header>
     <div class='dashboard-content'>
       <div class='container'>
+        <div class="kbd_container">
+          <kbd style="border: 2px solid black" class="kbd_evaluador"><kbd class="kbd_evaluador">Evaluador</kbd></kbd>
+          <kbd style="border: 2px solid black" class="kbd_socio"><kbd class="kbd_socio">Socio</kbd></kbd>
+        </div>
+
         <full-calendar style="background-color: #d8d8d8;" class="calendario" [options]="calendarOptions">
           <ng-template #eventContent let-arg>
             <b>{{arg.timeText}}</b>
@@ -16,7 +21,6 @@
           </ng-template>
 
         </full-calendar>
-
 
 
 

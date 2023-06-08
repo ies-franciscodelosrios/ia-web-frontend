@@ -1,9 +1,10 @@
 import { Rol } from "./rol"
 import { Turn } from "./turn"
+import { Events } from "./event"
 
 export interface User {
   rols:Rol[],
-  events:Event[],
+  events:Events[],
   turns:Turn[],
   codigo:string,
   puesto:string,
