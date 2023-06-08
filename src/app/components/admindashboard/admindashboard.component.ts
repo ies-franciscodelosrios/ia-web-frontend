@@ -1,12 +1,13 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Event } from 'src/app/models/event';
+import { Events } from 'src/app/models/event';
 import { Turn } from 'src/app/models/turn';
 import { User } from 'src/app/models/user';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { LoginService } from 'src/app/services/login-service';
 import { TurnService } from 'src/app/services/turn-service';
 import { UserService } from 'src/app/services/user-service';
+import { SurveyService } from 'src/app/services/survey.service';
 
 @Component({
   selector: 'app-admindashboard',
@@ -15,12 +16,14 @@ import { UserService } from 'src/app/services/user-service';
 })
 export class AdmindashboardComponent implements OnInit {
   users:User [] = [];
-  events:Event [] = [];
   turns:Turn [] = [];
+  userRelations:any = []
+  surveys:any = []
   countUser:any;
-  countEvents:any;
+  countRelations:any;
   countTurns:any;
-  constructor(private userService:UserService,private eventService:CalendarService,private turnService:TurnService, private router:Router) { }
+  countSurveys:any;
+  constructor(private userService:UserService,private surveyService:SurveyService,private turnService:TurnService, private router:Router) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -33,10 +36,13 @@ export class AdmindashboardComponent implements OnInit {
   async getAll(){
     this.users= await this.userService.getAllUsers();
     this.countUser=this.users.length
-    this.events= await this.eventService.getEvents();
-    this.countEvents=this.events.length
+    this.userRelations= await this.userService.getAllUsersRelations();
+    this.countRelations=this.userRelations.length
+    this.surveys= await this.surveyService.getAllQuestionnaires()
+    this.countSurveys=this.surveys.length
     this.turns= await this.turnService.getUserTurns(localStorage.getItem('user_current'));
     this.countTurns=this.turns.length
   }
+  
 
 }

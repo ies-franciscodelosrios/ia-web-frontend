@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '../../models/event';
+import { Events } from '../../models/event';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user-service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
 
   public async getEvents(){
     try {
-      let event:Event[]=await this.apiUser.getUserEvents(this.user.codigo);
+      let event:Events[]=await this.apiUser.getUserEvents(this.user.codigo);
 
       if(event){
         this.events= event.length;

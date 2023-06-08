@@ -1,6 +1,90 @@
 <div class="container-questionaire">
-  <app-steps></app-steps>
-  <app-text-question></app-text-question>
- 
+  <app-steps [estado]="state"></app-steps>
+  <button class="btn btn-primary back-Button" (click)="open(content)"><i class="fa fa-sign-out"></i> | Salir</button>
+      <form [formGroup]="questionnaire">
+        <div class="alignKBD">
+          <kbd><kbd> {{nameQG}}</kbd></kbd>
+        </div>
+        <div formArrayName="questions">
+          <div class="form__group" [formGroupName]="i" *ngFor="let question of questionnaire.get('questions')['controls']; let i = index;">
+            <ng-container  [ngSwitch]="question.get('type').value">
+              <ng-container  *ngSwitchCase="'texto'">
+                <label class="questionLabel">{{ question.get('questionName').value }}</label>
+                <div>
+                  <fieldset [disabled]="state.signed==true" >
+                    <textarea
+                      appTextareaAutosize
+                      rows="2"
+                      [minRows]="2"
+                      [maxRows]="5"
+                      maxlength="439"
+                      placeholder="Escribe tu respuesta..."
+                      class="text-input"
+                      formControlName="answer" type="text"
+                    ></textarea>
+                  </fieldset>
+                </div>
+              </ng-container >
+              <ng-container  *ngSwitchCase="'slide'">
+                <label class="questionLabel">{{ question.get('questionName').value }}</label>
+                <div class="slider" id="slider">
+
+                  <input [disabled]="state.signed===true" class="slider__input" formControlName="answer" type="range" min="0" max="100" [(ngModel)]="val">
+
+                  <div class="slider__outer">
+                    <label class="slider__inner"  [style.width]="val + '%'"></label>
+                    <span class="slider__emoji" [style.transform]="'translateX(' + getPlacement + ')'">{{ getHappiness }}</span>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container  *ngSwitchCase="'radio'">
+                <label class="questionLabel">{{ question.get('questionName').value }}</label>
+                <div class="form-check" *ngFor="let option of arrayOptions">
+                  <fieldset [disabled]="state.signed==true" >
+                    <input formControlName="answer"  class="form-check-input radio" type="radio" [value]="option">
+                    <span class="form-check-label">  {{ option }} </span>
+                  </fieldset>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <button class="button-confirm first" [disabled]="state.completed==true" (click)="saveSurvey()" style="margin-right: 1rem"><i class="fas fa-save fa-3x" style="color: #df1365;"></i></button>
+        <button class="button-confirm first" [disabled]="state.completed==true" (click)="confirmSurvey(confirmModal)" style="margin-right: 1rem"><i class="fas fa-file-upload fa-3x" style="color: #df1365;"></i></button>
+        <button [disabled]="state.completed==false || state.signed==true"  class="button-confirm first" (click)="signedSurvey()" ><i class="fas fa-pen-nib fa-3x" style="color: #df1365;"></i></button>
+      </form>
+
 </div>
-<div class="leyend-position"> <app-leyend></app-leyend></div>
+<div class="leyend-position"> <app-leyend [nameQG]="nameQG" [descriptionQG]="descriptionQG"></app-leyend></div>
+
+
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h1 class="modal-title" id="modal-basic-title">¿Desea abandonar el formulario?</h1>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-footer">
+    <div class="elements">
+      <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click')">Cancelar</button>
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="backPA(content)">Abandonar</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #confirmModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h1 class="modal-title" id="confirm-modal">¿Desea completar el formulario?</h1>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-footer">
+    <div class="elements">
+      <button type="button" class="btn btn-outline-secondary" (click)="backPA(confirmModal)">Cancelar</button>
+      <button type="button" ngbAutofocus class="btn btn-success" (click)="backPAwithConfirmed(confirmModal)">Completar</button>
+    </div>
+  </div>
+</ng-template>
+

@@ -1,47 +1,68 @@
+.dashboard-app {
+    margin-top: 5em;
+    padding: 0;
+}
 
 .container-user-info {
-    width: 35%;
-    background-color: white;
-    padding: 15px 15px 10px 15px;
-    margin-bottom: 4em;
-    border-radius: 14px;
-    background: #e0e0e0;
-    box-shadow:  5px 5px 20px #c5c5c5,
-                 -5px -5px 20px #fbfbfb;
-}    
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1.5em;
+    gap: 2em;
+}
 
 .container-user-info h1 {
     color: #f833a6;
     font-weight: bold;
 }
 
-.container-user-info span {
-    font-weight: bold;
-}
-
-.container-add-turn {
-    background-color: white;
-    padding: 15px 15px 10px 15px;
-    margin-bottom: 4em;
+.clock {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 14px;
-    background: #e0e0e0;
-    box-shadow:  5px 5px 20px #c5c5c5,
-                 -5px -5px 20px #fbfbfb;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}    
+
+.container-time {
+    background-color: #fff;
+    padding: 15px 15px 10px 15px;
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 100%;
 }
 
-.container-add-turn h1 {
-    color: #f833a6;
-    font-weight: bold;
+.container-description {
+    background-color: #fff;
+    padding: 15px 15px 10px 15px;
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
 }
 
 .flex-container {
     display: flex;
+    height: 60%;
     flex-direction: row;
-    gap: 1em;
+    align-items: center;
+    gap: 2.5em;
 }
 
 .flex-row {
     display: flex;
+   
+}
+
+.turn-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .btn-register {
@@ -51,13 +72,19 @@
 }
 
 .textarea-description {
-    border-radius: 10px;
-    border: 2px solid;
-    border-color: #f833a6;
+    border: 2px solid #ccc;
+    border-bottom-width: 3px;
+    border-radius: 5px;
 }
 
 .textarea-description:focus {
-    border-color: #f833a6;
+    outline: none;
+    border-color: #c81a67;
+}
+
+.textarea-description:valid {
+    outline: none;
+    border-color: #c81a67;
 }
 
 

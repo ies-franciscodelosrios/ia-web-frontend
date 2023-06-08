@@ -10,10 +10,12 @@ export const environment = {
   getUserByIDNAVISION:'user/search/id',
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
+  getAllUsersRelations: 'userRelations/all',
   updateUser:'user',
   updatePhotoProfile:'photo/',
   uploadPhoto:'photo/upload/',
   user:'user',
+  setUserActive:'user/active',
   //Turns Endpoints
   getAllTurns:'getAllTurns',
   getTurnById: 'turn/getTurn',
@@ -38,7 +40,23 @@ export const environment = {
   delAllEventUser:'event/delete/user',
   delEventUser:'event/delete/user/',
   //Surveys Endpoints
-  getAllPollsAssignmentsByUser: 'pollAssignments/ByUser'
+  getAllPollsAssignmentsByUser: 'pollAssignments/ByUser',
+  getAllQuestions:'tr/all/questions/user',
+  createResponse:'response',
+  //Polls EndPoints
+  updatePoll:'poll/update',
+  getAllQuestionnaireGroups: 'group/all',
+  getAllQuestionsAdmin: 'question/all',
+  assignCuestionnaireToUser: 'pollAssignments/save/assignQG',
+  assignQuestionToSurvey: 'tr',
+  createQuestionnaire: 'group/create',
+  updateQuestionnaire: 'group/update',
+  updateUserRelations: 'userRelations',
+  createQuestion: 'question',
+  createUserRelation: 'userRelations/create',
+  getAllUserRelations: 'userRelations/all',
+  //UserRelations Endpoints
+  getActiverRelationsByIdNavision: 'userRelations/active',
 };
 
 

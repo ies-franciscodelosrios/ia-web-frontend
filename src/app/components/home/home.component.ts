@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { TurnService } from 'src/app/services/turn-service';
 import { RolService } from 'src/app/services/rol-service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,8 +19,6 @@ export class HomeComponent implements OnInit {
   minuteStep: number = 15;
   taskDescription: string = '';
   isAdmin:any=true
-  username: string = '';
-  office: string = '';
 
   updateTurn;
   newTurn;
@@ -30,20 +29,19 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private turnService: TurnService,
-    private rolService:RolService
+    private rolService:RolService,
+    private toastService: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.userService
       .getUserProfileByIdNavision(localStorage.getItem('user_current'))
       .then((user) => {
-        this.username = user.name;
-        this.office = user.oficina;
-      });
+    });
   }
   
 
-  async registerTurn(form) {
+  async registerTurn() {
     const numberToDay = {
       '0': 'Domingo',
       '1': 'Lunes',
@@ -115,8 +113,15 @@ export class HomeComponent implements OnInit {
           this.newTurn.domingoDescripcion = this.taskDescription;
           break;
       }
-      await this.turnService.saveTurn(this.newTurn);
-      this.refresh += 1;
+      try {
+        await this.turnService.saveTurn(this.newTurn);
+        this.toastService.success('Su turno ha sido creado correctamente', 'Turnos',  {
+          timeOut: 2000,
+        });
+        this.refresh += 1;
+      } catch (error) {
+      }
+      
       
     } else {
       switch (numberToDay[new Date().getDay()]) {
@@ -163,8 +168,15 @@ export class HomeComponent implements OnInit {
           this.updateTurn.domingoDescripcion = this.taskDescription;
           break;
       }
-         await this.turnService.saveTurn(this.updateTurn);  
-         this.refresh += 1;
+        try {
+          await this.turnService.saveTurn(this.updateTurn);  
+          this.toastService.success('Su turno ha sido creado correctamente', 'Turnos', {
+           timeOut: 2000,
+         });
+          this.refresh += 1;  
+        } catch(error) {
+        }
+           
     }
   }
 

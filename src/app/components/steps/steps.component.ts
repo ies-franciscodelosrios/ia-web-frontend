@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Poll} from "../../models/survey";
 
 @Component({
   selector: 'app-steps',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./steps.component.css']
 })
 export class StepsComponent implements OnInit {
-
-  constructor() { }
+  @Input() estado: Poll;
+  constructor() {
+  }
 
   ngOnInit(): void {
+
   }
 
 }

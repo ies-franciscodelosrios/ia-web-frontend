@@ -42,7 +42,6 @@ export class TurnService {
       if(turn) {
         this.http.post(endpoint,turn,{'headers':headers}).toPromise().then(response => {
           resolve(turn);
-          console.log(response);
         }).catch(err => reject(err));
       } else {
         reject('No hay resultados')
