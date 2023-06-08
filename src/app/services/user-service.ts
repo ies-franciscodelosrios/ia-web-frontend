@@ -65,7 +65,7 @@ export class UserService {
     let headers = new HttpHeaders()
     headers=headers.append('content-type','application/json')
     headers=headers.append('Access-Control-Allow-Origin', '*')
-    headers=headers.append('id1', idNavision)
+    headers=headers.append('idnavision', idNavision)
     let endpoint=environment.endpoint+environment.getNameTeamManagerByUser;
     let users:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return users;

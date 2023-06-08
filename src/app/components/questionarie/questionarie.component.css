@@ -19,6 +19,11 @@ form{
   width: 100%;
 }
 
+.text-input:focus{
+  border-color: #eb1c74;
+  outline: 0;
+  box-shadow: 0 0 10px #eb1c74;
+}
 
 .content-questions{
   margin-bottom: 60px;

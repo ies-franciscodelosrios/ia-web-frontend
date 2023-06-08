@@ -53,7 +53,7 @@ export const environment = {
   updateQuestionnaire: 'group/update',
   updateUserRelations: 'userRelations',
   createQuestion: 'question',
-  createUserRelation: 'userRelations',
+  createUserRelation: 'userRelations/create',
   getAllUserRelations: 'userRelations/all',
   //UserRelations Endpoints
   getActiverRelationsByIdNavision: 'userRelations/active',
