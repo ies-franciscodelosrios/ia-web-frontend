@@ -34,6 +34,7 @@ export class LoginAdminComponent {
           this.rolService.isAdmin(user.login).then((response) => {
 
             if (response) {
+              this.userService.userActive(localStorage.getItem("user_current"),"true");
               this.router.navigate(['/admindashboard']);
             } else {
               this.errorMessage = 'Este usuario no es Administrador'

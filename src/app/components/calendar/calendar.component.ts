@@ -9,6 +9,7 @@ import { Calendar, CalendarOptions, EventApi, EventClickArg, EventHoveringArg } 
 import tippy from 'tippy.js'; // Importa Tippy.js
 import { UserRelationService } from 'src/app/services/user-relation.service';
 import { RolService } from 'src/app/services/rol-service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -23,7 +24,7 @@ export class CalendarComponent implements OnInit {
   userModal: User;
   codigo: string = "";
   userInRelation: User;
-  codeUserInRelation: string = "";
+  codeUserInRelation: string;
   modalRef: NgbModalRef | undefined;
   @ViewChild('eventTemplate') eventTemplate: TemplateRef<any>;
 
@@ -43,7 +44,7 @@ export class CalendarComponent implements OnInit {
   idnavision: string = "";
   selectedUser: string = "";
   activeUserRelations: String[] = [];
-  relation: string;
+  relation: string = "";
   selectedUserInRelation: String = "";
   public isEvaluator: boolean;
   dateNgb: NgbDateStruct;
@@ -51,6 +52,9 @@ export class CalendarComponent implements OnInit {
   public isCreatorOfEvent: boolean;
   titleModalEdit: string;
   codeAssignForUser: string;
+  titleLeyendaSocio:string;
+  titleLeyendaEvaluador:string;
+  
 
 
 
@@ -75,8 +79,7 @@ export class CalendarComponent implements OnInit {
 
 
 
-  constructor(private rolService: RolService, private userRelationService: UserRelationService, private apiUser: UserService, private calendarService: CalendarService, private modalService: NgbModal, private changeDetector: ChangeDetectorRef) {
-
+  constructor(private toastService: ToastrService,private rolService: RolService, private userRelationService: UserRelationService, private apiUser: UserService, private calendarService: CalendarService, private modalService: NgbModal, private changeDetector: ChangeDetectorRef) {
   }
 
   async ngOnInit() {
@@ -160,10 +163,14 @@ export class CalendarComponent implements OnInit {
       this.selectedUserInRelation = "";
     }
     this.date = date.dateStr;
-    this.changeDetector.detectChanges();
   }
   onButtonAddClick() {
     this.modalRef = this.modalService.open(this.createModal);
+    if (this.modalRef.dismiss) {
+      this.eventName = "";
+      this.eventDescription = "";
+      this.selectedUserInRelation = "";
+    }
   }
 
   onEventClick(date: { dateStr: Date; }) {
@@ -184,7 +191,9 @@ export class CalendarComponent implements OnInit {
     const eventId = event.id;
     this.calendarService.updateEvent(eventId, updatedEvent, updatedEvent.assignbyuser_id)
       .then(updatedEvent => {
-        console.log('Evento actualizado correctamente', updatedEvent);
+        this.toastService.success('El evento fue actualizado correctamente', 'Evento Actualizado', {
+          timeOut: 2000,
+        });
       })
       .catch(error => {
         console.error('Error al actualizar el evento :', error);
@@ -192,7 +201,8 @@ export class CalendarComponent implements OnInit {
   }
 
   public async createEvent() {
-    if (this.codeUserInRelation === null || this.codeUserInRelation === "") {
+  console.log("Creando el evento "+this.selectedUserInRelation)
+    if (this.selectedUserInRelation === null || this.selectedUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
       console.log(this.codeUserInRelation)
     }
@@ -208,7 +218,9 @@ export class CalendarComponent implements OnInit {
     console.log(this.codigo);
     console.log(this.codeUserInRelation)
     await this.calendarService.createEvent(event, this.codigo, this.codeUserInRelation).then((data) => {
-      console.log(data)
+      this.toastService.success('El avento ha sido creado correctamente', 'Evento creado', {
+        timeOut: 2000,
+      });
     })
       .catch((error) => {
         console.log('No se pudo completar la solicitud : ', error);
@@ -222,8 +234,9 @@ export class CalendarComponent implements OnInit {
 
   public async createEventButton() {
     const dateConvert: Date = new Date(this.dateNgb.year, this.dateNgb.month - 1, this.dateNgb.day);
-    if (this.codeUserInRelation === null || this.codeUserInRelation === "") {
+    if (this.selectedUserInRelation === null || this.selectedUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
+      console.log(this.codeUserInRelation)
     }
     let event: Events = {
       name: this.eventName,
@@ -237,7 +250,9 @@ export class CalendarComponent implements OnInit {
     console.log(this.codigo);
     console.log(this.codeUserInRelation)
     await this.calendarService.createEvent(event, this.codigo, this.codeUserInRelation).then((data) => {
-      console.log(data)
+      this.toastService.success('El avento ha sido creado correctamente', 'Evento creado', {
+        timeOut: 2000,
+      });
     })
       .catch((error) => {
         console.log('No se pudo completar la solicitud : ', error);
@@ -252,7 +267,9 @@ export class CalendarComponent implements OnInit {
 
   public async deleteEvent() {
     await this.calendarService.deleteEvent(this.codigo, this.eventId).then((data) => {
-      console.log(data)
+      this.toastService.success('El evento se eliminó correctamente', 'Evento Elminado', {
+        timeOut: 2000,
+      });
     })
       .catch((error) => {
         console.log('No se pudo completar la solicitud : ', error);
@@ -262,10 +279,25 @@ export class CalendarComponent implements OnInit {
   }
 
   public async updateEvent() {
+
+    //this.selectedUserInRelation = this.activeUserRelations[0];
+    console.log("actualizando el evento SelectedUSerIn Relation= "+this.selectedUserInRelation
+    +" codeAssignForUser = "+this.codeAssignForUser+" CodeofEventCreator = "+this.codeOfEventCreator+ " codeAssignForUser = "+this.codeAssignForUser);
     if (this.codeUserInRelation === null || this.codeUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
       console.log(this.codeUserInRelation)
+      console.log(this.codeAssignForUser)
     }
+    if (this.selectedUserInRelation === this.user.login) {
+      this.codeUserInRelation = this.codigo;
+    }
+    if (this.codeUserInRelation === this.codeOfEventCreator){
+      console.log("Dentro del else")
+      this.codeUserInRelation =this.codeAssignForUser
+      console.log(this.codeUserInRelation)
+    }
+    console.log(this.codeUserInRelation)
+
     let event: Events = {
       id: this.eventId,
       name: this.nombre,
@@ -277,17 +309,16 @@ export class CalendarComponent implements OnInit {
     };
     console.log(event);
     await this.calendarService.updateEvent(this.eventId, event, this.codeUserInRelation).then((data) => {
-      console.log(data)
+      this.toastService.success('El evento fue actualizado correctamente', 'Evento Actualizado', {
+        timeOut: 2000,
+      });
     })
       .catch((error) => {
         console.log('No se pudo completar la solicitud : ', error);
       });
     this.modalService.dismissAll();
-    this.codeUserInRelation = "";
     this.loadEvents();
   }
-
-
 
   public async getUserByLogin() {
     try {
@@ -327,6 +358,7 @@ export class CalendarComponent implements OnInit {
         console.log(response)
         this.userInRelation = response;
         this.codeUserInRelation = this.userInRelation.codigo;
+
         console.log(this.codeUserInRelation);
 
       },);
@@ -337,6 +369,12 @@ export class CalendarComponent implements OnInit {
     this.isEvaluator = Boolean(response);
     if (this.isEvaluator) {
       await this.getAllUserInMyRelation();
+      this.titleLeyendaSocio = "Evaluador"
+      this.titleLeyendaEvaluador= "Socio"
+      this.changeDetector.detectChanges();
+    }else{
+      this.titleLeyendaSocio = "Socio"
+      this.titleLeyendaEvaluador= "Evaluador"
     }
   }
   public async checkOwnEvent() {
@@ -364,6 +402,11 @@ export class CalendarComponent implements OnInit {
       return true;
     }
     if (!isCurrentUserCreator) {
+      if (!this.toastMostrado) {
+        this.toastService.error('No tienes permisos para modificar este evento', 'Error al modificar el evento', {
+          timeOut: 1500,
+        });
+      }
       return false;
     }else{
       return true;
@@ -392,11 +435,15 @@ export class CalendarComponent implements OnInit {
     console.log(this.activeUserRelations)
     this.codeAssignForUser = clickInfo.event.extendedProps.assignforuser_id
     console.log(this.codeAssignForUser)
+    console.log("ES evaluador "+this.isEvaluator)
     if (this.isEvaluator) {
       this.userModal = await this.apiUser.getUserByDNI(this.codeAssignForUser)
       console.log(this.userModal)
 
       this.selectedUserInRelation = this.userModal.login
+      console.log(this.selectedUserInRelation)
+      console.log(this.codeAssignForUser)
+      console.log(this.relation)
 
     }
     this.modalRef = this.modalService.open(this.deleteModal);

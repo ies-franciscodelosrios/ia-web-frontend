@@ -10,8 +10,8 @@
     <div class='dashboard-content'>
       <div class='container'>
         <div class="kbd_container">
-          <kbd style="border: 2px solid black" class="kbd_evaluador"><kbd class="kbd_evaluador">Evaluador</kbd></kbd>
-          <kbd style="border: 2px solid black" class="kbd_socio"><kbd class="kbd_socio">Socio</kbd></kbd>
+          <kbd style="border: 2px solid black" class="kbd_evaluador"><kbd class="kbd_evaluador">{{titleLeyendaEvaluador}}</kbd></kbd>
+          <kbd style="border: 2px solid black" class="kbd_socio"><kbd class="kbd_socio">{{titleLeyendaSocio}}</kbd></kbd>
         </div>
 
         <full-calendar style="background-color: #d8d8d8;" class="calendario" [options]="calendarOptions">
@@ -112,7 +112,7 @@
                 <label>Selecciona el socio :</label>
                 <div class="select">
                   <select class="select-body" (change)="onChangeUserRelation($event)" [(ngModel)]="selectedUserInRelation">
-                    <option *ngFor="let relation of activeUserRelations" [value]="relation">{{relation}}</option>
+                    <option *ngFor="let relation of activeUserRelations" [value]="relation" [selected]="true">{{relation}}</option>
                   </select>
                 </div>
               </div>

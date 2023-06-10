@@ -10,6 +10,7 @@ export const environment = {
   getUserByIDNAVISION:'user/search/id',
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
+  getNameTeamManagerBySocio:'userRelations/active/socio',
   getAllUsersRelations: 'userRelations/all',
   updateUser:'user',
   updatePhotoProfile:'photo/',

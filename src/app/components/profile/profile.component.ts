@@ -132,7 +132,7 @@ export class ProfileComponent implements OnInit {
   public async getTeamManager(){
     try {
 
-      let nameTM:string[]=await this.apiUser.getNameTeamManagerByUser(this.user.login);
+      let nameTM:string[]=await this.apiUser.getNameTeamManagerBySocio(this.user.login);
       this.teamManagerNames=nameTM;
       this.teamManagerNumber=nameTM.length
       return this.teamManagerNumber;
@@ -145,7 +145,7 @@ export class ProfileComponent implements OnInit {
   public async getNameTeamManager(){
     try {
 
-      let nameTM:string[]=await this.apiUser.getNameTeamManagerByUser(this.user.login);
+      let nameTM:string[]=await this.apiUser.getNameTeamManagerBySocio(this.user.login);
       this.teamManagerNames=nameTM;
       return this.teamManagerNumber;
     } catch (err) {
