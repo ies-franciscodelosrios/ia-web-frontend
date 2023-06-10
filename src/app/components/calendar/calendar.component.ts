@@ -133,8 +133,6 @@ export class CalendarComponent implements OnInit {
 
   public async loadEvents() {
     this.calendarService.getEventsByUser(this.codigo).then((data: any[]) => {
-      console.log(data)
-
       this.calendarOptions.events = this.events = data.map((e: any) => ({
         id: e.id,
         title: e.name,
@@ -201,10 +199,8 @@ export class CalendarComponent implements OnInit {
   }
 
   public async createEvent() {
-  console.log("Creando el evento "+this.selectedUserInRelation)
     if (this.selectedUserInRelation === null || this.selectedUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
-      console.log(this.codeUserInRelation)
     }
     let event: Events = {
       name: this.eventName,
@@ -214,9 +210,6 @@ export class CalendarComponent implements OnInit {
       user_id: this.codigo,
       assignbyuser_id: this.codeUserInRelation
     };
-    console.log(event);
-    console.log(this.codigo);
-    console.log(this.codeUserInRelation)
     await this.calendarService.createEvent(event, this.codigo, this.codeUserInRelation).then((data) => {
       this.toastService.success('El avento ha sido creado correctamente', 'Evento creado', {
         timeOut: 2000,
@@ -236,7 +229,6 @@ export class CalendarComponent implements OnInit {
     const dateConvert: Date = new Date(this.dateNgb.year, this.dateNgb.month - 1, this.dateNgb.day);
     if (this.selectedUserInRelation === null || this.selectedUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
-      console.log(this.codeUserInRelation)
     }
     let event: Events = {
       name: this.eventName,
@@ -246,9 +238,6 @@ export class CalendarComponent implements OnInit {
       user_id: this.codigo,
       assignbyuser_id: this.codeUserInRelation
     };
-    console.log(event);
-    console.log(this.codigo);
-    console.log(this.codeUserInRelation)
     await this.calendarService.createEvent(event, this.codigo, this.codeUserInRelation).then((data) => {
       this.toastService.success('El avento ha sido creado correctamente', 'Evento creado', {
         timeOut: 2000,
@@ -279,25 +268,15 @@ export class CalendarComponent implements OnInit {
   }
 
   public async updateEvent() {
-
-    //this.selectedUserInRelation = this.activeUserRelations[0];
-    console.log("actualizando el evento SelectedUSerIn Relation= "+this.selectedUserInRelation
-    +" codeAssignForUser = "+this.codeAssignForUser+" CodeofEventCreator = "+this.codeOfEventCreator+ " codeAssignForUser = "+this.codeAssignForUser);
     if (this.codeUserInRelation === null || this.codeUserInRelation === "") {
       this.codeUserInRelation = this.codigo;
-      console.log(this.codeUserInRelation)
-      console.log(this.codeAssignForUser)
     }
     if (this.selectedUserInRelation === this.user.login) {
       this.codeUserInRelation = this.codigo;
     }
     if (this.codeUserInRelation === this.codeOfEventCreator){
-      console.log("Dentro del else")
       this.codeUserInRelation =this.codeAssignForUser
-      console.log(this.codeUserInRelation)
     }
-    console.log(this.codeUserInRelation)
-
     let event: Events = {
       id: this.eventId,
       name: this.nombre,
@@ -307,7 +286,6 @@ export class CalendarComponent implements OnInit {
       user_id: this.codigo,
       assignbyuser_id: this.codeUserInRelation
     };
-    console.log(event);
     await this.calendarService.updateEvent(this.eventId, event, this.codeUserInRelation).then((data) => {
       this.toastService.success('El evento fue actualizado correctamente', 'Evento Actualizado', {
         timeOut: 2000,
@@ -324,8 +302,6 @@ export class CalendarComponent implements OnInit {
     try {
       this.user = await this.apiUser.getUserProfileByIdNavision(localStorage.getItem("user_current"));
       await this.getCodeUser();
-      console.log(this.user);
-
     } catch (err) {
       console.error(err);
     }
@@ -334,7 +310,6 @@ export class CalendarComponent implements OnInit {
   public async getCodeUser() {
     try {
       this.codigo = this.user.codigo;
-      console.log(this.codigo)
     } catch (err) {
       console.error(err);
     }
@@ -343,24 +318,16 @@ export class CalendarComponent implements OnInit {
 
   public async getAllUserInMyRelation() {
     this.activeUserRelations = await this.userRelationService.getActiverRelationsByIdNavision(this.user.login);
-    console.log(this.activeUserRelations)
   }
 
   public onChangeUserRelation(event: Event): void {
-    console.log("onChangeUserRelation called");
     const selectElement = event.target as HTMLSelectElement;
     const selectedUser = selectElement.value;
-    console.log(selectedUser.toString())
     this.selectedUserInRelation = this.activeUserRelations.find(relation => relation === selectedUser.toString());
-    console.log(this.selectedUserInRelation)
     this.apiUser.getUserProfileByIdNavision(this.selectedUserInRelation.toString()).then(
       (response: User) => {
-        console.log(response)
         this.userInRelation = response;
         this.codeUserInRelation = this.userInRelation.codigo;
-
-        console.log(this.codeUserInRelation);
-
       },);
   }
 
@@ -378,8 +345,6 @@ export class CalendarComponent implements OnInit {
     }
   }
   public async checkOwnEvent() {
-    console.log(this.user.codigo)
-    console.log(this.codeOfEventCreator)
     if (this.user.codigo = this.codeOfEventCreator) {
       this.isCreatorOfEvent = true;
     } else if (this.isEvaluator) {
@@ -391,8 +356,6 @@ export class CalendarComponent implements OnInit {
   public checkEventAllow(dropInfo, draggedEvent) {
     let creator = draggedEvent.extendedProps.codecreator_event;
     let assign = draggedEvent.extendedProps.assignforuser_id;
-    console.log(creator)
-    console.log(assign)
     // Determina si el usuario actual es el creador del evento
     let isCurrentUserCreator = (creator === assign);
     // Determina si el usuario actual es el creador del evento arrastrado
@@ -422,36 +385,19 @@ export class CalendarComponent implements OnInit {
     } else {
       this.titleModalEdit = "Detalles del Evento";
     }
-
-    console.log(this.nombre)
-    console.log(this.codeOfEventCreator)
     this.descripcion = clickInfo.event.extendedProps.description
-    console.log(this.descripcion)
     this.date = clickInfo.event.start
     this.eventId = clickInfo.event.id
-    console.log(this.eventId)
-    console.log(this.activeUserRelations)
     this.codeAssignForUser = clickInfo.event.extendedProps.assignforuser_id
-    console.log(this.codeAssignForUser)
-    console.log("ES evaluador "+this.isEvaluator)
     if (this.isEvaluator) {
       this.userModal = await this.apiUser.getUserByDNI(this.codeAssignForUser)
-      console.log(this.userModal)
-
       this.selectedUserInRelation = this.userModal.login
-      console.log(this.selectedUserInRelation)
-      console.log(this.codeAssignForUser)
-      console.log(this.relation)
-
     }
     this.modalRef = this.modalService.open(this.deleteModal);
-
   }
   cancelDialog() {
     this.eventName = "";
     this.eventDescription = "";
     this.modalService.dismissAll();
   }
-
 }
-

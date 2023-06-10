@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  login:'http://localhost:8080/login',
   endpoint:'http://localhost:8080/api/',
   getUserByDNI:'user/search/dni/',
   getAllUsers:'user/all',

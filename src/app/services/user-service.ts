@@ -101,7 +101,6 @@ export class UserService {
       if(user){
         this.http.post(endpoint,user,this.header).toPromise().then(d=>{
           resolve(user);
-          console.log(user);
         }).catch(err=> reject(err));
       }else{
         reject('No hay resultados')

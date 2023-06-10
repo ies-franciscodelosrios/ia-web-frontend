@@ -29,9 +29,7 @@ export class CalendarService {
     headers=headers.append('Access-Control-Allow-Origin', '*')
     headers=headers.append('userId', userId)
     let endpoint=environment.endpoint+environment.getEventUser;
-    console.log(endpoint);
     let events:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
-    console.log(events);
     return events;
   }
 
