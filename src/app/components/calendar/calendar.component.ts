@@ -54,7 +54,7 @@ export class CalendarComponent implements OnInit {
   codeAssignForUser: string;
   titleLeyendaSocio:string;
   titleLeyendaEvaluador:string;
-  
+
 
 
 
@@ -402,11 +402,9 @@ export class CalendarComponent implements OnInit {
       return true;
     }
     if (!isCurrentUserCreator) {
-      if (!this.toastMostrado) {
         this.toastService.error('No tienes permisos para modificar este evento', 'Error al modificar el evento', {
           timeOut: 1500,
         });
-      }
       return false;
     }else{
       return true;
