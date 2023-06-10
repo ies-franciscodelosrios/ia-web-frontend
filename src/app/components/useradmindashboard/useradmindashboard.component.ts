@@ -105,7 +105,6 @@ export class UseradmindashboardComponent implements OnInit {
   async ngOnInit() {
     this.getAllUsers();
     this.surveyService.getAllUserRelations().then((relations) => {
-      console.log(relations)
       this.relations = relations.map(relation => {
         let idNavision = relation.userRelationsPK.idNavision
         let idNavision2 = relation.userRelationsPK.idNavision2
@@ -208,8 +207,17 @@ export class UseradmindashboardComponent implements OnInit {
   this.toastService.success('La asignación ha sido creada correctamente', 'Asignación válida', {
     timeOut: 2000,
   });
-   await this.userService.createUserRelation(userRelation)
 
+   let relation = await this.userService.createUserRelation(userRelation)
+   let {active, relationCreateDate } = relation
+   let relationsFormat: any = {
+     idNavision: relation.userRelationsPK.idNavision,
+     idNavision2: relation.userRelationsPK.idNavision2,
+     active,
+     relationCreateDate
+   }
+   this.relations.push(relationsFormat)
+   this.dataSource = new MatTableDataSource<any>(this.relations);
   }
 
   applyFilter(event: Event) {
@@ -269,7 +277,7 @@ export class UseradmindashboardComponent implements OnInit {
 
   async deleteUser(codigo:string){
     this.user= await this.userService.deleteKid(codigo);
-    await this.ngOnInit();
+    this.ngOnInit();
   }
 
 
@@ -294,9 +302,8 @@ export class UseradmindashboardComponent implements OnInit {
      }
      let user = await this.userService.createUser(newUser);
      let codigoRol = this.rolNameCodeMapper[this.formUserCreate.get("rolSelect").value]
-
      await this.rolService.assignRolToUser(user.codigo,codigoRol);
-     await this.ngOnInit();
+     codigoRol === 2 ? this.socios.push(user) : this.evaluadores.push(user)
    }
 
 
