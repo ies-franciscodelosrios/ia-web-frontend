@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RolService } from './rol-service';
 import { stringify } from 'querystring';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn:'root'
@@ -18,7 +19,7 @@ export class LoginService {
     constructor(private http: HttpClient,private rolService:RolService) {}
 
     login(creds: Credentials) {
-        return this.http.post("http://localhost:8080/login", creds, {
+        return this.http.post(environment.login, creds, {
             observe: "response"
         }).pipe(map((response: HttpResponse<any>) => {
             const body = response.body;
@@ -46,7 +47,7 @@ export class LoginService {
         })
         .catch((error: any) => {
           console.error('Error al obtener el estado de administrador:', error);
-        });    
+        });
       }
 
     getToken() {
@@ -57,10 +58,10 @@ export class LoginService {
 
     getIsAdmin(): boolean {
       console.log(this.isAdmin);
-      
+
       return this.isAdmin;
     }
-  
+
     setIsAdmin(value: boolean): void {
       this.isAdmin = value;
     }

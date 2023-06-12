@@ -70,6 +70,15 @@ export class UserService {
     let users:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
     return users;
   }
+  public async getNameTeamManagerBySocio(idNavision:string):Promise<string[]> {
+    let headers = new HttpHeaders()
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    headers=headers.append('idnavision', idNavision)
+    let endpoint=environment.endpoint+environment.getNameTeamManagerBySocio;
+    let users:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
+    return users;
+  }
 
 
   public async updateUser(user:User):Promise<User> {
@@ -92,7 +101,6 @@ export class UserService {
       if(user){
         this.http.post(endpoint,user,this.header).toPromise().then(d=>{
           resolve(user);
-          console.log(user);
         }).catch(err=> reject(err));
       }else{
         reject('No hay resultados')

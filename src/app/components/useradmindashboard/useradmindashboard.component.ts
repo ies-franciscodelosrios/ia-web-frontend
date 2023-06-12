@@ -61,10 +61,10 @@ export class UseradmindashboardComponent implements OnInit {
 
   @ViewChild('inputSocioValue') inputSocioValue: ElementRef;
   @ViewChild('inputEvaluadorValue') inputEvaluadorValue: ElementRef;
-  
+
   @ViewChild('inputSearchSocio') inputSearchSocio: ElementRef;
-  @ViewChild('inputSearchEvaluador') inputSearchEvaluador: ElementRef;  
- 
+  @ViewChild('inputSearchEvaluador') inputSearchEvaluador: ElementRef;
+
   @ViewChild('ulOptionsSocio') ulOptionsSocio: ElementRef;
   @ViewChild('ulOptionsEvaluador') ulOptionsEvaluador: ElementRef;
 
@@ -91,7 +91,7 @@ export class UseradmindashboardComponent implements OnInit {
       apellido2:[""],
       email:[""],
       login:[""],
-      puesto:[""], 
+      puesto:[""],
       oficina:[""],
       password:[""],
       rolSelectUpdate:[""],
@@ -117,7 +117,7 @@ export class UseradmindashboardComponent implements OnInit {
         }
         return relationsFormat
       })
-     
+
       this.dataSource = new MatTableDataSource<any>(this.relations);
       this.dataSource.paginator = this.paginator;
     });
@@ -180,8 +180,8 @@ export class UseradmindashboardComponent implements OnInit {
   }
 
   async assignSocioEvaluador() {
-    let idNavision = this.inputSocioValue.nativeElement.value;
-    let idNavision2 = this.inputEvaluadorValue.nativeElement.value;
+    let idNavision = this.inputEvaluadorValue.nativeElement.value;
+    let idNavision2 = this.inputSocioValue.nativeElement.value;
     if (!idNavision || !idNavision2) {
       this.toastService.error('Debes seleccionar a un usuario y un evaluador', 'Asignación inválida', {
         timeOut: 2000,
@@ -338,7 +338,7 @@ export class UseradmindashboardComponent implements OnInit {
           let rolRemoved = this.rolNameCodeMapper[this.formUserUpdate.get("denyRolSelected").value]
           await this.rolService.denyRolToUser(user.codigo, rolRemoved);
           await this.ngOnInit();
-          return;  
+          return;
       }
       if (this.formUserUpdate.get("denyRolSelected").value == "NO" &&
           this.formUserUpdate.get("rolSelectUpdate").value !== "NO") {
@@ -358,9 +358,9 @@ export class UseradmindashboardComponent implements OnInit {
       }
       /*let rolUpdated = this.rolNameCodeMapper[this.formUserUpdate.get("rolSelectUpdate").value]
       let rolRemoved = this.rolNameCodeMapper[this.formUserUpdate.get("denyRolSelected").value]
-      
+
       await this.rolService.assignRolToUser(user.codigo, rolUpdated);
-      await this.rolService.denyRolToUser(user.codigo, rolRemoved);*/     
+      await this.rolService.denyRolToUser(user.codigo, rolRemoved);*/
   }
 
 
@@ -433,7 +433,7 @@ export class UseradmindashboardComponent implements OnInit {
           }
           return false
         }
-        
+
         return this.user?.rols.some(role => role.rolname === rol);
 
       }

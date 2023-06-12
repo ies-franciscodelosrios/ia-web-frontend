@@ -4,12 +4,14 @@
 
 export const environment = {
   production: false,
+  login:'http://localhost:8080/login',
   endpoint:'http://localhost:8080/api/',
   getUserByDNI:'user/search/dni/',
   getAllUsers:'user/all',
   getUserByIDNAVISION:'user/search/id',
   getUserEvents:'event/user/',
   getNameTeamManagerByUser:'userRelations/active',
+  getNameTeamManagerBySocio:'userRelations/active/socio',
   getAllUsersRelations: 'userRelations/all',
   updateUser:'user',
   updatePhotoProfile:'photo/',

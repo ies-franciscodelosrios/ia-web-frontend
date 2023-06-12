@@ -20,9 +20,7 @@ export class CalendarService {
    return events;
   }
 
-  /* public getEventsByUser(codigo:string): Observable<Event[]>{
-    return this.http.get<Event[]>(`http://localhost:8080/api/event/user/${codigo}`);
-  } */
+
 
 
   public async getEventsByUser(userId:string):Promise<Events[]>{
@@ -31,9 +29,7 @@ export class CalendarService {
     headers=headers.append('Access-Control-Allow-Origin', '*')
     headers=headers.append('userId', userId)
     let endpoint=environment.endpoint+environment.getEventUser;
-    console.log(endpoint);
     let events:any=await this.http.get(endpoint,{'headers':headers}).toPromise();
-    console.log(events);
     return events;
   }
 
@@ -70,18 +66,6 @@ export class CalendarService {
     let events:any=await this.http.post(endpoint,event,{'headers':headers}).toPromise();
     return events;
 
-
-   /*  let baseuserevent = "http://localhost:8080/api/event/save/assignUser/"+codigo;
-    return new Promise ((resolve,reject)=>{
-      if(user){
-        this.http.post(baseuserevent,user,this.header).toPromise().then(d=>{
-          resolve(user);
-          console.log(d);
-        }).catch(err=> reject(err));
-      }else{
-        reject('No hay resultados')
-      }
-    }); */
   }
 
 }
